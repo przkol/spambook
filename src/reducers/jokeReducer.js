@@ -5,7 +5,7 @@ const jokeReducer=(state='',action)=>{
         state=action.joke
             return state
 
-        default:console.log('Zła akcja śmieszkowania');
+        default:
             return state
             }
 

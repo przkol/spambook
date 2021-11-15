@@ -1,40 +1,25 @@
-
+import GlobalStyles from './sections/styled/Global';
 import './App.css';
-import { useSelector, useDispatch } from 'react-redux';
-import {fetchJoke,fetchMainUserInfo} from './reducers/actions/actions'
+import Header from './sections/Header'
+import SideChat from './sections/SideChat';
+import Feed from './sections/Feed';
+import SideNav from './sections/SideNav';
 
 
 
 function App() {
-  const dispatch = useDispatch()
-  const joke = useSelector(state =>state.jokeReducer)
-  const mainUser = useSelector(state =>state.userReducer)
 
-
-
-const handleClick=(e)=>{
-e.preventDefault();
-dispatch(fetchMainUserInfo)
-}
-const handleClick2=(e)=>{
-  e.preventDefault();
-  dispatch(fetchJoke)
-  }
-  
   return (
-    <>
-    <button onClick={handleClick}>Testuj funkcje użytnika</button>
-    <button onClick={handleClick2}>Testuj funkcje żartu</button>
+  <>
+  <GlobalStyles/>
+   <Header/>
+   <main>
+     <SideNav/>
+   <Feed/>
+   <SideChat/>
+   </main>
 
-    <div>
-      <p> {joke.setup}</p>   
-      <p> {joke.delivery}</p>   
-    </div>
-
-    <div><p>{mainUser.name}</p></div>
-
-    </>
-
+  </>
   );
 }
 

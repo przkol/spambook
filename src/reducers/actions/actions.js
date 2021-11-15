@@ -47,7 +47,6 @@ export const fetchMainUserInfo = (dispatch)=>{
     .then(data=> data.results)
     .then(results=>{
         const userInfo = results[0]
-        console.log(userInfo)
         dispatch(GET_MAINUSER(userInfo))
     })}
 
@@ -56,20 +55,20 @@ export const fetchMainUserInfo = (dispatch)=>{
 export const fetchUsersNames = (dispatch)=>{
 
     fetch(usersNamesAPI)
+    .then(response=>response.json())
     .then(data=> data.results)
     .then(results=>{
-        const userInfo = {results}
-        console.log(userInfo)
-        dispatch(GET_USERSNAMES(userInfo))
+        const userShortInfo = results
+        dispatch(GET_USERSNAMES(userShortInfo))
     })}
 
-    export const fetchUsersDetails = (dispatch)=>{
+export const fetchUsersDetails = (dispatch)=>{
 
-        fetch(detailedUsersAPI)
-        .then(data=> data.results)
-        .then(results=>{
-            const userInfo = results
-            console.log(userInfo)
-            dispatch(GET_USERSDETAILS(userInfo))
-        })
-    }
+    fetch(detailedUsersAPI)
+    .then(response=>response.json())
+    .then(data=> data.results)
+    .then(results=>{
+        const userDetailedInfo = results
+        console.log(userDetailedInfo)
+        dispatch(GET_USERSDETAILS(userDetailedInfo))
+    })}

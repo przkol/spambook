@@ -1,11 +1,13 @@
 import  jokeReducer  from "./jokeReducer";
-import userReducer from "./userReducer";
+import mainUserReducer from "./mainUserReducer";
+import friendsReducer from "./friendsReducer";
 import {combineReducers} from 'redux'
 
 
 const rootReducer= combineReducers({
     jokeReducer,
-    userReducer
+    mainUserReducer,
+    friendsReducer
 })
 
 export default rootReducer

@@ -1,23 +1,22 @@
-const userReducer=(state='',action)=>{
+const mainUserReducer=(state={
+        name:'',
+        thumbnail:'',
+
+},action)=>{
    
     switch(action.type){
         case('GET_MAINUSER'):
             const name = action.userInfo.name.first + ' '+action.userInfo.name.last
+            const thumbnail = action.userInfo.picture.thumbnail
             state = {
-                name
+                name,
+                thumbnail
             }
             console.log(state)
             return state
-        case('GET_USERSNAMES'):
-        
-            return state
-        case('GET_USERSDETAILS'):
-    
-            return state
- 
-         default:console.log('Zła akcja USERS');
+         default:
              return state
              }
  
          }
- export default userReducer
+ export default mainUserReducer
