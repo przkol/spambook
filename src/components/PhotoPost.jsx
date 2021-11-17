@@ -5,35 +5,20 @@ import { Comment } from "./Comment";
 
 
 const PhotoPost = (props)=>{
-const {friend, photo, type,joke} = props
+const {friend, photo, type,joke,comments} = props
 const friendName = friend?.name ? friend.name.first + ' ' + friend.name.last : 'Jan Kowalski'
 const friendImage=friend?.picture.thumbnail
-const [commentsToRender,setCommentsToRender]=useState([])
+const commentsToRender=comments.map((element,index)=><Comment key={index} person={element.person} comment={element.comment}/>)
 const stateRandomUser = useSelector(state =>state.friendsReducer)
-const photoReactions=['Awww <3','I hate cats', 'Wow! Such a cutie!', 'I wonder how does it taste', 'I wish I had one *.*','dogs are better','Very handsome!']
-const jokeReactions=['ROFL','haha','lool','man, just stop..', 'xDD','Sigh..','Man, how do you come up with those?', `haha, classic ${friend.name.first}!` ]
-const randomNumber=Math.floor(Math.random()*5+1)
-const comments=[]
 
-useEffect(()=>{
-for(let i=0;i<randomNumber;i++){
-    const newComment={
-        person:stateRandomUser[Math.floor(Math.random()*20)],
-        comment: (type==='photo'?
-            photoReactions[Math.floor(Math.random()*photoReactions.length)] 
-            :
-            jokeReactions[Math.floor(Math.random()*jokeReactions.length)] 
-        )
-    }
-    comments.push(newComment)
+const handleLike=(e)=>{
+    e.preventDefault()
+    console.log(e.target.parentNode.getAttribute('index'))
 }
-setCommentsToRender(comments.map((element,index)=><Comment key={index} person={element.person} comment={element.comment}/>))
-},[])
-
 
 
 return(
-    <StyledPhotoPost>
+    <StyledPhotoPost >
         <div className='postHeader'>
             <img src={friendImage} alt={friendName + `'s profile picture`} /> 
             <p><span>{friendName} </span>{type==='photo' ? 'added a photo!':'added a post!'}</p>
@@ -46,10 +31,10 @@ return(
             </div>
         <div className='reactions'>
             <p>{Math.floor(Math.random()*25)+3} people liked this </p>
-            <p>{commentsToRender.length} comments</p>
+            <p>{comments.length} comments</p>
             </div>
-        <div className='actionContainer'>
-            <button>Like!</button>
+        <div className='actionContainer' index={props.index}>
+            <button onClick={handleLike}>Like!</button>
             <button>Show comments</button>
             </div>
         <div className='commentSections'>
