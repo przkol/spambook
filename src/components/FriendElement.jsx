@@ -1,4 +1,4 @@
-import { StyledFriendElement } from "../sections/styled/FriendElement.styled"
+import { StyledFriendElement } from "./styled/FriendElement.styled"
 
 export const FriendElement=(props)=>{
     const {friendName,friendImage} = props

@@ -1,7 +1,7 @@
 import { useState, useEffect} from "react"
 import { useDispatch,useSelector } from "react-redux"
 import { FriendElement } from "../components/FriendElement"
-import { fetchUsersNames } from "../reducers/actions/actions"
+import { fetchUsersNames } from "../reducers/actions/friendsActions"
 import { StyledSideChat } from "./styled/SideChat.styled"
 
 const SideChat=()=>{

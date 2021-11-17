@@ -12,7 +12,6 @@ const mainUserReducer=(state={
                 name,
                 thumbnail
             }
-            console.log(state)
             return state
          default:
              return state

@@ -16,7 +16,6 @@ const GlobalStyles=createGlobalStyle`
 body{
     background-color: #301561;
     width:75%;
-    overflow: hidden;
     margin: 0 auto;
 }
 main{

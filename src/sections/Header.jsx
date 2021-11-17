@@ -1,6 +1,6 @@
 import { useState, useEffect} from "react"
 import { useDispatch,useSelector } from "react-redux"
-import { fetchMainUserInfo } from "../reducers/actions/actions"
+import { fetchMainUserInfo } from "../reducers/actions/mainUserActions"
 import { StyledHeader } from "./styled/Header.styled"
 
 const Header=()=>{
@@ -14,7 +14,6 @@ const Header=()=>{
     
     useEffect(()=>{
         setMainUser(mainUserState)
-        console.log(mainUserState.picture)
     },[mainUserState])
 
     return(

@@ -1,0 +1,20 @@
+const mainUserAPI = 'https://randomuser.me/api/?noinfo'
+
+const GET_MAINUSER=(userInfo)=>{
+    return{
+        type: 'GET_MAINUSER',
+        userInfo
+    }
+}
+
+
+export const fetchMainUserInfo = (dispatch)=>{
+
+    fetch(mainUserAPI)
+    .then(response=>response.json())
+    .then(data=> data.results)
+    .then(results=>{
+        const userInfo = results[0]
+        dispatch(GET_MAINUSER(userInfo))
+    })}
+
