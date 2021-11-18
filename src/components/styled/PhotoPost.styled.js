@@ -46,6 +46,10 @@ export const StyledPhotoPost = styled.div`
         font-size: 14px;
         padding: 5px 0 ;
     }
+    .reactions>p{
+        width: 50%;
+        text-align: center;
+    }
     .actionContainer{
         display: flex;
     }
@@ -56,15 +60,21 @@ export const StyledPhotoPost = styled.div`
         background-color: #7960E6;
         border: none;
         padding: 5px 0 ;
+        cursor: pointer;
     }
 
-    .actionContainer>button:hover{
+    .actionContainer>button:hover,
+    .actionContainer>button.liked{
         font-weight:600;
         background-color: #7930E1;
     }
 
     .comment{
         padding: 5px;
+    }
+
+    .invisible{
+        display: none;
     }
     .commentHeader{
         display: flex;
@@ -76,6 +86,9 @@ export const StyledPhotoPost = styled.div`
         height: 80%;
         border-radius: 50%;
         margin-right: 5px;
+    }
+    .yourComment>.commentHeader{
+        font-weight:600;
     }
 
 

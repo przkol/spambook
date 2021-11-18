@@ -20,8 +20,8 @@ const Header=()=>{
         <StyledHeader>
             <h1>SpamBook</h1>
             <div>
-            <h2> Witaj, {mainUser.name}!</h2>
-                <img src={mainUser.thumbnail} alt={mainUser.name? mainUser.name+`'s profile picture`:''}/>
+            <h2> Witaj, {mainUserState.name.first +' '+ mainUserState.name.last}!</h2>
+                <img src={mainUser.picture?.thumbnail} alt={mainUser.name? mainUser.name.first+`'s profile picture`:''}/>
             </div>
 
         </StyledHeader>

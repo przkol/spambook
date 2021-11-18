@@ -1,19 +1,28 @@
 import { StyledPhotoPost } from "./styled/PhotoPost.styled";
 import { useSelector } from "react-redux";
-import { useState,useEffect } from "react";
+import { useState,useEffect, createRef } from "react";
 import { Comment } from "./Comment";
 
 
 const PhotoPost = (props)=>{
-const {friend, photo, type,joke,comments} = props
+const {friend, photo, type,joke,comments, likes,liked,showComments, handleCommentsToggle,handleLike,addComment,} = props
 const friendName = friend?.name ? friend.name.first + ' ' + friend.name.last : 'Jan Kowalski'
 const friendImage=friend?.picture.thumbnail
 const commentsToRender=comments.map((element,index)=><Comment key={index} person={element.person} comment={element.comment}/>)
-const stateRandomUser = useSelector(state =>state.friendsReducer)
+const mainUserState = useSelector(state =>state.mainUserReducer)
+const [userComment,setUserComment]=useState('')
 
-const handleLike=(e)=>{
+
+const handleChange=(e)=>{
+const value = e.target.value
+setUserComment(value)
+}
+const handleSubmit=(e)=>{
     e.preventDefault()
-    console.log(e.target.parentNode.getAttribute('index'))
+    const value=userComment
+    setUserComment('')
+    return addComment([value,props.index])
+
 }
 
 
@@ -30,16 +39,26 @@ return(
             {type==='joke'&&joke.type==='single' ? <p>{joke.joke}</p>:null}
             </div>
         <div className='reactions'>
-            <p>{Math.floor(Math.random()*25)+3} people liked this </p>
+            <p>{liked? 'You and ' +likes +' other people liked this' :likes +' people liked this' }</p>
             <p>{comments.length} comments</p>
             </div>
         <div className='actionContainer' index={props.index}>
-            <button onClick={handleLike}>Like!</button>
-            <button>Show comments</button>
+            <button className={liked? 'liked':null}onClick={handleLike}>Like!</button>
+            <button onClick={handleCommentsToggle}>{showComments? "Hide comments": 'Show comments'}</button>
             </div>
-        <div className='commentSections'>
-        {commentsToRender}
-        </div>
+        <div className={showComments? null:'invisible'}>
+            {commentsToRender}
+            <div className='yourComment'>
+                <div className='commentHeader'>
+                    <img src={mainUserState?.picture?.thumbnail} alt={mainUserState.name + `'s profile picture`} />
+                    <p>{mainUserState.name.first +' '+ mainUserState.name.last}</p> 
+                    </div>
+                    <div className='inputContainer'index={props.index}>
+                        <input  onChange={handleChange}  value={userComment} placeholder='Start typing'type='text'/>
+                        <button  onClick={handleSubmit}>Submit</button>
+                        </div>
+                </div>
+            </div>
     </StyledPhotoPost>
 )
 

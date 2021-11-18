@@ -5,7 +5,6 @@ const friendsReducer=(state=[],action)=>{
             const usersList = action.userInfo
             
             state=usersList
-        
             return state
         case('GET_USERSDETAILS'):
     
