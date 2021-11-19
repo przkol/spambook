@@ -1,6 +1,6 @@
 import { StyledFeed } from "./styled/Feed.styled"
 import { useDispatch,useSelector } from "react-redux"
-import { useState, useEffect, useCallback} from "react"
+import { useState, useEffect} from "react"
 import { fetchPhoto } from "../reducers/actions/photoActions"
 import { fetchJoke } from "../reducers/actions/jokeActions"
 import PhotoPost from "../components/PhotoPost"
@@ -8,7 +8,7 @@ import PhotoPost from "../components/PhotoPost"
 const Feed=()=>{
 const [postsToShow,setPostsToShow]=useState([])
 const [postsToRender,setPostsToRender]=useState([])
-const [userComment,setUserComment]=useState()
+
 const dispatch=useDispatch()
 const statePhoto = useSelector(state =>state.photoReducer.photoToAdd)
 const stateRandomUser = useSelector(state =>state.friendsReducer)
@@ -39,8 +39,6 @@ const createPostsToRender=()=>{
         handleCommentsToggle={handleCommentsToggle}
         handleLike={handleLikeToggle}
         addComment={value=>addMainUserComment(value)}
-
-        commentValue={userComment}
         />)
     setPostsToRender(renderedPosts)
 }
@@ -113,23 +111,27 @@ const generateFeed=(type)=>{
     postsArray.unshift(newPost)
     setPostsToShow(postsArray)
     createPostsToRender()
-    const timer = setTimeout(contentPicker,10000)
+    // eslint-disable-next-line no-unused-vars
+    // const timer = setTimeout(contentPicker,7500)
 }
 
 useEffect(()=>{
     contentPicker()
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[dispatch])
 
 useEffect(()=>{
     if(stateJoke&&stateRandomUser[0]){
     generateFeed('joke')}
     else return
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[stateJoke,stateRandomUser])
 
 useEffect(()=>{
     if(statePhoto&&stateRandomUser[0]){
     generateFeed('photo')}
     else return
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[statePhoto,stateRandomUser])
 
     return(

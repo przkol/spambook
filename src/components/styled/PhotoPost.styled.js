@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export const StyledPhotoPost = styled.div`
-    width: 95%;
+    width: 100%;
     border: 2px solid #7960E6;
     border-radius: 10px;
-    margin: 5px auto;
 
+    .invisible{
+        display: none;
+    }
 
     .postHeader{
         display: flex;
@@ -69,28 +71,47 @@ export const StyledPhotoPost = styled.div`
         background-color: #7930E1;
     }
 
-    .comment{
-        padding: 5px;
-    }
-
-    .invisible{
-        display: none;
-    }
     .commentHeader{
         display: flex;
         align-items: center;
         height: 30px;
         font-size: 14px;
     }
-    .commentHeader img{
-        height: 80%;
+    .yourComment>.commentHeader img{
+        height: 90%;
         border-radius: 50%;
         margin-right: 5px;
     }
     .yourComment>.commentHeader{
         font-weight:600;
+        margin-left: 5px;
+
+    }
+    .inputContainer{
+        width: 100%;
+        height: 30px;
+        overflow: hidden;
+        padding: 1px;
+    }
+    input{
+        background-color:#301561;
+        border: none;
+        width: 85%;
+        height: 20px;
+        margin: 0 2px;
+        border-radius: 5px;
+        padding: 2px;
+
+    }
+    .inputContainer>button{
+        background-color: #7960E6;
+        border: none;
+        padding: 2px 5px ;
+        cursor: pointer;
+        border-radius: 5px;
+        margin: 0 5px 3px 5px;
     }
 
-
+   
 `
 

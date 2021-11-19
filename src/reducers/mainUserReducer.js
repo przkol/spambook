@@ -1,21 +1,14 @@
-const mainUserReducer=(state={
-        name:'',
-        thumbnail:'',
-
+const mainUserReducer=(state={loaded:false
+        
 },action)=>{
    
     switch(action.type){
         case('GET_MAINUSER'):
-            const picture = action.userInfo.picture.thumbnail
+            const userInfo=action.userInfo
             state = {
-                name:{
-                    first:action.userInfo.name.first,
-                    last: action.userInfo.name.last
-                },
-                picture:{
-                    thumbnail:picture
+                loaded:true,
+                userInfo
                 }
-            }
             return state
          default:
              return state

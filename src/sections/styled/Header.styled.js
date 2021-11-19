@@ -6,11 +6,12 @@ justify-content: space-between;
 margin: 0 auto;
 background-color:#7960E6;
 width: 100%;
-padding: 10px;
+
+
 
 h2{
     margin: auto 0 auto 0;
-    padding:0 5px;
+    padding:10px 5px;
 
 }
 div{
@@ -18,11 +19,16 @@ div{
 }
 
 img{
+    margin: auto 0 auto 0;
+
     border-radius:50%;
-    height: 100%;
+    height: 80%;
     padding:0 5px;
 }
 
-
+div:hover{
+    background-color: #442DAD;
+    cursor: pointer;
+}
 
 `

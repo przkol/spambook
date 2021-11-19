@@ -7,7 +7,7 @@ const Header=()=>{
     const [mainUser, setMainUser] = useState('Jan')
     const mainUserState = useSelector(state =>state.mainUserReducer)
     const dispatch=useDispatch()
-    
+
     useEffect(()=> {
         dispatch(fetchMainUserInfo)
         },[dispatch])
@@ -15,13 +15,12 @@ const Header=()=>{
     useEffect(()=>{
         setMainUser(mainUserState)
     },[mainUserState])
-
     return(
         <StyledHeader>
             <h1>SpamBook</h1>
-            <div>
-            <h2> Witaj, {mainUserState.name.first +' '+ mainUserState.name.last}!</h2>
-                <img src={mainUser.picture?.thumbnail} alt={mainUser.name? mainUser.name.first+`'s profile picture`:''}/>
+            <div className='mainUserinfo'>
+                <h2> Witaj, {mainUserState.name?.first +' '+ mainUserState.name?.last}!</h2>
+                <img src={mainUser.picture?.thumbnail} alt={mainUser.name? mainUser.name?.first+`'s profile picture`:''}/>
             </div>
 
         </StyledHeader>

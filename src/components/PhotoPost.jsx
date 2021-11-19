@@ -1,6 +1,6 @@
 import { StyledPhotoPost } from "./styled/PhotoPost.styled";
 import { useSelector } from "react-redux";
-import { useState,useEffect, createRef } from "react";
+import { useState } from "react";
 import { Comment } from "./Comment";
 
 
@@ -51,11 +51,11 @@ return(
             <div className='yourComment'>
                 <div className='commentHeader'>
                     <img src={mainUserState?.picture?.thumbnail} alt={mainUserState.name + `'s profile picture`} />
-                    <p>{mainUserState.name.first +' '+ mainUserState.name.last}</p> 
+                    <p>{mainUserState.name?.first +' '+ mainUserState.name?.last}</p> 
                     </div>
                     <div className='inputContainer'index={props.index}>
                         <input  onChange={handleChange}  value={userComment} placeholder='Start typing'type='text'/>
-                        <button  onClick={handleSubmit}>Submit</button>
+                        <button  onClick={handleSubmit}>Post</button>
                         </div>
                 </div>
             </div>
