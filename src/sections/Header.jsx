@@ -2,11 +2,15 @@ import { useState, useEffect} from "react"
 import { useDispatch,useSelector } from "react-redux"
 import { fetchMainUserInfo } from "../reducers/actions/mainUserActions"
 import { StyledHeader } from "./styled/Header.styled"
+import placeholder from '../img/placeholder.png'
+import {useNavigate} from 'react-router-dom'
 
 const Header=()=>{
     const [mainUser, setMainUser] = useState('Jan')
     const mainUserState = useSelector(state =>state.mainUserReducer)
     const dispatch=useDispatch()
+    const navigate=useNavigate()
+
 
     useEffect(()=> {
         dispatch(fetchMainUserInfo)
@@ -15,12 +19,25 @@ const Header=()=>{
     useEffect(()=>{
         setMainUser(mainUserState)
     },[mainUserState])
+
+    const redirectToUserPanel=()=>{
+       navigate('/user')
+    }
+    
+    const redirectToMainPage=()=>{
+        navigate('/')
+     }
+
     return(
-        <StyledHeader>
-            <h1>SpamBook</h1>
-            <div className='mainUserinfo'>
-                <h2> Witaj, {mainUserState.name?.first +' '+ mainUserState.name?.last}!</h2>
-                <img src={mainUser.picture?.thumbnail} alt={mainUser.name? mainUser.name?.first+`'s profile picture`:''}/>
+        <StyledHeader >
+            <h1 onClick={redirectToMainPage} >SpamBook</h1>
+            <div className='mainUserinfo' onClick={redirectToUserPanel}>
+                {mainUser.loaded ?
+                <h2> Witaj, {mainUser.userInfo.name.first +' '+ mainUser.userInfo.name.last}</h2>
+                :<h2>Witaj!</h2>}
+                {mainUser.loaded ? 
+                <img src={mainUser.userInfo.picture.thumbnail} alt={mainUser.userInfo.name.first+`'s profile picture`}/>
+                :<img src={placeholder} alt='placeholder'/>}
             </div>
 
         </StyledHeader>
