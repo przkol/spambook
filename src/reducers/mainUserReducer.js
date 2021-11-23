@@ -11,8 +11,6 @@ const mainUserReducer=(state={loaded:false
                 loaded:true,
                 userInfo
                 }
-                console.log('w reducerze')
-                console.log(action)
             return state
         case('GET_MAINUSER'):
 

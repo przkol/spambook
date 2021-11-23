@@ -1,4 +1,4 @@
-const photoAPI = 'https://thatcopy.pw/catapi/rest/';
+const photoAPI = 'https://cataas.com/cat?type=md&json=true';
 
 
 const GET_PHOTO=(photo)=>{
@@ -11,7 +11,7 @@ export const fetchPhoto = (dispatch)=>{
         fetch(photoAPI)
         .then(response=>response.json())
         .then(data=>{
-            const photo = data.url
+            const photo = 'https://cataas.com/'+ data.url
             dispatch(GET_PHOTO(photo))
         })
     

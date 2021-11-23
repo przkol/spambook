@@ -5,7 +5,7 @@ export const StyledPhotoPost = styled.div`
     border: 2px solid #7960E6;
     border-radius: 10px;
 
-    .invisible{
+    div.invisible{
         display: none;
     }
 

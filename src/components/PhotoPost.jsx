@@ -42,16 +42,16 @@ return(
             <p>{liked? 'You and ' +likes +' other people liked this' :likes +' people liked this' }</p>
             <p>{comments.length} comments</p>
             </div>
-        <div className='actionContainer' index={props.index}>
+        <div className='actionContainer' index={props.index} comments='invisible'>
             <button className={liked? 'liked':null}onClick={handleLike}>Like!</button>
-            <button onClick={handleCommentsToggle}>{showComments? "Hide comments": 'Show comments'}</button>
+            <button onClick={handleCommentsToggle}>Comments</button>
             </div>
-        <div className={showComments? null:'invisible'}>
+        <div  className={showComments?'commentSection':'commentSection invisible'}>
             {commentsToRender}
             <div className='yourComment'>
                 <div className='commentHeader'>
-                    <img src={mainUserState?.picture?.thumbnail} alt={mainUserState.name + `'s profile picture`} />
-                    <p>{mainUserState.name?.first +' '+ mainUserState.name?.last}</p> 
+                    <img src={mainUserState?.userInfo?.picture?.thumbnail} alt={mainUserState.userInfo?.name + `'s profile picture`} />
+                    <p>{mainUserState.userInfo?.name?.first +' '+ mainUserState.userInfo?.name?.last}</p> 
                     </div>
                     <div className='inputContainer'index={props.index}>
                         <input  onChange={handleChange}  value={userComment} placeholder='Start typing'type='text'/>

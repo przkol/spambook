@@ -4,15 +4,15 @@ import { useState, useEffect} from "react"
 import { fetchPhoto } from "../reducers/actions/photoActions"
 import { fetchJoke } from "../reducers/actions/jokeActions"
 import PhotoPost from "../components/PhotoPost"
-import { ADD_POST, COMMENT_POST, LIKE_POST,SHOW_POST_COMMENTS } from "../reducers/actions/postActions"
 
 const Feed=()=>{
+const [postsToShow,setPostsToShow]=useState([])
 const [postsToRender,setPostsToRender]=useState([])
+
 const dispatch=useDispatch()
 const statePhoto = useSelector(state =>state.photoReducer.photoToAdd)
 const stateRandomUser = useSelector(state =>state.friendsReducer)
 const stateJoke=useSelector(state =>state.jokeReducer)
-const statePosts=useSelector(state =>state.postReducer.posts)
 const mainUserState = useSelector(state =>state.mainUserReducer)
 const photoReactions=['Awww <3','I hate cats', 'Wow! Such a cutie!', 'I wonder how does it taste', 'I wish I had one *.*','dogs are better','Very handsome!']
 const jokeReactions=['ROFL','hahahaha','lool','man, just stop..', 'xDD','Sigh..','Man, how do you come up with those?', `haha, classic you!` ]
@@ -25,7 +25,7 @@ const contentPicker=()=>{
         return dispatch(fetchPhoto)}
 }
 const createPostsToRender=()=>{
-    const mappedPosts=statePosts.map((element,index)=>
+    const renderedPosts=postsToShow.map((element,index)=>
         <PhotoPost friend={element.friend}
         joke={element.joke}
         photo={element.photo}
@@ -40,39 +40,45 @@ const createPostsToRender=()=>{
         handleLike={handleLikeToggle}
         addComment={value=>addMainUserComment(value)}
         />)
-    setPostsToRender(mappedPosts)
+    setPostsToRender(renderedPosts)
 }
 
-const addMainUserComment=([commentText,index])=>{
-    const postIndex=index
-    dispatch(COMMENT_POST(postIndex,commentText,mainUserState.userInfo))
+const addMainUserComment=([value,index])=>{
 
+    const postIndex=index
+    const postsToEdit=postsToShow
+    postsToEdit[postIndex].comments.push({person:mainUserState,
+    comment:value})
+    setPostsToShow(postsToEdit)
+    createPostsToRender()
 }
 
 const handleCommentsToggle=(e)=>{
     e.preventDefault()
     const postIndex=e.target.parentNode.getAttribute('index')
-    const postToToggle = statePosts[postIndex]
-    postToToggle.showComments=!postToToggle.showComments
-    dispatch(SHOW_POST_COMMENTS(postIndex,postToToggle))
-    createPostsToRender()
+    const postsToEdit=postsToShow
 
+    postsToEdit[postIndex].showComments=!(postsToEdit[postIndex].showComments)
+    setPostsToShow(postsToEdit)
+    createPostsToRender()
 }
 
 const handleLikeToggle=(e)=>{
     e.preventDefault()
     const postIndex=e.target.parentNode.getAttribute('index')
-    const postToLike = statePosts[postIndex]
-    postToLike.liked=!postToLike.liked
-    dispatch(LIKE_POST(postIndex,postToLike))
+    const postsToEdit=postsToShow
+    
+    postsToEdit[postIndex].liked=!(postsToEdit[postIndex].liked)
+    setPostsToShow(postsToEdit)
     createPostsToRender()
 }
 
 const generateFeed=(type)=>{
+    const randomNumber=Math.floor(Math.random()*4+1)
     const comments=[]
-    for(let i=0;i<10;i++){
-        const randomNumber=Math.floor(Math.random()*10)
-        if(randomNumber<=5){
+    const postsArray=postsToShow
+    
+    for(let i=0;i<randomNumber;i++){
         const newComment={
             person:stateRandomUser[Math.floor(Math.random()*20)],
             comment: (type==='photo'?
@@ -81,7 +87,7 @@ const generateFeed=(type)=>{
                 jokeReactions[Math.floor(Math.random()*jokeReactions.length)] 
             )
         }
-        comments.push(newComment)}
+        comments.push(newComment)
     }
     const newPost=type==='joke'?
         {friend:stateRandomUser[Math.floor(Math.random()*20)],
@@ -101,23 +107,18 @@ const generateFeed=(type)=>{
         liked:false,
         showComments: false
         }
-    dispatch(ADD_POST(newPost))
-    // setPostsToShow(postsArray)
+
+    postsArray.unshift(newPost)
+    setPostsToShow(postsArray)
     createPostsToRender()
     // eslint-disable-next-line no-unused-vars
+    // const timer = setTimeout(contentPicker,7500)
 }
 
 useEffect(()=>{
     contentPicker()
 // eslint-disable-next-line react-hooks/exhaustive-deps
 },[dispatch])
-
-useEffect(()=>{
-const timer = setTimeout(()=>{contentPicker()},7500)
-    return()=>{
-        clearTimeout(timer)
-    }
-},[postsToRender])
 
 useEffect(()=>{
     if(stateJoke&&stateRandomUser[0]){
