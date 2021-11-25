@@ -1,7 +1,7 @@
 import { useState, useEffect} from "react"
 import { useDispatch,useSelector } from "react-redux"
 import { FriendElement } from "../components/FriendElement"
-import { fetchUsersNames } from "../reducers/actions/friendsActions"
+import { fetchFriendsList } from "../reducers/actions/friendsActions"
 import { StyledSideChat } from "./styled/SideChat.styled"
 
 const SideChat=()=>{
@@ -16,7 +16,7 @@ const SideChat=()=>{
     friendImage={element.picture.thumbnail}
     />)
     useEffect(()=> {
-        dispatch(fetchUsersNames)
+        dispatch(fetchFriendsList)
         },[dispatch])
     
     useEffect(()=>{

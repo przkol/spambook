@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const StyledUserInfo=styled.section`
-width: 45%;
+width: 100%;
 height: fit-content;
 background-color: #593AE0;
 border-radius: 10px;
@@ -30,10 +30,12 @@ img{
 .baseInfo div,
 .contactInfo div,
 .addressInfo div{
+    box-sizing: content-box;
+    padding: 5px 0 2px 0;
     display: flex;
     width: 90%;
     justify-content: space-between;
-    margin: 5px auto;
+    margin: 0 auto;
     border-bottom: 1px solid grey;
 }
 
@@ -53,12 +55,26 @@ align-self: center;
 
 button{
     border: 1px solid grey;
-    padding: 2px 8px;
+    padding: 2px 0;
     background-color: #593AE0;
     margin-bottom: 2px;
     border-radius: 3px;
     height: 20px;
+    width: 40px;
 margin: auto 0 2px 0;
+}
+input{
+    background-color: #593AE0;
+    border: none;
+    box-shadow: 0 0 2px  whitesmoke;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 
