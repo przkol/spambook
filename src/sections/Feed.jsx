@@ -26,7 +26,7 @@ const contentPicker=()=>{
 }
 const createPostsToRender=()=>{
     const mappedPosts=statePosts.map((element,index)=>
-        <PhotoPost friend={element.friend}
+        <PhotoPost user={element.user}
         joke={element.joke}
         photo={element.photo}
         type={element.type}
@@ -69,6 +69,7 @@ const handleLikeToggle=(e)=>{
 }
 
 const generateFeed=(type)=>{
+    console.log(stateRandomUser)
     const comments=[]
     for(let i=0;i<10;i++){
         const randomNumber=Math.floor(Math.random()*10)
@@ -84,7 +85,7 @@ const generateFeed=(type)=>{
         comments.push(newComment)}
     }
     const newPost=type==='joke'?
-        {friend:stateRandomUser[Math.floor(Math.random()*20)],
+        {user:stateRandomUser[Math.floor(Math.random()*20)],
         joke:stateJoke,
         type:'joke',
         comments:comments,
@@ -93,7 +94,7 @@ const generateFeed=(type)=>{
         showComments: false
     }
         :
-        {friend:stateRandomUser[Math.floor(Math.random()*20)],
+        {user:stateRandomUser[Math.floor(Math.random()*20)],
         photo:statePhoto,
         type:'photo',
         comments:comments,
@@ -101,6 +102,7 @@ const generateFeed=(type)=>{
         liked:false,
         showComments: false
         }
+        console.log(newPost)
     dispatch(ADD_POST(newPost))
     // setPostsToShow(postsArray)
     createPostsToRender()

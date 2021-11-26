@@ -15,7 +15,7 @@ const GET_USERSDETAILS=(userInfo)=>{
 }
 
 
-export const fetchUsersNames = (dispatch)=>{
+export const fetchFriendsList = (dispatch)=>{
 
     fetch(usersNamesAPI)
     .then(response=>response.json())
