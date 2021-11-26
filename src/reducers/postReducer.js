@@ -9,9 +9,11 @@ const postReducer=(state={
 
     switch(action.type){
         case('ADD_POST'):
+        console.log('dodaje')
             currentPosts.unshift(post)
             state={loaded:true,
-            posts:currentPosts}                
+            posts:currentPosts}   
+            console.log(state)             
             return state
 
         case('LIKE_POST'):
@@ -42,6 +44,6 @@ const postReducer=(state={
          default:
              return state
         }
- 
+        
 }
  export default postReducer

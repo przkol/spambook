@@ -1,12 +1,15 @@
 import { useState } from "react"
 import { StyledPostInput } from "./styled/PostInput.styled"
-
-
+import { ADD_POST } from "../reducers/actions/postActions"
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 
 export const PostInput=(props)=>{
-    const {mainUser,addUserPost} = props
+    const {mainUser} = props
+    const mainUserState = useSelector(state =>state.mainUserReducer)
     const [postText,setPostText]=useState('')
     const [postImage,setPostImage]=useState()
+    const dispatch=useDispatch()
 
     const handleTextChange=(e)=>{
         setPostText(e.target.value)
@@ -16,6 +19,35 @@ export const PostInput=(props)=>{
         const image=e.target.files[0]
         setPostImage(URL.createObjectURL(image))
 }
+    }
+
+    const addUserPost=()=>{
+        const comments=[]
+        console.log('xd')
+        // for(let i=0;i<10;i++){
+        //     const randomNumber=Math.floor(Math.random()*10)
+        //     if(randomNumber<=5){
+        //     const newComment={
+        //         person:stateRandomUser[Math.floor(Math.random()*20)],
+        //         comment: 
+        //             jokeReactions[Math.floor(Math.random()*jokeReactions.length)] 
+                
+        //     }
+        //     comments.push(newComment)}
+        // }
+        const userPost ={
+            user: mainUserState.userInfo,
+            type:'userPost',
+            comments:comments,
+            photo: postImage,
+            text: postText,
+            likes: (Math.floor(Math.random()*25)+3),
+            liked:false,
+            showComments:false
+        }
+        dispatch(ADD_POST(userPost))
+        setPostImage()
+        setPostText('')
     }
 
     return (
@@ -30,9 +62,7 @@ export const PostInput=(props)=>{
                 <div className='actionButtonContainer'>
                 <label htmlFor='fileInput'>Upload a photo</label>
                 <input  id='fileInput' type='file' onChange={handleImageUpload}/>
-                <button onClick={()=>{addUserPost(postText,postImage)
-                                        setPostImage(null)
-                                        setPostText('')}}> Post!</button>
+                <button onClick={addUserPost}> Post!</button>
                 </div>
 
                 </div>  

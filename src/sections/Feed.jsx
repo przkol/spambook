@@ -1,32 +1,24 @@
 import { StyledFeed } from "./styled/Feed.styled"
 import { useDispatch,useSelector } from "react-redux"
-import { useState, useEffect} from "react"
-import { fetchPhoto } from "../reducers/actions/photoActions"
-import { fetchJoke } from "../reducers/actions/jokeActions"
-import PhotoPost from "../components/PhotoPost"
-import { ADD_POST, COMMENT_POST, LIKE_POST,SHOW_POST_COMMENTS,CREATE_POST } from "../reducers/actions/postActions"
-import { PostInput } from "../components/PostInput"
+import { useState} from "react"
 
-const Feed=()=>{
+import PhotoPost from "../components/PhotoPost"
+import { ADD_POST, COMMENT_POST, LIKE_POST,SHOW_POST_COMMENTS } from "../reducers/actions/postActions"
+import { PostInput } from "../components/PostInput"
+import { connect } from "react-redux"
+import { useEffect } from "react"
+const Feed=(props)=>{
 const [postsToRender,setPostsToRender]=useState([])
 const dispatch=useDispatch()
-const statePhoto = useSelector(state =>state.photoReducer.photoToAdd)
-const stateRandomUser = useSelector(state =>state.friendsReducer)
-const stateJoke=useSelector(state =>state.jokeReducer)
+// const stateRandomUser = useSelector(state =>state.friendsReducer)
 const statePosts=useSelector(state =>state.postReducer.posts)
 const mainUserState = useSelector(state =>state.mainUserReducer)
-const photoReactions=['Awww <3','I hate cats', 'Wow! Such a cutie!', 'I wonder how does it taste', 'I wish I had one *.*','dogs are better','Very handsome!']
-const jokeReactions=['ROFL','hahahaha','lool','man, just stop..', 'xDD','Sigh..','Man, how do you come up with those?', `haha, classic you!` ]
+// const photoReactions=['Awww <3','I hate cats', 'Wow! Such a cutie!', 'I wonder how does it taste', 'I wish I had one *.*','dogs are better','Very handsome!']
+// const jokeReactions=['ROFL','hahahaha','lool','man, just stop..', 'xDD','Sigh..','Man, how do you come up with those?', `haha, classic you!` ]
 
-const contentPicker=()=>{
-    const randomizer=Math.floor(Math.random()*20)
-    if(randomizer<10){ 
-        return dispatch(fetchJoke)}
-    else if(randomizer>=10){ 
-        return dispatch(fetchPhoto)}
-}
+
 const createPostsToRender=()=>{
-    const mappedPosts=statePosts.map((element,index)=>
+    const mappedPosts=props.postsInStore.posts.map((element,index)=>
         <PhotoPost user={element.user}
         joke={element.joke}
         photo={element.photo}
@@ -70,104 +62,52 @@ const handleLikeToggle=(e)=>{
     createPostsToRender()
 }
 
-const generateFeed=(type)=>{
-    const comments=[]
-    for(let i=0;i<10;i++){
-        const randomNumber=Math.floor(Math.random()*10)
-        if(randomNumber<=5){
-        const newComment={
-            person:stateRandomUser[Math.floor(Math.random()*20)],
-            comment: (type==='photo'?
-                photoReactions[Math.floor(Math.random()*photoReactions.length)] 
-                :
-                jokeReactions[Math.floor(Math.random()*jokeReactions.length)] 
-            )
-        }
-        comments.push(newComment)}
-    }
-    const newPost=type==='joke'?
-        {user:stateRandomUser[Math.floor(Math.random()*20)],
-        joke:stateJoke,
-        type:'joke',
-        comments:comments,
-        likes: (Math.floor(Math.random()*25)+3),
-        liked:false,
-        showComments: false
-    }
-        :
-        {user:stateRandomUser[Math.floor(Math.random()*20)],
-        photo:statePhoto,
-        type:'photo',
-        comments:comments,
-        likes: (Math.floor(Math.random()*25)+3),
-        liked:false,
-        showComments: false
-        }
-    dispatch(ADD_POST(newPost))
-    // setPostsToShow(postsArray)
+useEffect(()=>{
     createPostsToRender()
-    // eslint-disable-next-line no-unused-vars
-}
 
-const addUserPost=(postText, postPicture)=>{
-    const comments=[]
-    for(let i=0;i<10;i++){
-        const randomNumber=Math.floor(Math.random()*10)
-        if(randomNumber<=5){
-        const newComment={
-            person:stateRandomUser[Math.floor(Math.random()*20)],
-            comment: 
-                jokeReactions[Math.floor(Math.random()*jokeReactions.length)] 
+},
+[props.postsInStore])
+
+// const addUserPost=(postText, postPicture)=>{
+//     const comments=[]
+//     for(let i=0;i<10;i++){
+//         const randomNumber=Math.floor(Math.random()*10)
+//         if(randomNumber<=5){
+//         const newComment={
+//             person:stateRandomUser[Math.floor(Math.random()*20)],
+//             comment: 
+//                 jokeReactions[Math.floor(Math.random()*jokeReactions.length)] 
             
-        }
-        comments.push(newComment)}
-    }
-    const userPost ={
-        user: mainUserState.userInfo,
-        type:'userPost',
-        comments:comments,
-        photo: postPicture,
-        text:postText,
-        likes: (Math.floor(Math.random()*25)+3),
-        liked:false,
-        showComments:false
-    }
-    dispatch(ADD_POST(userPost))
-    createPostsToRender()
-}
-
-useEffect(()=>{
-    contentPicker()
-// eslint-disable-next-line react-hooks/exhaustive-deps
-},[dispatch])
-
-useEffect(()=>{
-const timer = setTimeout(()=>{contentPicker()},7500)
-    return()=>{
-        clearTimeout(timer)
-    }
-},[postsToRender])
-
-useEffect(()=>{
-    if(stateJoke&&stateRandomUser[0]){
-    generateFeed('joke')}
-    else return
-// eslint-disable-next-line react-hooks/exhaustive-deps
-},[stateJoke,stateRandomUser])
-
-useEffect(()=>{
-    if(statePhoto&&stateRandomUser[0]){
-    generateFeed('photo')}
-    else return
-// eslint-disable-next-line react-hooks/exhaustive-deps
-},[statePhoto,stateRandomUser])
+//         }
+//         comments.push(newComment)}
+//     }
+//     const userPost ={
+//         user: mainUserState.userInfo,
+//         type:'userPost',
+//         comments:comments,
+//         photo: postPicture,
+//         text:postText,
+//         likes: (Math.floor(Math.random()*25)+3),
+//         liked:false,
+//         showComments:false
+//     }
+//     dispatch(ADD_POST(userPost))
+//     createPostsToRender()
+// }
 
     return(
         <StyledFeed>
-        <PostInput mainUser={mainUserState.userInfo} addUserPost={addUserPost}/>
+        
         {postsToRender}
+        <button onClick={createPostsToRender}>assadsdfasfd</button>
         </StyledFeed>
     )
 }
+const mapStateToProps = (state, ownProps) => {
+    return {
+        postsInStore: state.postReducer
+    };
+}
 
-export default Feed
+
+export default connect(mapStateToProps)(Feed);
