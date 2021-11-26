@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useSelector } from "react-redux"
 import { StyledPostInput } from "./styled/PostInput.styled"
 
 

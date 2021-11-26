@@ -4,7 +4,8 @@ import { useState, useEffect} from "react"
 import { fetchPhoto } from "../reducers/actions/photoActions"
 import { fetchJoke } from "../reducers/actions/jokeActions"
 import PhotoPost from "../components/PhotoPost"
-import { ADD_POST, COMMENT_POST, LIKE_POST,SHOW_POST_COMMENTS } from "../reducers/actions/postActions"
+import { ADD_POST, COMMENT_POST, LIKE_POST,SHOW_POST_COMMENTS,CREATE_POST } from "../reducers/actions/postActions"
+import { PostInput } from "../components/PostInput"
 
 const Feed=()=>{
 const [postsToRender,setPostsToRender]=useState([])
@@ -31,6 +32,7 @@ const createPostsToRender=()=>{
         photo={element.photo}
         type={element.type}
         key={index}
+        text={element.text}
         index={index}
         comments={element.comments}
         likes={element.likes}
@@ -69,7 +71,6 @@ const handleLikeToggle=(e)=>{
 }
 
 const generateFeed=(type)=>{
-    console.log(stateRandomUser)
     const comments=[]
     for(let i=0;i<10;i++){
         const randomNumber=Math.floor(Math.random()*10)
@@ -102,11 +103,37 @@ const generateFeed=(type)=>{
         liked:false,
         showComments: false
         }
-        console.log(newPost)
     dispatch(ADD_POST(newPost))
     // setPostsToShow(postsArray)
     createPostsToRender()
     // eslint-disable-next-line no-unused-vars
+}
+
+const addUserPost=(postText, postPicture)=>{
+    const comments=[]
+    for(let i=0;i<10;i++){
+        const randomNumber=Math.floor(Math.random()*10)
+        if(randomNumber<=5){
+        const newComment={
+            person:stateRandomUser[Math.floor(Math.random()*20)],
+            comment: 
+                jokeReactions[Math.floor(Math.random()*jokeReactions.length)] 
+            
+        }
+        comments.push(newComment)}
+    }
+    const userPost ={
+        user: mainUserState.userInfo,
+        type:'userPost',
+        comments:comments,
+        photo: postPicture,
+        text:postText,
+        likes: (Math.floor(Math.random()*25)+3),
+        liked:false,
+        showComments:false
+    }
+    dispatch(ADD_POST(userPost))
+    createPostsToRender()
 }
 
 useEffect(()=>{
@@ -137,6 +164,7 @@ useEffect(()=>{
 
     return(
         <StyledFeed>
+        <PostInput mainUser={mainUserState.userInfo} addUserPost={addUserPost}/>
         {postsToRender}
         </StyledFeed>
     )

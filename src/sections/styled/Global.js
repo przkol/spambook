@@ -22,6 +22,18 @@ main{
     display: flex;
     justify-content: space-between;
 }
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: #593AE0;
+    border-radius: 10px;
+    padding: 1%;
+    height: fit-content;
+    min-height: 75vh;
+
+
+}
 `
 
 export default GlobalStyles

@@ -43,8 +43,19 @@ export const StyledPostInput = styled.div`
         color: black;
     }
 
-    button{
-        color: black;
+    .actionButtonContainer{
+        display: flex;
+        justify-content: space-around;
+    }
+    .inputContainer button,
+    label{
+        background-color: #7960E6;
+        border: none;
+        padding: 2px 5px ;
+        cursor: pointer;
+        border-radius: 5px;
+        margin: 0 5px 3px 5px;
+        font-size: 16px;
     }
 
 `
