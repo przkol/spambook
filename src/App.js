@@ -13,6 +13,7 @@ import { ADD_POST } from './reducers/actions/postActions';
 import { PostInput } from './components/PostInput';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import Groups from './sections/Groups';
 
 function App(props) {
   const dispatch=useDispatch()
@@ -23,7 +24,7 @@ function App(props) {
   
   const contentPicker=()=>{
     const randomizer=Math.floor(Math.random()*20)
-    console.log('xd')
+
     if(randomizer<10){ 
         return dispatch(fetchJoke)}
     else if(randomizer>=10){ 
@@ -79,8 +80,7 @@ useEffect(()=>{
 
 useEffect(()=>{
   if(props.photos&&props.friends[0]){
-  generateFeed('photo')
-  console.log(props.photos)}
+  generateFeed('photo')}
 },[props.photos,props.friends])
 
 useEffect(()=>{
@@ -102,6 +102,7 @@ useEffect(()=>{
     <Routes>
   <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo}/><Feed/></>} />
   <Route  path='/user' element={<UserInfo/>} />
+  <Route  path='/groups' element={<Groups/>} />
   </Routes>
     </section>
     <SideChat/>

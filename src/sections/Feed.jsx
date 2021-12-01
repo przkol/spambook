@@ -99,7 +99,6 @@ useEffect(()=>{
         <StyledFeed>
         
         {postsToRender}
-        <button onClick={createPostsToRender}>assadsdfasfd</button>
         </StyledFeed>
     )
 }
