@@ -20,26 +20,42 @@ const footballGroup={
 }
 
 
-const groupsReducer=(state=[tradeGroup,footballGroup],action)=>{
+const groupsReducer=(
+    state={groups:[tradeGroup,footballGroup],
+        shopItems:null,
+        shopItemsFlag:false,
+        footballHighlights:null,
+        footballHighlightsFlag:false
+        },
+    action)=>{
     const currentState=state
+    const targetGroup=state.groups.filter(element=>element.id===action.groupId)
+    // console.log(targetGroup)
+    // console.log(action.groupId)
+
     switch(action.type){
         case('GET_FOOTBALL_HIGHLIGHT'):
-            console.log(action)
+            currentState.footballHighlights=action.highlight
+            currentState.footballHighlightsFlag=true
+            // console.log(action.highlight)
+            state=currentState
+            // console.log(currentState.footballHighlights)
             return state
 
         case('GET_PRODUCTS'):
-            currentState.productPosts=action.products
-
-            console.log(currentState.productPosts)
-            
+            currentState.shopItems=action.products
+            currentState.shopItemsFlag=true
+            state=currentState
+            console.log(state.shopItems)
+            console.log(state.shopItemsFlag)
             return state
-    
-
-
-
-         default:
+        case('ADD_GROUP_POST'):
+        console.log(action.post,action.groupId)
+            state=currentState
+            return state
+        default:
             return state
             }
  
-         }
+    }
  export default groupsReducer

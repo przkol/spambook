@@ -69,7 +69,7 @@ useEffect(()=>{
     return(
         <StyledFeed>
         
-        {postsToRender}
+        <p>{props.groupIdToShow}</p>
         </StyledFeed>
     )
 }
