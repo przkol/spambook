@@ -14,6 +14,7 @@ export const fetchJoke = (dispatch)=>{
             const joke = data
             dispatch(GET_JOKE(joke))
         })
+        .catch(err=>console.log(err))
     
 }
 

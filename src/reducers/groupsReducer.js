@@ -22,37 +22,34 @@ const footballGroup={
 
 const groupsReducer=(
     state={groups:[tradeGroup,footballGroup],
-        shopItems:null,
+        shopItems:[],
         shopItemsFlag:false,
         footballHighlights:null,
         footballHighlightsFlag:false
         },
     action)=>{
     const currentState=state
-    const targetGroup=state.groups.filter(element=>element.id===action.groupId)
-    // console.log(targetGroup)
-    // console.log(action.groupId)
+
 
     switch(action.type){
         case('GET_FOOTBALL_HIGHLIGHT'):
             currentState.footballHighlights=action.highlight
             currentState.footballHighlightsFlag=true
             // console.log(action.highlight)
-            state=currentState
-            // console.log(currentState.footballHighlights)
-            return state
+            return currentState
 
         case('GET_PRODUCTS'):
             currentState.shopItems=action.products
             currentState.shopItemsFlag=true
-            state=currentState
-            console.log(state.shopItems)
-            console.log(state.shopItemsFlag)
-            return state
+            // console.log(action.products)
+            return currentState
         case('ADD_GROUP_POST'):
-        console.log(action.post,action.groupId)
-            state=currentState
-            return state
+        // console.log(action.post,action.groupId)
+        // console.log(currentState.groups)
+        const targetGroup=currentState.groups.findIndex(element=>element.groupID===action.groupId)
+        currentState.groups[targetGroup].posts.unshift(action.post)
+        // console.log(state.groups)
+            return currentState
         default:
             return state
             }

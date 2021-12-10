@@ -22,9 +22,10 @@ function App(props) {
   const dispatch=useDispatch()
   const photoReactions=['Awww <3','I hate cats', 'Wow! Such a cutie!', 'I wonder how does it taste', 'I wish I had one *.*','dogs are better','Very handsome!']
   const jokeReactions=['ROFL','hahahaha','lool','man, just stop..', 'xDD','Sigh..','Man, how do you come up with those?', `haha, classic you!` ]
+  const footballReactions=['I watched it, it was painful...', `'Nic sie nie stało' as they say in polish`, 'Amazing!', 'At this point they should just disband the whole league..', 'Tough game, but satisfying to watch' ]
   const mainUserState = useSelector(state =>state.mainUserReducer)
   const location=useLocation()
-  const shopItem=props.shop.shopItems
+  const shopItem=useSelector(state=>state.groupsReducer.shopItems)
 
   const contentPicker=()=>{
   const randomizer=Math.floor(Math.random()*20)
@@ -42,27 +43,24 @@ function App(props) {
   }
 
   const generateContent=(type)=>{
+    console.log(type)
     const comments=[]
     for(let i=0;i<10;i++){
         const randomNumber=Math.floor(Math.random()*10)
         if(randomNumber<=5){
-          const newComment={}
+          const newComment={person:props.friends[Math.floor(Math.random()*20)],comment:''}
 
           switch(type){
             case('photo'):
-              newComment.person=props.friends[Math.floor(Math.random()*20)]
               newComment.comment=photoReactions[Math.floor(Math.random()*photoReactions.length)]
               break;              
             case('joke'):
-              newComment.person=props.friends[Math.floor(Math.random()*20)]
               newComment.comment=jokeReactions[Math.floor(Math.random()*jokeReactions.length)]
               break;
             case('football'):
-              newComment.person=props.friends[Math.floor(Math.random()*20)]
-              newComment.comment=jokeReactions[Math.floor(Math.random()*jokeReactions.length)]
+              newComment.comment=footballReactions[Math.floor(Math.random()*footballReactions.length)]
               break;
             case('trade'):
-              newComment.person=props.friends[Math.floor(Math.random()*20)]
               newComment.comment=jokeReactions[Math.floor(Math.random()*jokeReactions.length)]
               break;
 
@@ -102,7 +100,9 @@ function App(props) {
           newPost={user:props.friends[Math.floor(Math.random()*20)],
             photo:props.footballHighlights.thumbnail,
             comments:comments,
-            text:'Have you seen this match?',
+            matchviewUrl: props.footballHighlights.matchviewUrl,
+            text:`Have you seen this ${props.footballHighlights.title} from  ${props.footballHighlights.competition}?
+            You can watch highlights here:`,
             likes: (Math.floor(Math.random()*25)+3),
             liked:false,
             showComments: false
@@ -111,7 +111,7 @@ function App(props) {
           break;
         case('trade'):
           newPost={user:props.friends[Math.floor(Math.random()*20)],
-            photo:null,
+            photo:props.shop[0]?.image,
             comments:comments,
             text:'Anyone?',
             likes: (Math.floor(Math.random()*25)+3),
@@ -129,11 +129,11 @@ function App(props) {
 
 useEffect(()=>{
   contentPicker()
-  // const contentPickerInterval = setInterval(() => {contentPicker()
-  // }, 5000);
-  // return () => {
-  //   clearTimeout(contentPickerInterval);
-  // };
+  const contentPickerInterval = setInterval(() => {contentPicker()
+  }, 5000);
+  return () => {
+    clearTimeout(contentPickerInterval);
+  };
 },[])
 
 useEffect(()=>{
@@ -148,19 +148,21 @@ useEffect(()=>{
 },[props.jokes,props.friends])
 
 useEffect(()=>{
-  console.log(props.shop.shopItems)
+console.log(props.shop[0], shopItem)
 
-  if(props.shop.shopItemsFlag&&props.friends[0]){
+  if(props.shop.length>0&&props.friends[0]){
   generateContent('trade')
-  console.log('trade')
+console.log( shopItem)
   }
-},[shopItem,props.friends])
+},[props.friends,props.shop])
 
 useEffect(()=>{
+  console.log(props.footballHighlights)
   if(props.footballHighlights&&props.friends[0]){
   generateContent('football')
+console.log(props.footballHighlights)
   }
-},[props.footballHighlights,props.friends])
+},[props.footballHighlights?.title,props.friends])
 
 
 
@@ -191,7 +193,7 @@ const mapStateToProps = (state, ownProps) => {
       photos: state.photoReducer.photoToAdd,
       jokes: state.jokeReducer,
       friends: state.friendsReducer,
-      shop: state.groupsReducer,
+      shop: state.groupsReducer.shopItems,
       footballHighlights: state.groupsReducer.footballHighlights,
   };
 }

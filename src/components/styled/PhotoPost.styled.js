@@ -111,6 +111,9 @@ export const StyledPhotoPost = styled.div`
         border-radius: 5px;
         margin: 0 5px 3px 5px;
     }
+    a{
+        display: block;
+    }
 
    
 `

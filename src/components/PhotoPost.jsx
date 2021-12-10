@@ -5,7 +5,7 @@ import { Comment } from "./Comment";
 
 
 const PhotoPost = (props)=>{
-const {user,text, photo,joke,comments, likes,liked,showComments, handleCommentsToggle,handleLike,addComment} = props
+const {user,text, photo,comments, likes,liked,showComments, handleCommentsToggle,handleLike,addComment} = props
 const userName = user?.name ? user.name.first + ' ' + user.name.last : null
 const userProfilePicture=user?.picture.thumbnail
 const commentsToRender=comments.map((element,index)=><Comment key={index} person={element.person} comment={element.comment}/>)
@@ -23,7 +23,6 @@ const handleSubmit=(e)=>{
     setUserComment('')
     return addComment([value,props.index])
     }   
-
 return(
     <StyledPhotoPost>
         <div className='postHeader'>
@@ -32,6 +31,7 @@ return(
             </div>  
         <div className='postContent'>
             {text&& !text.type ? <p>{text}</p> : null}
+            {props.link? <a href={props.link}>Link</a>:null }
             {text.type==='twopart' ? <p>ROFL<br/>{'- '+text.setup}<br/>{'- '+text.delivery}</p>:null}
             {text.type==='single' ? <p>ROFL<br/>{text.joke}</p>:null}
             {photo? <img className='postedPhoto' src={photo} alt=''/>:null}

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router"
 export const GroupCard=(props)=>{
 const {group}=props
 const navigate=useNavigate()
+console.log(props.group)
 
 const redirectToGroup=()=>{
     navigate(`/groups/${group.groupID}`)
