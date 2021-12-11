@@ -2,22 +2,24 @@ import { StyledFeed } from "./styled/Feed.styled"
 import { useDispatch,useSelector } from "react-redux"
 import { useState} from "react"
 import PhotoPost from "../components/PhotoPost"
-import { COMMENT_POST, LIKE_POST,SHOW_POST_COMMENTS } from "../reducers/actions/postActions"
+import { COMMENT_POST, LIKE_POST } from "../reducers/actions/postActions"
 import { connect } from "react-redux"
 import { useEffect } from "react"
-const Feed=(props)=>{
+
+
+
+const GroupFeed=(props)=>{
 const [postsToRender,setPostsToRender]=useState([])
 const dispatch=useDispatch()
-const statePosts=useSelector(state =>state.postReducer.posts)
 const mainUserState = useSelector(state =>state.mainUserReducer)
-const targetGroup=props.groups.findIndex(element=>element.groupID===Number(props.groupIdToShow))
-const groupToProcess = useSelector(state =>state.groupsReducer.groups[targetGroup])
-const [groupPosts,setGroupPosts] = useState(groupToProcess.posts)
-const groupPostsFromState=groupToProcess.posts.length
+const groupPosts=props.groupIdToShow==='1'?props.groupState.tradePosts:props.groupState.footballPosts
+console.log(props.groupIdToShow)
+console.log(props.groupIdToShow==='1')
+
 
 const createPostsToRender=()=>{
     // console.log(props.groups[targetGroup].posts)
-    const mappedPosts=groupPosts.posts.map((element,index)=>
+    const mappedPosts=groupPosts.map((element,index)=>
         <PhotoPost user={element.user}
         joke={element.joke}
         photo={element.photo}
@@ -47,9 +49,8 @@ const addMainUserComment=([commentText,index])=>{
 const handleCommentsToggle=(e)=>{
     e.preventDefault()
     const postIndex=e.target.parentNode.getAttribute('index')
-    const postToToggle = statePosts[postIndex]
+    const postToToggle = groupPosts[postIndex]
     postToToggle.showComments=!postToToggle.showComments
-    dispatch(SHOW_POST_COMMENTS(postIndex,postToToggle))
     createPostsToRender()
 
 }
@@ -57,15 +58,15 @@ const handleCommentsToggle=(e)=>{
 const handleLikeToggle=(e)=>{
     e.preventDefault()
     const postIndex=e.target.parentNode.getAttribute('index')
-    const postToLike = statePosts[postIndex]
+    const postToLike = groupPosts[postIndex]
     postToLike.liked=!postToLike.liked
     dispatch(LIKE_POST(postIndex,postToLike))
     createPostsToRender()
 }
 
 useEffect(()=>{
-    console.log(groupPostsFromState)
-},[groupPostsFromState])
+    createPostsToRender()
+},[props.groupState])
 
     return(
         <StyledFeed>
@@ -74,10 +75,11 @@ useEffect(()=>{
     )
 }
 const mapStateToProps = (state, ownProps) => {
+
     return {
-        groups: state.groupsReducer.groups
+        groupState:state.groupsReducer
     };
 }
 
 
-export default connect(mapStateToProps)(Feed);
+export default connect(mapStateToProps)(GroupFeed);

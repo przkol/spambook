@@ -17,7 +17,7 @@ const redirectToGroup=()=>{
                 </div>
             <div className='groupInfo'>
                 <p>{group.groupName}</p>
-                <p>Posts: {group.posts.length}</p>
+                <p>Posts: {group.postsNo}</p>
             </div>
             </div>
         </StyledGroupCard>

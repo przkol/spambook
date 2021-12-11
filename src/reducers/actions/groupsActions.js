@@ -1,4 +1,4 @@
-const productsAPI = 'https://fakestoreapi.com/products?limit=3';
+const productsAPI = 'https://fakestoreapi.com/products?limit=5';
 const footballAPI = 'https://www.scorebat.com/video-api/v3/';
 
 

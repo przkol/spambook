@@ -15,7 +15,7 @@ const [groupElements,setGroupElements]=useState()
         setGroupElements(mappedGroupCards)
     },[props.groups])
 
-
+console.log(props.groups)
 
     return(
         <StyledGroups>

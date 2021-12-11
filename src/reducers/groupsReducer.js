@@ -8,7 +8,7 @@ const tradeGroup={
     groupName: 'BUY / SELL / TRADE',
     groupBgcPhotoThumbnail: buySellTradeSmall,
     groupBgcPhotoFull:buySellTradeFull,
-    posts:[]
+    postsNo:0
 }
 
 const footballGroup={
@@ -16,16 +16,16 @@ const footballGroup={
     groupName: 'Football games & highlights',
     groupBgcPhotoThumbnail: footballImgSmall,
     groupBgcPhotoFull:footballImgFull,
-    posts:[]
+    postsNo:0
 }
 
 
 const groupsReducer=(
     state={groups:[tradeGroup,footballGroup],
         shopItems:[],
-        shopItemsFlag:false,
         footballHighlights:null,
-        footballHighlightsFlag:false
+        footballPosts:[],
+        tradePosts:[]
         },
     action)=>{
     const currentState=state
@@ -44,12 +44,25 @@ const groupsReducer=(
             // console.log(action.products)
             return currentState
         case('ADD_GROUP_POST'):
-        // console.log(action.post,action.groupId)
-        // console.log(currentState.groups)
-        const targetGroup=currentState.groups.findIndex(element=>element.groupID===action.groupId)
-        currentState.groups[targetGroup].posts.unshift(action.post)
-        // console.log(state.groups)
-            return currentState
+        console.log(action)
+            if(action.groupId===1){
+                tradeGroup.postsNo++
+                const tradeGroupPosts=state.tradePosts
+                tradeGroupPosts.unshift(action.post)
+                console.log(tradeGroupPosts)
+                return {...state,
+                    groups:[tradeGroup,footballGroup],
+                    tradePosts: tradeGroupPosts,
+                    }
+                } else if(action.groupId===2){
+                footballGroup.postsNo++
+                    const footballGroupPosts=state.footballPosts
+                footballGroupPosts.unshift(action.post)
+                return {...state,
+                    groups:[tradeGroup,footballGroup],
+                    footballPosts: footballGroupPosts}
+                } 
+            else return state
         default:
             return state
             }

@@ -3,7 +3,7 @@ import { useDispatch,useSelector } from "react-redux"
 import { useState} from "react"
 
 import PhotoPost from "../components/PhotoPost"
-import { COMMENT_POST, LIKE_POST,SHOW_POST_COMMENTS } from "../reducers/actions/postActions"
+import { COMMENT_POST, LIKE_POST } from "../reducers/actions/postActions"
 import { connect } from "react-redux"
 import { useEffect } from "react"
 const Feed=(props)=>{
@@ -47,7 +47,6 @@ const handleCommentsToggle=(e)=>{
     const postIndex=e.target.parentNode.getAttribute('index')
     const postToToggle = statePosts[postIndex]
     postToToggle.showComments=!postToToggle.showComments
-    dispatch(SHOW_POST_COMMENTS(postIndex,postToToggle))
     createPostsToRender()
 
 }

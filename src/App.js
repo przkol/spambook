@@ -22,6 +22,7 @@ function App(props) {
   const dispatch=useDispatch()
   const photoReactions=['Awww <3','I hate cats', 'Wow! Such a cutie!', 'I wonder how does it taste', 'I wish I had one *.*','dogs are better','Very handsome!']
   const jokeReactions=['ROFL','hahahaha','lool','man, just stop..', 'xDD','Sigh..','Man, how do you come up with those?', `haha, classic you!` ]
+  const tradeReactions=["Daaamn, looks great. Wish I had the money..",`I'm interested - priv`, 'DM me later', 'Can you go any lower?']
   const footballReactions=['I watched it, it was painful...', `'Nic sie nie stało' as they say in polish`, 'Amazing!', 'At this point they should just disband the whole league..', 'Tough game, but satisfying to watch' ]
   const mainUserState = useSelector(state =>state.mainUserReducer)
   const location=useLocation()
@@ -61,7 +62,7 @@ function App(props) {
               newComment.comment=footballReactions[Math.floor(Math.random()*footballReactions.length)]
               break;
             case('trade'):
-              newComment.comment=jokeReactions[Math.floor(Math.random()*jokeReactions.length)]
+              newComment.comment=tradeReactions[Math.floor(Math.random()*jokeReactions.length)]
               break;
 
             default: return
@@ -101,7 +102,7 @@ function App(props) {
             photo:props.footballHighlights.thumbnail,
             comments:comments,
             matchviewUrl: props.footballHighlights.matchviewUrl,
-            text:`Have you seen this ${props.footballHighlights.title} from  ${props.footballHighlights.competition}?
+            text:`Have you seen this ${props.footballHighlights.title} from  ${props.footballHighlights.competition}?\
             You can watch highlights here:`,
             likes: (Math.floor(Math.random()*25)+3),
             liked:false,
@@ -110,10 +111,11 @@ function App(props) {
             dispatch(ADD_GROUP_POST(newPost,2))
           break;
         case('trade'):
+        const tradeItem=props.shop[Math.floor(Math.random()*5)]
           newPost={user:props.friends[Math.floor(Math.random()*20)],
-            photo:props.shop[0]?.image,
+            photo:tradeItem.image,
             comments:comments,
-            text:'Anyone?',
+            text:`[${tradeItem.category}] #WTT #WTS Any offers for this ${tradeItem.title}? Can sell it for $${tradeItem.price}`,
             likes: (Math.floor(Math.random()*25)+3),
             liked:false,
             showComments: false
