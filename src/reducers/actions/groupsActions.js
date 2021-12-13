@@ -1,4 +1,4 @@
-const productsAPI = 'https://fakestoreapi.com/products?limit=5';
+const productsAPI = 'https://fakestoreapi.com/products?limit=15';
 const footballAPI = 'https://www.scorebat.com/video-api/v3/';
 
 
@@ -6,6 +6,13 @@ const GET_PRODUCTS=(products)=>{
     return {
         type:'GET_PRODUCTS',
         products    
+    }}
+
+
+export const SET_SEEN_STATUS=(groupId)=>{
+    return {
+        type:'SET_SEEN_STATUS',
+        groupId    
     }}
 
 const GET_FOOTBALL_HIGHLIGHT=(highlight)=>{
@@ -31,6 +38,7 @@ export const fetchProducts = (dispatch)=>{
         return products
     })
     .then(products=>dispatch(GET_PRODUCTS(products)))
+    .catch(error=>console.log(error))
 }
 
 export const fetchFootballHighlight = (dispatch)=>{
@@ -41,6 +49,8 @@ export const fetchFootballHighlight = (dispatch)=>{
         return highlight
     })
     .then(highlight=>dispatch(GET_FOOTBALL_HIGHLIGHT(highlight)))
+    .catch(error=>console.log(error))
+
 }
 
 

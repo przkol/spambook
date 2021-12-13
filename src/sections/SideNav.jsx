@@ -1,30 +1,41 @@
 import { StyledSideNav } from "./styled/SideNav.styled";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { GroupBar } from "../components/GroupBar";
 
-const SideNav=()=>{
-    const links=[
-        {   name: 'Main page',
-        pathname:'/',
-        },
-        {   name: 'User panel',
-            pathname:'/user',
-        },
-        {   name: 'Groups',
-        pathname:'/groups',
-        },
-        {   name: 'Events',
-        pathname:'/events',
-        },
-    ]
+const SideNav=(props)=>{
 
-    const mappedLinks=links.map((element,index)=><NavLink  key={index} to={element.pathname} >{element.name}</NavLink>)
+return(
+    <StyledSideNav>
+        <NavLink  to={'/'} >Main page</NavLink>
+        <NavLink  to={'/user'} >User panel</NavLink>
+        <div className="groupLinkContainer">
+            <NavLink  to={'/groups'} >Groups</NavLink>
+            <GroupBar groupPath={`/groups/`+props.groups.groups[0].groupID} 
+                groupName={props.groups.groups[0].groupName}
+                postsNum={props.unseenTradePostsCounter} />
+            <GroupBar groupPath={`/groups/`+props.groups.groups[1].groupID} 
+                groupName={props.groups.groups[1].groupName}
+                postsNum={props.unseenFootballPostsCounter} />
 
-    return(
-        <StyledSideNav>
-            {mappedLinks}
-        </StyledSideNav>
+        </div>
+        <NavLink  to={'/events'} >Events</NavLink>
+
+
+
+
+    </StyledSideNav>
 
     )
 }
 
-export default SideNav
+const mapStateToProps = (state, ownProps) => {
+    return {
+    groups:state.groupsReducer,
+    unseenTradePostsCounter:state.groupsReducer.tradePosts?.filter(element=>!element.seenByUser).length,
+    unseenFootballPostsCounter:state.groupsReducer.footballPosts?.filter(element=>!element.seenByUser).length
+    };
+  }
+  
+  
+  export default connect(mapStateToProps)(SideNav);

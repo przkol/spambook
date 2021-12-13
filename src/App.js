@@ -17,6 +17,7 @@ import Groups from './sections/Groups';
 import GroupFeed from './sections/GroupFeed';
 import { useLocation } from "react-router";
 import { fetchFootballHighlight, fetchProducts, ADD_GROUP_POST } from './reducers/actions/groupsActions';
+import { useState } from 'react';
 
 function App(props) {
   const dispatch=useDispatch()
@@ -26,7 +27,6 @@ function App(props) {
   const footballReactions=['I watched it, it was painful...', `'Nic sie nie stało' as they say in polish`, 'Amazing!', 'At this point they should just disband the whole league..', 'Tough game, but satisfying to watch' ]
   const mainUserState = useSelector(state =>state.mainUserReducer)
   const location=useLocation()
-  const shopItem=useSelector(state=>state.groupsReducer.shopItems)
 
   const contentPicker=()=>{
   const randomizer=Math.floor(Math.random()*20)
@@ -35,16 +35,16 @@ function App(props) {
       dispatch(fetchJoke)}
     else if(randomizer>=10){ 
       dispatch(fetchPhoto)}
-    if(randomizer2<10){ 
-      console.log('produkcik')
+    if(randomizer2<10){
+      console.log('produkt') 
       dispatch(fetchProducts)}
     else if(randomizer2>=10){ 
-      console.log('pileczka')
       dispatch(fetchFootballHighlight)}
   }
 
   const generateContent=(type)=>{
-    console.log(type)
+    console.log(type) 
+
     const comments=[]
     for(let i=0;i<10;i++){
         const randomNumber=Math.floor(Math.random()*10)
@@ -62,7 +62,7 @@ function App(props) {
               newComment.comment=footballReactions[Math.floor(Math.random()*footballReactions.length)]
               break;
             case('trade'):
-              newComment.comment=tradeReactions[Math.floor(Math.random()*jokeReactions.length)]
+              newComment.comment=tradeReactions[Math.floor(Math.random()*tradeReactions.length)]
               break;
 
             default: return
@@ -81,7 +81,7 @@ function App(props) {
             text:'OMG, check this cat out!',
             likes: (Math.floor(Math.random()*25)+3),
             liked:false,
-            showComments: false
+            seenByUser:false
             }
             dispatch(ADD_POST(newPost))
 
@@ -93,7 +93,7 @@ function App(props) {
             text:props.jokes,
             likes: (Math.floor(Math.random()*25)+3),
             liked:false,
-            showComments: false
+            seenByUser:false
             }
             dispatch(ADD_POST(newPost))
           break;
@@ -106,19 +106,19 @@ function App(props) {
             You can watch highlights here:`,
             likes: (Math.floor(Math.random()*25)+3),
             liked:false,
-            showComments: false
+            seenByUser:false
             }
             dispatch(ADD_GROUP_POST(newPost,2))
           break;
         case('trade'):
-        const tradeItem=props.shop[Math.floor(Math.random()*5)]
+        console.log(props.shop)
           newPost={user:props.friends[Math.floor(Math.random()*20)],
-            photo:tradeItem.image,
+            photo:props.shop.image,
             comments:comments,
-            text:`[${tradeItem.category}] #WTT #WTS Any offers for this ${tradeItem.title}? Can sell it for $${tradeItem.price}`,
+            text:`[${props.shop.category}] #WTT #WTS Any offers for this ${props.shop.title}? Can sell it for $${props.shop.price}`,
             likes: (Math.floor(Math.random()*25)+3),
             liked:false,
-            showComments: false
+            seenByUser:false
             }
             dispatch(ADD_GROUP_POST(newPost,1))
           break;
@@ -150,22 +150,18 @@ useEffect(()=>{
 },[props.jokes,props.friends])
 
 useEffect(()=>{
-console.log(props.shop[0], shopItem)
-
-  if(props.shop.length>0&&props.friends[0]){
+  console.log('produkt')
+  if(props.shop.title&&props.friends[0]){
   generateContent('trade')
-console.log( shopItem)
+
   }
 },[props.friends,props.shop])
 
 useEffect(()=>{
-  console.log(props.footballHighlights)
   if(props.footballHighlights&&props.friends[0]){
   generateContent('football')
-console.log(props.footballHighlights)
   }
 },[props.footballHighlights?.title,props.friends])
-
 
 
   return (
@@ -174,7 +170,7 @@ console.log(props.footballHighlights)
   <Header/>
 
   <main>
-    <SideNav/>
+    <SideNav />
     <section className='wrapper'>
     <Routes>
   <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo}/><Feed/></>} />
@@ -197,6 +193,7 @@ const mapStateToProps = (state, ownProps) => {
       friends: state.friendsReducer,
       shop: state.groupsReducer.shopItems,
       footballHighlights: state.groupsReducer.footballHighlights,
+      groups:state.groupsReducer
   };
 }
 

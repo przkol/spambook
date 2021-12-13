@@ -39,17 +39,22 @@ const groupsReducer=(
             return currentState
 
         case('GET_PRODUCTS'):
-            currentState.shopItems=action.products
+            currentState.shopItems=action.products[Math.floor(Math.random()*15)]
             currentState.shopItemsFlag=true
-            // console.log(action.products)
-            return currentState
+            console.log(currentState.shopItems)
+            return {...state,
+            shopItems:action.products[Math.floor(Math.random()*15)],
+            shopItemsFlag:true
+        }
         case('ADD_GROUP_POST'):
-        console.log(action)
+        console.log(action.post)
             if(action.groupId===1){
                 tradeGroup.postsNo++
                 const tradeGroupPosts=state.tradePosts
                 tradeGroupPosts.unshift(action.post)
-                console.log(tradeGroupPosts)
+                if(tradeGroupPosts.length>15){
+                tradeGroupPosts.pop()
+                }
                 return {...state,
                     groups:[tradeGroup,footballGroup],
                     tradePosts: tradeGroupPosts,
@@ -58,11 +63,30 @@ const groupsReducer=(
                 footballGroup.postsNo++
                     const footballGroupPosts=state.footballPosts
                 footballGroupPosts.unshift(action.post)
+                if(footballGroupPosts.length>15){
+                    footballGroupPosts.pop()
+                    }
                 return {...state,
                     groups:[tradeGroup,footballGroup],
                     footballPosts: footballGroupPosts}
                 } 
             else return state
+        case('SET_SEEN_STATUS'):
+        console.log(action.groupId, typeof(action.groupId))
+
+            if(action.groupId==='1'){
+                currentState.tradePosts.forEach((element,index)=>{
+                    currentState.tradePosts[index].seenByUser=true
+                })}
+            if(action.groupId==='2'){
+                currentState.footballPosts.forEach((element,index)=>{
+                    currentState.footballPosts[index].seenByUser=true
+                })
+             }
+             console.log(currentState)
+            return currentState
+
+                
         default:
             return state
             }

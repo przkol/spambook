@@ -5,6 +5,7 @@ import PhotoPost from "../components/PhotoPost"
 import { COMMENT_POST, LIKE_POST } from "../reducers/actions/postActions"
 import { connect } from "react-redux"
 import { useEffect } from "react"
+import { SET_SEEN_STATUS } from "../reducers/actions/groupsActions"
 
 
 
@@ -12,13 +13,12 @@ const GroupFeed=(props)=>{
 const [postsToRender,setPostsToRender]=useState([])
 const dispatch=useDispatch()
 const mainUserState = useSelector(state =>state.mainUserReducer)
-const groupPosts=props.groupIdToShow==='1'?props.groupState.tradePosts:props.groupState.footballPosts
-console.log(props.groupIdToShow)
-console.log(props.groupIdToShow==='1')
-
+const groupPosts=props.groupIdToShow==='1'?
+        props.groupState.tradePosts
+        :props.groupState.footballPosts
 
 const createPostsToRender=()=>{
-    // console.log(props.groups[targetGroup].posts)
+    dispatch(SET_SEEN_STATUS(props.groupIdToShow))
     const mappedPosts=groupPosts.map((element,index)=>
         <PhotoPost user={element.user}
         joke={element.joke}
@@ -66,7 +66,7 @@ const handleLikeToggle=(e)=>{
 
 useEffect(()=>{
     createPostsToRender()
-},[props.groupState])
+},[props.groupState,props.groupIdToShow])
 
     return(
         <StyledFeed>
