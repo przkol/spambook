@@ -5,7 +5,6 @@ import { StyledGroupBar } from "./styled/GroupBar.styled";
 
 export const GroupBar=(props)=>{
 
-
     return(
     <StyledGroupBar><NavLink 
      to={props.groupPath}>
@@ -14,9 +13,6 @@ export const GroupBar=(props)=>{
       {props.postsNum>0?<span>{props.postsNum}</span>:null}
      
      </StyledGroupBar>
-    
-    
-
     )
 
 

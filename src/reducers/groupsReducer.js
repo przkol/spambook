@@ -4,7 +4,7 @@ import buySellTradeSmall from '../img/tradegroup small.jpg'
 import buySellTradeFull from '../img/tradegroup.jpg'
 
 const tradeGroup={
-    groupID:1,
+    groupID:'1',
     groupName: 'BUY / SELL / TRADE',
     groupBgcPhotoThumbnail: buySellTradeSmall,
     groupBgcPhotoFull:buySellTradeFull,
@@ -12,7 +12,7 @@ const tradeGroup={
 }
 
 const footballGroup={
-    groupID:2,
+    groupID:'2',
     groupName: 'Football games & highlights',
     groupBgcPhotoThumbnail: footballImgSmall,
     groupBgcPhotoFull:footballImgFull,
@@ -41,14 +41,12 @@ const groupsReducer=(
         case('GET_PRODUCTS'):
             currentState.shopItems=action.products[Math.floor(Math.random()*15)]
             currentState.shopItemsFlag=true
-            console.log(currentState.shopItems)
             return {...state,
             shopItems:action.products[Math.floor(Math.random()*15)],
             shopItemsFlag:true
         }
         case('ADD_GROUP_POST'):
-        console.log(action.post)
-            if(action.groupId===1){
+            if(action.groupId==='1'){
                 tradeGroup.postsNo++
                 const tradeGroupPosts=state.tradePosts
                 tradeGroupPosts.unshift(action.post)
@@ -59,7 +57,7 @@ const groupsReducer=(
                     groups:[tradeGroup,footballGroup],
                     tradePosts: tradeGroupPosts,
                     }
-                } else if(action.groupId===2){
+                } else if(action.groupId==='2'){
                 footballGroup.postsNo++
                     const footballGroupPosts=state.footballPosts
                 footballGroupPosts.unshift(action.post)

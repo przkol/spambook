@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const StyledSideNav=styled.nav`
 
-width:20%;
+width:220px;
 background-color: #593AE0;
 height: fit-content;
 

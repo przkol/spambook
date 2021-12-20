@@ -1,4 +1,4 @@
-const usersNamesAPI = 'https://randomuser.me/api/?results=20&inc=name,picture&noinfo'
+const usersNamesAPI = 'https://randomuser.me/api/?results=20&inc=name,picture,id&noinfo'
 const detailedUsersAPI = 'https://randomuser.me/api/?results=10&noinfo'
 
 const GET_USERSNAMES=(userInfo)=>{

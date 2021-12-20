@@ -3,6 +3,7 @@ import { StyledPostInput } from "./styled/PostInput.styled"
 import { ADD_POST } from "../reducers/actions/postActions"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
+import { ADD_GROUP_POST } from "../reducers/actions/groupsActions"
 
 export const PostInput=(props)=>{
     const {mainUser} = props
@@ -45,7 +46,12 @@ export const PostInput=(props)=>{
             liked:false,
             showComments:false
         }
+        if(props.target==='mainFeed'){
         dispatch(ADD_POST(userPost))
+        } else if(props.target==='group'){
+                dispatch(ADD_GROUP_POST(userPost,props.groupIdToShow))
+        }
+
         setPostImage()
         setPostText('')
     }

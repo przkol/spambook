@@ -8,14 +8,13 @@ const GlobalStyles=createGlobalStyle`
     margin:0;
     padding:0;
     color:whitesmoke;
-
     margin-block: 0;
     margin-inline: 0;
 }
 
 body{
     background-color: #301561;
-    width:75%;
+    width:1200px;
     margin: 0 auto;
 }
 main{

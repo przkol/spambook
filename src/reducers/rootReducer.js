@@ -5,6 +5,7 @@ import {combineReducers} from 'redux';
 import photoReducer from "./photoReducer";
 import postReducer from "./postReducer";
 import groupsReducer from "./groupsReducer";
+import chatReducer from "./chatReducer";
 
 
 const rootReducer= combineReducers({
@@ -13,7 +14,8 @@ const rootReducer= combineReducers({
     friendsReducer,
     photoReducer,
     postReducer,
-    groupsReducer
+    groupsReducer,
+    chatReducer
 })
 
 export default rootReducer

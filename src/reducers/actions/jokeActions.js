@@ -1,4 +1,4 @@
-const jokeAPI = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw';
+const jokeAPI = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,racist,sexist,explicit,political';
 
 
 const GET_JOKE=(joke)=>{

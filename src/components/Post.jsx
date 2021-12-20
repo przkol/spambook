@@ -1,10 +1,10 @@
-import { StyledPhotoPost } from "./styled/PhotoPost.styled";
+import { StyledPost } from "./styled/Post.styled";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Comment } from "./Comment";
 
 
-const PhotoPost = (props)=>{
+const Post = (props)=>{
 const {user,text, photo,comments, likes,liked,showComments, handleCommentsToggle,handleLike,addComment} = props
 const userName = user?.name ? user.name.first + ' ' + user.name.last : null
 const userProfilePicture=user?.picture.thumbnail
@@ -24,7 +24,7 @@ const handleSubmit=(e)=>{
     return addComment([value,props.index])
     }   
 return(
-    <StyledPhotoPost>
+    <StyledPost>
         <div className='postHeader'>
             <img src={userProfilePicture} alt={userName + `'s profile picture`} /> 
             <p><span>{userName} </span> posted this.</p>
@@ -57,7 +57,7 @@ return(
                         </div>
                 </div>
             </div>
-        </StyledPhotoPost>)
+        </StyledPost>)
 
 }
 
@@ -99,4 +99,4 @@ return(
 // )}
 
 // }
-export default PhotoPost
+export default Post

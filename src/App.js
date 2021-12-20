@@ -17,7 +17,10 @@ import Groups from './sections/Groups';
 import GroupFeed from './sections/GroupFeed';
 import { useLocation } from "react-router";
 import { fetchFootballHighlight, fetchProducts, ADD_GROUP_POST } from './reducers/actions/groupsActions';
+import { CREATE_NEW_CHAT } from "./reducers/actions/chatActions"
 import { useState } from 'react';
+import { ChatWindow } from "./components/ChatWindow"
+import { GroupHeader } from './components/GroupHeader';
 
 function App(props) {
   const dispatch=useDispatch()
@@ -27,6 +30,8 @@ function App(props) {
   const footballReactions=['I watched it, it was painful...', `'Nic sie nie stało' as they say in polish`, 'Amazing!', 'At this point they should just disband the whole league..', 'Tough game, but satisfying to watch' ]
   const mainUserState = useSelector(state =>state.mainUserReducer)
   const location=useLocation()
+  const [openChats,setOpenChats]=useState([])
+
 
   const contentPicker=()=>{
   const randomizer=Math.floor(Math.random()*20)
@@ -36,14 +41,12 @@ function App(props) {
     else if(randomizer>=10){ 
       dispatch(fetchPhoto)}
     if(randomizer2<10){
-      console.log('produkt') 
       dispatch(fetchProducts)}
     else if(randomizer2>=10){ 
       dispatch(fetchFootballHighlight)}
   }
 
   const generateContent=(type)=>{
-    console.log(type) 
 
     const comments=[]
     for(let i=0;i<10;i++){
@@ -108,10 +111,9 @@ function App(props) {
             liked:false,
             seenByUser:false
             }
-            dispatch(ADD_GROUP_POST(newPost,2))
+            dispatch(ADD_GROUP_POST(newPost,'2'))
           break;
         case('trade'):
-        console.log(props.shop)
           newPost={user:props.friends[Math.floor(Math.random()*20)],
             photo:props.shop.image,
             comments:comments,
@@ -120,22 +122,59 @@ function App(props) {
             liked:false,
             seenByUser:false
             }
-            dispatch(ADD_GROUP_POST(newPost,1))
+            dispatch(ADD_GROUP_POST(newPost,'1'))
           break;
 
         default: console.log(type)  
         }
   }
 
+  const openChatWindow=(friendsName)=>{
+    console.log(friendsName)
+
+    const chatAlreadyOpenIndex=openChats.findIndex(chatName=>chatName===friendsName)
+    const chatPreviouslyCreated=props.chats.findIndex(chatName=>chatName===friendsName)
+    console.log(chatAlreadyOpenIndex)
+
+    const currentChats=openChats
+        if(chatAlreadyOpenIndex===-1){
+          if(chatPreviouslyCreated===-1){
+            console.log('tworze czat')
+            dispatch(CREATE_NEW_CHAT(friendsName))
+            currentChats.push(friendsName)
+            }else if(chatPreviouslyCreated===-1){
+            console.log('otwieram ponownie czat')
+            currentChats.push(friendsName)
+            }
+          } else if(chatAlreadyOpenIndex!==-1){
+            console.log('mam juz taki czat')
+            }
+        if(openChats.length>3){
+            currentChats.shift()
+            }
+
+    setOpenChats(currentChats)
+    console.log(openChats)
+}
+  const closeChatWindow=(friendsName)=>{
+      setOpenChats(openChats.filter(chat=>chat!==friendsName))
+      console.log(openChats)
+
+  }
+
+const chatWindowsToShow=openChats.map((element,index)=>{
+    const chatIndex= props.chats.findIndex(chat=>chat.friend===element)
+    return <ChatWindow chat={props.chats[chatIndex]} key={index} closeChat={closeChatWindow} />
+})
 
 
 useEffect(()=>{
   contentPicker()
-  const contentPickerInterval = setInterval(() => {contentPicker()
-  }, 5000);
-  return () => {
-    clearTimeout(contentPickerInterval);
-  };
+  // const contentPickerInterval = setInterval(() => {contentPicker()
+  // }, 5000);
+  // return () => {
+  //   clearTimeout(contentPickerInterval);
+  // };
 },[])
 
 useEffect(()=>{
@@ -150,7 +189,6 @@ useEffect(()=>{
 },[props.jokes,props.friends])
 
 useEffect(()=>{
-  console.log('produkt')
   if(props.shop.title&&props.friends[0]){
   generateContent('trade')
 
@@ -173,15 +211,17 @@ useEffect(()=>{
     <SideNav />
     <section className='wrapper'>
     <Routes>
-  <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo}/><Feed/></>} />
+  <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/><Feed /></>} />
   <Route  path='/user' element={<UserInfo/>} />
   <Route  path='/groups/' element={<Groups/>} />
-  <Route  path='/groups/*' element={<GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/>} />
+  <Route  path='/groups/*' element={<><GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} groupState={props.groups}/> <PostInput mainUser={mainUserState.userInfo}target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/><GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
   </Routes>
     </section>
-    <SideChat/>
+    <SideChat openChats={openChats} openChatWindow={openChatWindow}/>
   </main>
-
+    <div className='chatWindowContainer'>
+      {chatWindowsToShow}
+      </div> 
 </>
   );
 }
@@ -193,7 +233,9 @@ const mapStateToProps = (state, ownProps) => {
       friends: state.friendsReducer,
       shop: state.groupsReducer.shopItems,
       footballHighlights: state.groupsReducer.footballHighlights,
-      groups:state.groupsReducer
+      groups:state.groupsReducer,
+      chats:state.chatReducer
+
   };
 }
 

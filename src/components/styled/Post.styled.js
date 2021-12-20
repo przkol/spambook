@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledPhotoPost = styled.div`
+export const StyledPost = styled.div`
     width: 100%;
     border: 2px solid #7960E6;
     border-radius: 10px;

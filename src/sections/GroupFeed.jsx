@@ -1,7 +1,7 @@
-import { StyledFeed } from "./styled/Feed.styled"
+import { StyledGroupFeed } from "./styled/GroupFeed.styled"
 import { useDispatch,useSelector } from "react-redux"
 import { useState} from "react"
-import PhotoPost from "../components/PhotoPost"
+import Post from "../components/Post"
 import { COMMENT_POST, LIKE_POST } from "../reducers/actions/postActions"
 import { connect } from "react-redux"
 import { useEffect } from "react"
@@ -20,7 +20,7 @@ const groupPosts=props.groupIdToShow==='1'?
 const createPostsToRender=()=>{
     dispatch(SET_SEEN_STATUS(props.groupIdToShow))
     const mappedPosts=groupPosts.map((element,index)=>
-        <PhotoPost user={element.user}
+        <Post user={element.user}
         joke={element.joke}
         photo={element.photo}
         type={element.type}
@@ -63,15 +63,14 @@ const handleLikeToggle=(e)=>{
     dispatch(LIKE_POST(postIndex,postToLike))
     createPostsToRender()
 }
-
 useEffect(()=>{
     createPostsToRender()
 },[props.groupState,props.groupIdToShow])
 
     return(
-        <StyledFeed>
+        <StyledGroupFeed>
             {postsToRender}
-        </StyledFeed>
+        </StyledGroupFeed>
     )
 }
 const mapStateToProps = (state, ownProps) => {

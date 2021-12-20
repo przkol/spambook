@@ -2,7 +2,7 @@ import { StyledFeed } from "./styled/Feed.styled"
 import { useDispatch,useSelector } from "react-redux"
 import { useState} from "react"
 
-import PhotoPost from "../components/PhotoPost"
+import Post from "../components/Post"
 import { COMMENT_POST, LIKE_POST } from "../reducers/actions/postActions"
 import { connect } from "react-redux"
 import { useEffect } from "react"
@@ -18,7 +18,7 @@ const mainUserState = useSelector(state =>state.mainUserReducer)
 
 const createPostsToRender=()=>{
     const mappedPosts=props.postsInStore.posts.map((element,index)=>
-        <PhotoPost user={element.user}
+        <Post user={element.user}
         joke={element.joke}
         photo={element.photo}
         type={element.type}
