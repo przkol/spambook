@@ -22,6 +22,7 @@ import { useState } from 'react';
 import { ChatWindow } from "./components/ChatWindow"
 import { GroupHeader } from './components/GroupHeader';
 
+
 function App(props) {
   const dispatch=useDispatch()
   const photoReactions=['Awww <3','I hate cats', 'Wow! Such a cutie!', 'I wonder how does it taste', 'I wish I had one *.*','dogs are better','Very handsome!']
@@ -31,7 +32,8 @@ function App(props) {
   const mainUserState = useSelector(state =>state.mainUserReducer)
   const location=useLocation()
   const [openChats,setOpenChats]=useState([])
-
+  const [prevTradePost,setPrevTradePost]=useState()
+  const [prevFootballPost,setPrevFootballPost]=useState({title:``})
 
   const contentPicker=()=>{
   const randomizer=Math.floor(Math.random()*20)
@@ -47,7 +49,6 @@ function App(props) {
   }
 
   const generateContent=(type)=>{
-
     const comments=[]
     for(let i=0;i<10;i++){
         const randomNumber=Math.floor(Math.random()*10)
@@ -163,6 +164,7 @@ function App(props) {
   }
 
 const chatWindowsToShow=openChats.map((element,index)=>{
+  console.log(props.chats)
     const chatIndex= props.chats.findIndex(chat=>chat.friend===element)
     return <ChatWindow chat={props.chats[chatIndex]} key={index} closeChat={closeChatWindow} />
 })
@@ -189,17 +191,20 @@ useEffect(()=>{
 },[props.jokes,props.friends])
 
 useEffect(()=>{
-  if(props.shop.title&&props.friends[0]){
+  console.log(props.shop)
+  if(props.shop?.title&&props.friends[0]){
   generateContent('trade')
-
   }
-},[props.friends,props.shop])
+},[props.shop?.title,props.friends])
 
 useEffect(()=>{
-  if(props.footballHighlights&&props.friends[0]){
+  if(props.groups.footballHighlightsFlag&&props.friends[0]&&prevFootballPost?.title!==props.footballHighlights?.title){
+    setPrevFootballPost({title:props.footballHighlights.title})
   generateContent('football')
   }
-},[props.footballHighlights?.title,props.friends])
+},[props.groups.footballHighlightsFlag,props.friends])
+
+
 
 
   return (

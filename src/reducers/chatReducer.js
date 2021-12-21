@@ -14,8 +14,14 @@ const chatReducer=(state=[],action)=>{
         newChat]
         case('ADD_MESSAGE_TO_CHAT'):
             const chatNo=state.findIndex(chat=>chat.friend===action.targetFriend)
-            console.log(chatNo)
-            return state
+            const newMessage={source:action.source,text:action.message}
+            return [...state.map((chat,index)=>{
+                if(index===chatNo){
+                    chat.messages.push(newMessage)
+                }
+                return chat
+            })
+            ]
  
          default:
              return state

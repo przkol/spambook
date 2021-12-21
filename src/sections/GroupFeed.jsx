@@ -16,9 +16,9 @@ const mainUserState = useSelector(state =>state.mainUserReducer)
 const groupPosts=props.groupIdToShow==='1'?
         props.groupState.tradePosts
         :props.groupState.footballPosts
+        console.log('group')
 
 const createPostsToRender=()=>{
-    dispatch(SET_SEEN_STATUS(props.groupIdToShow))
     const mappedPosts=groupPosts.map((element,index)=>
         <Post user={element.user}
         joke={element.joke}
@@ -66,6 +66,11 @@ const handleLikeToggle=(e)=>{
 useEffect(()=>{
     createPostsToRender()
 },[props.groupState,props.groupIdToShow])
+
+useEffect(()=>{
+    dispatch(SET_SEEN_STATUS(props.groupIdToShow))
+
+},[props.groupIdToShow])
 
     return(
         <StyledGroupFeed>

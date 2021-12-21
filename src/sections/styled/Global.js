@@ -30,8 +30,11 @@ main{
     padding: 1%;
     height: fit-content;
     min-height: 75vh;
+}
 
-
+.chatWindowContainer{
+    position:fixed;
+    bottom:10px;
 }
 `
 

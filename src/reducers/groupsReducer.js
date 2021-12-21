@@ -29,59 +29,46 @@ const groupsReducer=(
         },
     action)=>{
     const currentState=state
-
-
     switch(action.type){
         case('GET_FOOTBALL_HIGHLIGHT'):
             currentState.footballHighlights=action.highlight
             currentState.footballHighlightsFlag=true
-            // console.log(action.highlight)
-            return currentState
+            return {...state,
+                footballHighlights:action.highlight,
+                footballHighlightsFlag:true}
 
         case('GET_PRODUCTS'):
-            currentState.shopItems=action.products[Math.floor(Math.random()*15)]
-            currentState.shopItemsFlag=true
+  console.log(action)
+
             return {...state,
             shopItems:action.products[Math.floor(Math.random()*15)],
             shopItemsFlag:true
         }
         case('ADD_GROUP_POST'):
+        console.log(action.post)
             if(action.groupId==='1'){
-                tradeGroup.postsNo++
-                const tradeGroupPosts=state.tradePosts
-                tradeGroupPosts.unshift(action.post)
-                if(tradeGroupPosts.length>15){
-                tradeGroupPosts.pop()
-                }
                 return {...state,
                     groups:[tradeGroup,footballGroup],
-                    tradePosts: tradeGroupPosts,
+                    tradePosts: [action.post,...state.tradePosts],
                     }
                 } else if(action.groupId==='2'){
-                footballGroup.postsNo++
-                    const footballGroupPosts=state.footballPosts
-                footballGroupPosts.unshift(action.post)
-                if(footballGroupPosts.length>15){
-                    footballGroupPosts.pop()
-                    }
                 return {...state,
                     groups:[tradeGroup,footballGroup],
-                    footballPosts: footballGroupPosts}
+                    footballPosts: [action.post,...state.footballPosts],
+                }
                 } 
             else return state
         case('SET_SEEN_STATUS'):
-        console.log(action.groupId, typeof(action.groupId))
-
             if(action.groupId==='1'){
-                currentState.tradePosts.forEach((element,index)=>{
-                    currentState.tradePosts[index].seenByUser=true
-                })}
+                return{...state,
+                    tradePosts: state.tradePosts.map((element)=>{return {...element, seenByUser:true}}),               
+                }
+            }
             if(action.groupId==='2'){
-                currentState.footballPosts.forEach((element,index)=>{
-                    currentState.footballPosts[index].seenByUser=true
-                })
+                return{...state,
+                    footballPosts: state.footballPosts.map((element)=>{return {...element, seenByUser:true}}),               
+                }
              }
-             console.log(currentState)
             return currentState
 
                 
