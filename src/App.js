@@ -17,10 +17,11 @@ import Groups from './sections/Groups';
 import GroupFeed from './sections/GroupFeed';
 import { useLocation } from "react-router";
 import { fetchFootballHighlight, fetchProducts, ADD_GROUP_POST } from './reducers/actions/groupsActions';
-import { CREATE_NEW_CHAT } from "./reducers/actions/chatActions"
+import { CREATE_NEW_CHAT,ADD_MESSAGE_TO_CHAT } from "./reducers/actions/chatActions"
 import { useState } from 'react';
 import { ChatWindow } from "./components/ChatWindow"
 import { GroupHeader } from './components/GroupHeader';
+import { ChatWindowsContainer } from './sections/ChatWindowsContainer';
 
 
 function App(props) {
@@ -29,22 +30,25 @@ function App(props) {
   const jokeReactions=['ROFL','hahahaha','lool','man, just stop..', 'xDD','Sigh..','Man, how do you come up with those?', `haha, classic you!` ]
   const tradeReactions=["Daaamn, looks great. Wish I had the money..",`I'm interested - priv`, 'DM me later', 'Can you go any lower?']
   const footballReactions=['I watched it, it was painful...', `'Nic sie nie stało' as they say in polish`, 'Amazing!', 'At this point they should just disband the whole league..', 'Tough game, but satisfying to watch' ]
+  const friendMessages=['Hey dude! How are ya?', `How's everything?`,`Are you going to the game tomorrow?`,`Happy birthday!(sorry that I'm so late)`,`We should catch up! Are you down for some beers tonight?`]
+  const friendsResponses=['Cool','Whatever..', `Please don't message me`, `That's awesome!`, `That's good to hear! I'm fine too!`,`Currently I'm AFK, please leave your  message after the <beep>`]
   const mainUserState = useSelector(state =>state.mainUserReducer)
+  let mainFootballState = useSelector(state =>state.groupsReducer.footballHighlights)
   const location=useLocation()
   const [openChats,setOpenChats]=useState([])
   const [prevTradePost,setPrevTradePost]=useState()
   const [prevFootballPost,setPrevFootballPost]=useState({title:``})
 
   const contentPicker=()=>{
-  const randomizer=Math.floor(Math.random()*20)
-  const randomizer2=Math.floor(Math.random()*20)
+    const randomizer=Math.floor(Math.random()*20)
+    const randomizer2=Math.floor(Math.random()*20)
     if(randomizer<10){ 
       dispatch(fetchJoke)}
     else if(randomizer>=10){ 
       dispatch(fetchPhoto)}
     if(randomizer2<10){
       dispatch(fetchProducts)}
-    else if(randomizer2>=10){ 
+    else if(randomizer2>=10){
       dispatch(fetchFootballHighlight)}
   }
 
@@ -53,7 +57,7 @@ function App(props) {
     for(let i=0;i<10;i++){
         const randomNumber=Math.floor(Math.random()*10)
         if(randomNumber<=5){
-          const newComment={person:props.friends[Math.floor(Math.random()*20)],comment:''}
+          const newComment={person:props.friends.usersList[Math.floor(Math.random()*20)],comment:''}
 
           switch(type){
             case('photo'):
@@ -79,7 +83,7 @@ function App(props) {
       let newPost={}
       switch(type){
         case('photo'):
-          newPost={user:props.friends[Math.floor(Math.random()*20)],
+          newPost={user:props.friends.usersList[Math.floor(Math.random()*20)],
             photo:props.photos,
             comments:comments,
             text:'OMG, check this cat out!',
@@ -91,7 +95,7 @@ function App(props) {
 
           break;              
         case('joke'):
-          newPost={user:props.friends[Math.floor(Math.random()*20)],
+          newPost={user:props.friends.usersList[Math.floor(Math.random()*20)],
             photo:null,
             comments:comments,
             text:props.jokes,
@@ -102,7 +106,7 @@ function App(props) {
             dispatch(ADD_POST(newPost))
           break;
         case('football'):
-          newPost={user:props.friends[Math.floor(Math.random()*20)],
+          newPost={user:props.friends.usersList[Math.floor(Math.random()*20)],
             photo:props.footballHighlights.thumbnail,
             comments:comments,
             matchviewUrl: props.footballHighlights.matchviewUrl,
@@ -115,7 +119,7 @@ function App(props) {
             dispatch(ADD_GROUP_POST(newPost,'2'))
           break;
         case('trade'):
-          newPost={user:props.friends[Math.floor(Math.random()*20)],
+          newPost={user:props.friends.usersList[Math.floor(Math.random()*20)],
             photo:props.shop.image,
             comments:comments,
             text:`[${props.shop.category}] #WTT #WTS Any offers for this ${props.shop.title}? Can sell it for $${props.shop.price}`,
@@ -130,88 +134,97 @@ function App(props) {
         }
   }
 
-  const openChatWindow=(friendsName)=>{
-    console.log(friendsName)
+  const generateRandomChatAction=()=>{
+    const randomizer=Math.floor(Math.random()*20)
+    if(randomizer<10){ 
+      // const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
+      // openChatWindow(randomFriend.name.first+' '+randomFriend.name.last)
+  }
+}
 
+
+  const openChatWindow= function (friendsName){
+    let currentChats=openChats
     const chatAlreadyOpenIndex=openChats.findIndex(chatName=>chatName===friendsName)
-    const chatPreviouslyCreated=props.chats.findIndex(chatName=>chatName===friendsName)
-    console.log(chatAlreadyOpenIndex)
-
-    const currentChats=openChats
-        if(chatAlreadyOpenIndex===-1){
-          if(chatPreviouslyCreated===-1){
-            console.log('tworze czat')
+    const chatPreviouslyCreated=props.chats.findIndex(chat=>chat.friend===friendsName)
+    if(chatAlreadyOpenIndex===-1){
+        if(chatPreviouslyCreated===-1){
             dispatch(CREATE_NEW_CHAT(friendsName))
-            currentChats.push(friendsName)
-            }else if(chatPreviouslyCreated===-1){
-            console.log('otwieram ponownie czat')
-            currentChats.push(friendsName)
-            }
-          } else if(chatAlreadyOpenIndex!==-1){
-            console.log('mam juz taki czat')
-            }
-        if(openChats.length>3){
-            currentChats.shift()
-            }
-
-    setOpenChats(currentChats)
-    console.log(openChats)
+        } 
+        if(currentChats.length>=3){
+          currentChats.pop()}
+          currentChats.unshift(friendsName)
+    } 
+    setOpenChats([...currentChats])
 }
   const closeChatWindow=(friendsName)=>{
-      setOpenChats(openChats.filter(chat=>chat!==friendsName))
-      console.log(openChats)
-
+      setOpenChats(previousOpenChats=>{return previousOpenChats.filter(chat=>chat!==friendsName)})
   }
 
-const chatWindowsToShow=openChats.map((element,index)=>{
-  console.log(props.chats)
-    const chatIndex= props.chats.findIndex(chat=>chat.friend===element)
-    return <ChatWindow chat={props.chats[chatIndex]} key={index} closeChat={closeChatWindow} />
-})
+
 
 
 useEffect(()=>{
   contentPicker()
-  // const contentPickerInterval = setInterval(() => {contentPicker()
-  // }, 5000);
-  // return () => {
-  //   clearTimeout(contentPickerInterval);
-  // };
+  const contentPickerInterval = setInterval(() => {contentPicker()
+  }, 10000);
+  return () => {
+    clearTimeout(contentPickerInterval);
+  }
 },[])
 
 useEffect(()=>{
-  if(props.photos&&props.friends[0]){
+  const randomChatActionInterval = setInterval(() => {generateRandomChatAction()
+  }, 4000);
+  return () => {
+    clearTimeout(randomChatActionInterval);
+  }
+},[])
+
+useEffect(()=>{
+  const propsloger = setInterval(() => {console.log(props)
+  }, 1000);
+  return () => {
+    clearTimeout(propsloger);
+  }
+},[])
+
+
+
+
+
+
+useEffect(()=>{
+  if(props.photos&&props.friends.usersListLoadedFlag){
   generateContent('photo')}
 },[props.photos,props.friends])
 
+
 useEffect(()=>{
-  if(props.jokes&&props.friends[0]){
+  if(props.jokes&&props.friends.usersListLoadedFlag){
   generateContent('joke')
   }
 },[props.jokes,props.friends])
 
+
 useEffect(()=>{
-  console.log(props.shop)
-  if(props.shop?.title&&props.friends[0]){
+  if(props.shop?.title&&props.friends.usersListLoadedFlag){
   generateContent('trade')
   }
 },[props.shop?.title,props.friends])
 
 useEffect(()=>{
-  if(props.groups.footballHighlightsFlag&&props.friends[0]&&prevFootballPost?.title!==props.footballHighlights?.title){
+  if(props.groups.footballHighlightsFlag&&props.friends.usersListLoadedFlag&&prevFootballPost?.title!==props.footballHighlights?.title){
     setPrevFootballPost({title:props.footballHighlights.title})
   generateContent('football')
+
   }
-},[props.groups.footballHighlightsFlag,props.friends])
-
-
-
+},[props.groups.footballHighlights,props.friends])
 
   return (
 <>
   <GlobalStyles/>
   <Header/>
-
   <main>
     <SideNav />
     <section className='wrapper'>
@@ -222,16 +235,15 @@ useEffect(()=>{
   <Route  path='/groups/*' element={<><GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} groupState={props.groups}/> <PostInput mainUser={mainUserState.userInfo}target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/><GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
   </Routes>
     </section>
-    <SideChat openChats={openChats} openChatWindow={openChatWindow}/>
+    <SideChat openChatWindow={openChatWindow}/>
+    <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
   </main>
-    <div className='chatWindowContainer'>
-      {chatWindowsToShow}
-      </div> 
+    
 </>
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
       photos: state.photoReducer.photoToAdd,
       jokes: state.jokeReducer,
@@ -240,9 +252,7 @@ const mapStateToProps = (state, ownProps) => {
       footballHighlights: state.groupsReducer.footballHighlights,
       groups:state.groupsReducer,
       chats:state.chatReducer
-
   };
 }
-
 
 export default connect(mapStateToProps)(App);

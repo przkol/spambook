@@ -32,10 +32,6 @@ main{
     min-height: 75vh;
 }
 
-.chatWindowContainer{
-    position:fixed;
-    bottom:10px;
-}
 `
 
 export default GlobalStyles
