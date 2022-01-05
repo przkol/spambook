@@ -135,15 +135,18 @@ function App(props) {
   }
 
   const generateRandomChatAction=()=>{
+    console.log(props)
     const randomizer=Math.floor(Math.random()*20)
     if(randomizer<10){ 
-      // const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
-      // openChatWindow(randomFriend.name.first+' '+randomFriend.name.last)
+      const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
+      openChatWindow(randomFriend.name.first+' '+randomFriend.name.last)
   }
 }
 
 
   const openChatWindow= function (friendsName){
+    console.log(props)
+
     let currentChats=openChats
     const chatAlreadyOpenIndex=openChats.findIndex(chatName=>chatName===friendsName)
     const chatPreviouslyCreated=props.chats.findIndex(chat=>chat.friend===friendsName)
@@ -174,21 +177,12 @@ useEffect(()=>{
 },[])
 
 useEffect(()=>{
-  const randomChatActionInterval = setInterval(() => {generateRandomChatAction()
+  const randomChatActionInterval = setInterval(() => {generateRandomChatAction(); console.log(props)
   }, 4000);
   return () => {
     clearTimeout(randomChatActionInterval);
   }
-},[])
-
-useEffect(()=>{
-  const propsloger = setInterval(() => {console.log(props)
-  }, 1000);
-  return () => {
-    clearTimeout(propsloger);
-  }
-},[])
-
+},[props])
 
 
 

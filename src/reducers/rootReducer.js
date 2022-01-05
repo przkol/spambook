@@ -15,7 +15,7 @@ const rootReducer= combineReducers({
     photoReducer,
     postReducer,
     groupsReducer,
-    // chatReducer
+    chatReducer
 })
 
 export default rootReducer
