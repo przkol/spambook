@@ -10,18 +10,15 @@ const postReducer=(state={
     switch(action.type){
         case('ADD_POST'):
             currentPosts.unshift(post)
-            state={loaded:true,
-            posts:currentPosts}            
+            if(currentPosts.length>=15) 
+                {currentPosts.pop()}
+            state={...state,
+                loaded:true,
+                posts:currentPosts}            
             return state
 
         case('LIKE_POST'):
             currentPosts[action.index]=action.postToLike
-            state={loaded:true,
-            posts:currentPosts}
-            return state
-
-        case('SHOW_POST_COMMENTS'):
-            currentPosts[action.index]=action.postToEnable
             state={loaded:true,
             posts:currentPosts}
             return state

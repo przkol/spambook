@@ -11,15 +11,13 @@ import { useDispatch,useSelector } from "react-redux"
 import { fetchJoke } from "./reducers/actions/jokeActions"
 import { ADD_POST } from './reducers/actions/postActions';
 import { PostInput } from './components/PostInput';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Groups from './sections/Groups';
 import GroupFeed from './sections/GroupFeed';
 import { useLocation } from "react-router";
 import { fetchFootballHighlight, fetchProducts, ADD_GROUP_POST } from './reducers/actions/groupsActions';
-import { CREATE_NEW_CHAT,ADD_MESSAGE_TO_CHAT } from "./reducers/actions/chatActions"
-import { useState } from 'react';
-import { ChatWindow } from "./components/ChatWindow"
+import { CREATE_NEW_CHAT, } from "./reducers/actions/chatActions"
 import { GroupHeader } from './components/GroupHeader';
 import { ChatWindowsContainer } from './sections/ChatWindowsContainer';
 
@@ -33,24 +31,11 @@ function App(props) {
   const friendMessages=['Hey dude! How are ya?', `How's everything?`,`Are you going to the game tomorrow?`,`Happy birthday!(sorry that I'm so late)`,`We should catch up! Are you down for some beers tonight?`]
   const friendsResponses=['Cool','Whatever..', `Please don't message me`, `That's awesome!`, `That's good to hear! I'm fine too!`,`Currently I'm AFK, please leave your  message after the <beep>`]
   const mainUserState = useSelector(state =>state.mainUserReducer)
-  let mainFootballState = useSelector(state =>state.groupsReducer.footballHighlights)
   const location=useLocation()
   const [openChats,setOpenChats]=useState([])
   const [prevTradePost,setPrevTradePost]=useState()
   const [prevFootballPost,setPrevFootballPost]=useState({title:``})
 
-  const contentPicker=()=>{
-    const randomizer=Math.floor(Math.random()*20)
-    const randomizer2=Math.floor(Math.random()*20)
-    if(randomizer<10){ 
-      dispatch(fetchJoke)}
-    else if(randomizer>=10){ 
-      dispatch(fetchPhoto)}
-    if(randomizer2<10){
-      dispatch(fetchProducts)}
-    else if(randomizer2>=10){
-      dispatch(fetchFootballHighlight)}
-  }
 
   const generateContent=(type)=>{
     const comments=[]
@@ -133,19 +118,7 @@ function App(props) {
         default: console.log(type)  
         }
   }
-
-  const generateRandomChatAction=()=>{
-    console.log(props)
-    const randomizer=Math.floor(Math.random()*20)
-    if(randomizer<10){ 
-      const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
-      openChatWindow(randomFriend.name.first+' '+randomFriend.name.last)
-  }
-}
-
-
   const openChatWindow= function (friendsName){
-    console.log(props)
 
     let currentChats=openChats
     const chatAlreadyOpenIndex=openChats.findIndex(chatName=>chatName===friendsName)
@@ -168,6 +141,19 @@ function App(props) {
 
 
 useEffect(()=>{
+  
+  const contentPicker=()=>{
+    const randomizer=Math.floor(Math.random()*20)
+    const randomizer2=Math.floor(Math.random()*20)
+    if(randomizer<10){ 
+      dispatch(fetchJoke)}
+    else if(randomizer>=10){ 
+      dispatch(fetchPhoto)}
+    if(randomizer2<10){
+      dispatch(fetchProducts)}
+    else if(randomizer2>=10){
+      dispatch(fetchFootballHighlight)}
+  }
   contentPicker()
   const contentPickerInterval = setInterval(() => {contentPicker()
   }, 10000);
@@ -176,9 +162,15 @@ useEffect(()=>{
   }
 },[])
 
-useEffect(()=>{
-  const randomChatActionInterval = setInterval(() => {generateRandomChatAction(); console.log(props)
-  }, 4000);
+useEffect(()=>{  
+  const generateRandomChatAction=()=>{
+  const randomizer=Math.floor(Math.random()*20)
+  if(randomizer<10){ 
+    const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
+    openChatWindow(randomFriend.name.first+' '+randomFriend.name.last)
+}
+}
+  const randomChatActionInterval = setInterval(() => {generateRandomChatAction()}, 4000);
   return () => {
     clearTimeout(randomChatActionInterval);
   }
