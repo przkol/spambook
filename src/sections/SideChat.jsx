@@ -7,14 +7,13 @@ import { connect } from "react-redux"
 
 
 const SideChat=(props)=>{
-    const {openChats,openChatWindow}=props
-    const [usersList,setUsersList] = useState([])
+    const {openChatWindow}=props
     const usersListState = useSelector(state =>state.friendsReducer)
     const dispatch=useDispatch()
         
 
 
-    const usersListToShow=usersList.map((element,index)=>
+    const usersListToShow=usersListState.usersList.map((element,index)=>
     <FriendElement
     key={index}
     friendName={element.name.first+' '+element.name.last}
@@ -25,17 +24,11 @@ const SideChat=(props)=>{
         dispatch(fetchFriendsList)
         },[dispatch])
     
-    useEffect(()=>{
-        setUsersList(usersListState)
-    },[usersListState])
-
-    
 
     return(
         <StyledSideChat>
         <div className='friendsList'>
         <h3> Online friends</h3>
-
         {usersListToShow}
         </div>
         </StyledSideChat>

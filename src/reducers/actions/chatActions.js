@@ -1,6 +1,6 @@
-export const OPEN_CHAT=(targetFriend)=>{
+export const SET_MESSAGES_SEEN=(targetFriend)=>{
     return {
-        type:'OPEN_CHAT',
+        type:'SET_MESSAGES_SEEN',
         targetFriend    
     }}
 

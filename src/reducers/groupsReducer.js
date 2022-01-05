@@ -23,7 +23,7 @@ const footballGroup={
 const groupsReducer=(
     state={groups:[tradeGroup,footballGroup],
         shopItems:[],
-        footballHighlights:null,
+        footballHighlights:{},
         footballPosts:[],
         tradePosts:[]
         },
@@ -31,30 +31,36 @@ const groupsReducer=(
     const currentState=state
     switch(action.type){
         case('GET_FOOTBALL_HIGHLIGHT'):
-            currentState.footballHighlights=action.highlight
+            const footballHighlights=action.highlight
             currentState.footballHighlightsFlag=true
             return {...state,
-                footballHighlights:action.highlight,
+                footballHighlights,
                 footballHighlightsFlag:true}
 
         case('GET_PRODUCTS'):
-  console.log(action)
-
+                const shopItems=action.products[Math.floor(Math.random()*15)]
             return {...state,
-            shopItems:action.products[Math.floor(Math.random()*15)],
+            shopItems,
             shopItemsFlag:true
         }
         case('ADD_GROUP_POST'):
-        console.log(action.post)
+
             if(action.groupId==='1'){
+                const tradePosts=[...state.tradePosts]
+                if(tradePosts.length>=15){
+                    tradePosts.pop()
+                }
                 return {...state,
                     groups:[tradeGroup,footballGroup],
-                    tradePosts: [action.post,...state.tradePosts],
+                    tradePosts: [action.post,...tradePosts],
                     }
                 } else if(action.groupId==='2'){
+                    const footballPosts=[...state.footballPosts]
+                if(footballPosts.length>=15){
+                    footballPosts.pop()}
                 return {...state,
                     groups:[tradeGroup,footballGroup],
-                    footballPosts: [action.post,...state.footballPosts],
+                    footballPosts: [action.post,...footballPosts],
                 }
                 } 
             else return state
