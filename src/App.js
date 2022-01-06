@@ -17,9 +17,10 @@ import Groups from './sections/Groups';
 import GroupFeed from './sections/GroupFeed';
 import { useLocation } from "react-router";
 import { fetchFootballHighlight, fetchProducts, ADD_GROUP_POST } from './reducers/actions/groupsActions';
-import { CREATE_NEW_CHAT, } from "./reducers/actions/chatActions"
+import { ADD_MESSAGE_TO_CHAT, CREATE_NEW_CHAT, } from "./reducers/actions/chatActions"
 import { GroupHeader } from './components/GroupHeader';
 import { ChatWindowsContainer } from './sections/ChatWindowsContainer';
+import { useCallback } from 'react';
 
 
 function App(props) {
@@ -118,13 +119,43 @@ function App(props) {
         default: console.log(type)  
         }
   }
-  const openChatWindow= function (friendsName){
 
+
+const checkChatStatus=useCallback((friendsName)=>{
+  const chatAlreadyOpen=openChats.includes(friendsName)
+  const chatAlreadyInState=props.chats.some(chat=>chat.friend===friendsName)
+
+  return ({chatAlreadyOpen,chatAlreadyInState})
+},[openChats, props.chats])
+
+
+  const generateRandomChatAction=()=>{
+    const randomizer=Math.floor(Math.random()*20)
+      if(randomizer<10){ 
+        const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
+        const randomFriendName=randomFriend.name.first+' '+randomFriend.name.last
+        const chatStatus=openChatWindow(randomFriendName)
+        console.log(chatStatus)
+        if(chatStatus.chatAlreadyInState){
+        const targetChat=props.chats.find(chat=>chat.friend===randomFriendName)
+        if(targetChat.lastMsgFlag==='user'){
+        const randomMessage= friendsResponses[Math.floor(Math.random()*(friendsResponses.length-1))]
+          dispatch(ADD_MESSAGE_TO_CHAT(randomFriendName,'friend',randomMessage))
+        }
+          } else if(!chatStatus.chatAlreadyInState){   
+        const randomMessage= friendMessages[Math.floor(Math.random()*(friendMessages.length-1))]
+          dispatch(ADD_MESSAGE_TO_CHAT(randomFriendName,'friend',randomMessage ))
+        }
+        }
+    }
+
+
+
+  const openChatWindow= function (friendsName){
     let currentChats=openChats
-    const chatAlreadyOpenIndex=openChats.findIndex(chatName=>chatName===friendsName)
-    const chatPreviouslyCreated=props.chats.findIndex(chat=>chat.friend===friendsName)
-    if(chatAlreadyOpenIndex===-1){
-        if(chatPreviouslyCreated===-1){
+    const check=checkChatStatus(friendsName)
+    if(!check.chatAlreadyOpen){
+        if(!check.chatAlreadyInState){
             dispatch(CREATE_NEW_CHAT(friendsName))
         } 
         if(currentChats.length>=3){
@@ -132,6 +163,7 @@ function App(props) {
           currentChats.unshift(friendsName)
     } 
     setOpenChats([...currentChats])
+      return(check)
 }
   const closeChatWindow=(friendsName)=>{
       setOpenChats(previousOpenChats=>{return previousOpenChats.filter(chat=>chat!==friendsName)})
@@ -141,7 +173,6 @@ function App(props) {
 
 
 useEffect(()=>{
-  
   const contentPicker=()=>{
     const randomizer=Math.floor(Math.random()*20)
     const randomizer2=Math.floor(Math.random()*20)
@@ -163,13 +194,6 @@ useEffect(()=>{
 },[])
 
 useEffect(()=>{  
-  const generateRandomChatAction=()=>{
-  const randomizer=Math.floor(Math.random()*20)
-  if(randomizer<10){ 
-    const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
-    openChatWindow(randomFriend.name.first+' '+randomFriend.name.last)
-}
-}
   const randomChatActionInterval = setInterval(() => {generateRandomChatAction()}, 4000);
   return () => {
     clearTimeout(randomChatActionInterval);
