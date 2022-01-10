@@ -11,7 +11,7 @@ import { useDispatch,useSelector } from "react-redux"
 import { fetchJoke } from "./reducers/actions/jokeActions"
 import { ADD_POST } from './reducers/actions/postActions';
 import { PostInput } from './components/PostInput';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,createContext } from 'react';
 import { connect } from 'react-redux';
 import Groups from './sections/Groups';
 import GroupFeed from './sections/GroupFeed';
@@ -21,6 +21,8 @@ import { ADD_MESSAGE_TO_CHAT, CREATE_NEW_CHAT, } from "./reducers/actions/chatAc
 import { GroupHeader } from './components/GroupHeader';
 import { ChatWindowsContainer } from './sections/ChatWindowsContainer';
 import { useCallback } from 'react';
+
+export const imgHandlerContext=createContext(null)
 
 
 function App(props) {
@@ -34,9 +36,13 @@ function App(props) {
   const mainUserState = useSelector(state =>state.mainUserReducer)
   const location=useLocation()
   const [openChats,setOpenChats]=useState([])
+  const [imgToShow,setImgToShow]=useState(false)
   const [prevTradePost,setPrevTradePost]=useState()
   const [prevFootballPost,setPrevFootballPost]=useState({title:``})
 
+  const handleImgPopup=(imgSrc)=>{
+    setImgToShow(imgSrc)
+  }
 
   const generateContent=(type)=>{
     const comments=[]
@@ -120,14 +126,11 @@ function App(props) {
         }
   }
 
-
 const checkChatStatus=useCallback((friendsName)=>{
   const chatAlreadyOpen=openChats.includes(friendsName)
   const chatAlreadyInState=props.chats.some(chat=>chat.friend===friendsName)
-
   return ({chatAlreadyOpen,chatAlreadyInState})
 },[openChats, props.chats])
-
 
   const generateRandomChatAction=()=>{
     const randomizer=Math.floor(Math.random()*20)
@@ -149,8 +152,6 @@ const checkChatStatus=useCallback((friendsName)=>{
         }
     }
 
-
-
   const openChatWindow= function (friendsName){
     let currentChats=openChats
     const check=checkChatStatus(friendsName)
@@ -168,9 +169,6 @@ const checkChatStatus=useCallback((friendsName)=>{
   const closeChatWindow=(friendsName)=>{
       setOpenChats(previousOpenChats=>{return previousOpenChats.filter(chat=>chat!==friendsName)})
   }
-
-
-
 
 useEffect(()=>{
   const contentPicker=()=>{
@@ -200,22 +198,16 @@ useEffect(()=>{
   }
 },[props])
 
-
-
-
-
 useEffect(()=>{
   if(props.photos&&props.friends.usersListLoadedFlag){
   generateContent('photo')}
 },[props.photos,props.friends])
-
 
 useEffect(()=>{
   if(props.jokes&&props.friends.usersListLoadedFlag){
   generateContent('joke')
   }
 },[props.jokes,props.friends])
-
 
 useEffect(()=>{
   if(props.shop?.title&&props.friends.usersListLoadedFlag){
@@ -233,6 +225,8 @@ useEffect(()=>{
 
   return (
 <>
+<imgHandlerContext.Provider value={handleImgPopup}>
+
   <GlobalStyles/>
   <Header/>
   <main>
@@ -248,6 +242,7 @@ useEffect(()=>{
     <SideChat openChatWindow={openChatWindow}/>
     <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
   </main>
+  </imgHandlerContext.Provider>
     
 </>
   );

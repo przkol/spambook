@@ -41,6 +41,9 @@ export const StyledPost = styled.div`
         max-height: 200px;
         margin: 5px auto;
     }
+    .postedPhoto:hover{
+        cursor: pointer;
+    }
 
     .reactions{
         display: flex;
@@ -116,5 +119,7 @@ export const StyledPost = styled.div`
     }
 
    
+
+
 `
 
