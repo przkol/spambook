@@ -21,6 +21,7 @@ import { ADD_MESSAGE_TO_CHAT, CREATE_NEW_CHAT, } from "./reducers/actions/chatAc
 import { GroupHeader } from './components/GroupHeader';
 import { ChatWindowsContainer } from './sections/ChatWindowsContainer';
 import { useCallback } from 'react';
+import { FullImageContainer } from './components/FullImageContainer';
 
 export const imgHandlerContext=createContext(null)
 
@@ -42,7 +43,14 @@ function App(props) {
 
   const handleImgPopup=(imgSrc)=>{
     setImgToShow(imgSrc)
-  }
+    const body=document.querySelector('body')      
+    if(imgSrc){
+    body.classList.add('no-scroll')
+    }else{
+    body.classList.remove('no-scroll')
+    }
+
+  } 
 
   const generateContent=(type)=>{
     const comments=[]
@@ -138,7 +146,6 @@ const checkChatStatus=useCallback((friendsName)=>{
         const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
         const randomFriendName=randomFriend.name.first+' '+randomFriend.name.last
         const chatStatus=openChatWindow(randomFriendName)
-        console.log(chatStatus)
         if(chatStatus.chatAlreadyInState){
         const targetChat=props.chats.find(chat=>chat.friend===randomFriendName)
         if(targetChat.lastMsgFlag==='user'){
@@ -160,8 +167,8 @@ const checkChatStatus=useCallback((friendsName)=>{
             dispatch(CREATE_NEW_CHAT(friendsName))
         } 
         if(currentChats.length>=3){
-          currentChats.pop()}
-          currentChats.unshift(friendsName)
+          currentChats.splice(0,1)}
+          currentChats.push(friendsName)
     } 
     setOpenChats([...currentChats])
       return(check)
@@ -226,7 +233,6 @@ useEffect(()=>{
   return (
 <>
 <imgHandlerContext.Provider value={handleImgPopup}>
-
   <GlobalStyles/>
   <Header/>
   <main>
@@ -242,6 +248,7 @@ useEffect(()=>{
     <SideChat openChatWindow={openChatWindow}/>
     <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
   </main>
+  {imgToShow?<FullImageContainer src={imgToShow}/>:null}
   </imgHandlerContext.Provider>
     
 </>

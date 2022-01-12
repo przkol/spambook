@@ -2,18 +2,39 @@ import styled from "styled-components";
 
 
 export const StyledChatWindow=styled.div`
+    align-self:end;
+.chatWindowOpened{
 background-color:grey;
-width:270px;
-height: 400px;
+width:250px;
+height: 350px;
 margin:0 5px;
 display:flex;
-flex-direction:column;
+flex-direction:column;}
+
+.chatWindowBubble .messages,
+.chatWindowBubble .messageInput,
+.chatWindowBubble .buttons{
+    display:none;
+}
+
+div.chatWindowBubble{
+    color:red;
+    width:180px;
+    margin:0 5px;
+}
+div.chatWindowBubble:hover,
+button:hover{
+    cursor:pointer;
+}
 
 .windowHeader{
 background-color: darkgrey;
 display:flex;
 justify-content:space-between;
 padding: 3px;
+}
+.windowHeader h3{
+    flex-grow:1
 }
 .windowHeader button{
     width: 20px;

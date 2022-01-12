@@ -31,6 +31,9 @@ main{
     height: fit-content;
     min-height: 75vh;
 }
+.no-scroll{
+    overflow: hidden;
+}
 
 `
 
