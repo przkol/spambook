@@ -4,7 +4,6 @@ import  styled  from 'styled-components';
 export const StyledFriendElement = styled.div`
 
 display: flex;
-justify-content: safe;
 width: 100%;
 height: 35px;
 margin: 2px 0;
@@ -18,7 +17,7 @@ padding: 2px 0;
     font-weight:600;
 }
 p{
-color:whitesmoke;
+color:${({theme})=>theme.colors.darkFont};
 margin: auto 0;
 flex-grow: 1;
 }

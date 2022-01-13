@@ -6,6 +6,7 @@ display: flex;
 justify-content:space-between;
 align-items:center;
 width: 100%;
+
 a{
     display: block;
     text-decoration: none;
@@ -17,6 +18,7 @@ a{
     transition: .2s;
     white-space: nowrap;
     overflow:hidden;
+    color:${({theme})=>theme.colors.darkFont};
     text-overflow:ellipsis
 }
 a:hover{

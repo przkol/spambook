@@ -5,15 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { globalTheme } from './sections/styled/GlobalTheme';
 
 import store from './stores/store'
 
 ReactDOM.render(
   <React.StrictMode>
 <BrowserRouter basename="/spambook">
+  <ThemeProvider theme={globalTheme}>
         <Provider store = {store}>    
          <App />
         </Provider>
+        </ThemeProvider>
         </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

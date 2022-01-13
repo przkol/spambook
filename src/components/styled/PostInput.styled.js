@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 
 export const StyledPostInput = styled.div`
-
+    color:${({theme})=>theme.colors.darkFont};
     width: 100%;
-    border: 2px solid #7960E6;
+    background-color:${({theme})=>theme.colors.bgcFeed};
     border-radius: 10px;
     margin-bottom: 10px;
 
@@ -49,7 +49,8 @@ export const StyledPostInput = styled.div`
     }
     .inputContainer button,
     label{
-        background-color: #7960E6;
+        background-color:${({theme})=>theme.colors.bgcLightBlue};
+        color:${({theme})=>theme.colors.darkFont};
         border: none;
         padding: 2px 5px ;
         cursor: pointer;

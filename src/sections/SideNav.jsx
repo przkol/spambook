@@ -7,10 +7,10 @@ const SideNav=(props)=>{
 
 return(
     <StyledSideNav>
-        <NavLink  to={'/'} >Main page</NavLink>
-        <NavLink  to={'/user'} >User panel</NavLink>
+        <NavLink  className='groupLink'to={'/'} >Main page</NavLink>
+        <NavLink className='groupLink' to={'/user'} >User panel</NavLink>
         <div className="groupLinkContainer">
-            <NavLink  to={'/groups'} >Groups</NavLink>
+            <NavLink className='groupLink' to={'/groups'} >Groups</NavLink>
             <GroupBar groupPath={`/groups/`+props.groups.groups[0].groupID} 
                 groupName={props.groups.groups[0].groupName}
                 postsNum={props.unseenTradePostsCounter} />
@@ -19,7 +19,7 @@ return(
                 postsNum={props.unseenFootballPostsCounter} />
 
         </div>
-        <NavLink  to={'/events'} >Events</NavLink>
+        <NavLink className='groupLink'  to={'/events'} >Events</NavLink>
 
 
 

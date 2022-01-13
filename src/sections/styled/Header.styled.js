@@ -4,8 +4,11 @@ export const StyledHeader = styled.header`
 display:flex;
 justify-content: space-between;
 margin: 0 auto;
-background-color:#7960E6;
+background-color:${({theme})=>theme.colors.bgcHeader};
 width: 100%;
+box-shadow: 0 3px 3px ${({theme})=>theme.colors.bgcHeader};
+margin-bottom:5px;
+color:white;
 
 h1{
     padding: 0 5px;

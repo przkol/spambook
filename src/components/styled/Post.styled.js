@@ -2,9 +2,12 @@ import styled from "styled-components";
 
 export const StyledPost = styled.div`
     width: 100%;
-    border: 2px solid #7960E6;
     border-radius: 10px;
-
+    color:${({theme})=>theme.colors.darkFont};
+    margin-bottom:15px;
+    overflow: hidden;
+    background-color:${({theme})=>theme.colors.bgcFeed};
+    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcMidBlue};
     div.invisible{
         display: none;
     }
@@ -14,7 +17,8 @@ export const StyledPost = styled.div`
         width: 100%;
         height: 50px;
         padding: 5px;
-        border-bottom: 1px solid #7960E6;
+        border-bottom-left-radius:10px;
+        border-bottom: 1px solid ${({theme})=>theme.colors.lightBorder};
     }
     .postHeader>p{
         margin: auto 0 ;
@@ -57,13 +61,15 @@ export const StyledPost = styled.div`
     }
     .actionContainer{
         display: flex;
+        justify-content:space-around;
     }
     .actionContainer>button{
-        width: 50%;
+        width:100px;
         font-size: 16px;
-        flex-grow: .5;
-        background-color: #7960E6;
+        background-color:  ${({theme})=>theme.colors.bgcFeed};
+        color:${({theme})=>theme.colors.darkFont};
         border: none;
+        border-radius:5px;
         padding: 5px 0 ;
         cursor: pointer;
     }
@@ -71,7 +77,7 @@ export const StyledPost = styled.div`
     .actionContainer>button:hover,
     .actionContainer>button.liked{
         font-weight:600;
-        background-color: #7930E1;
+        background-color: ${({theme})=>theme.colors.bgcMidBlue};
     }
 
     .commentHeader{
@@ -97,23 +103,32 @@ export const StyledPost = styled.div`
         padding: 1px;
     }
     input{
-        background-color:#301561;
+        background-color:  ${({theme})=>theme.colors.bgcLightBlue};
+        color:inherit;
         border: none;
         width: 85%;
         height: 20px;
         margin: 0 2px;
         border-radius: 5px;
-        padding: 2px;
+        padding: 4px;
 
     }
     .inputContainer>button{
-        background-color: #7960E6;
+        background-color:  ${({theme})=>theme.colors.bgcLightBlue};
+        color:inherit;
         border: none;
         padding: 2px 5px ;
-        cursor: pointer;
         border-radius: 5px;
         margin: 0 5px 3px 5px;
+        width:40px;
     }
+    .inputContainer>button:hover{
+        cursor: pointer;
+        font-weight:bold;
+
+    }
+
+    
     a{
         display: block;
     }

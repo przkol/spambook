@@ -2,11 +2,14 @@ import styled from "styled-components";
 
 
 export const StyledSideNav=styled.nav`
-
 width:220px;
-background-color: #593AE0;
 height: fit-content;
+color:red;
 
+.groupLink{
+color:${({theme})=>theme.colors.darkFont};
+
+}
 >a,
 >*>a{
     display: block;

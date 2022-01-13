@@ -7,14 +7,12 @@ const GlobalStyles=createGlobalStyle`
     box-sizing:border-box;
     margin:0;
     padding:0;
-    color:whitesmoke;
     margin-block: 0;
     margin-inline: 0;
 }
 
 body{
-    background-color: #301561;
-    width:1200px;
+    background-color: ${({theme})=>theme.colors.bgcBody};
     margin: 0 auto;
 }
 main{
@@ -25,7 +23,6 @@ main{
     display: flex;
     flex-direction: column;
     width: 50%;
-    background-color: #593AE0;
     border-radius: 10px;
     padding: 1%;
     height: fit-content;
