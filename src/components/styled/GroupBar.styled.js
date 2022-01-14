@@ -6,12 +6,19 @@ display: flex;
 justify-content:space-between;
 align-items:center;
 width: 100%;
+border-radius: 10px;
+
+&:hover{
+    background-color: ${({theme})=>theme.colors.bgcLightBlue};
+    padding-left:10px; 
+}
 
 a{
     display: block;
     text-decoration: none;
+    border-radius: 10px;
     width: 90%;
-    height:100%
+    height:100%;
     font-size: 16px;
     padding: 5px 0px 5px 6px;
     font-weight: 400;
@@ -21,22 +28,17 @@ a{
     color:${({theme})=>theme.colors.darkFont};
     text-overflow:ellipsis
 }
-a:hover{
-    background-color: #593AA0;
-    padding-left:10px;
-}
-
-.selected{
-    color: red;
-}
 
 span{
     background:red;
+    color:white;
     font-size:12px;
+    font-weight:500;
+    font-family:inherit;
     border-radius:50%;
     display: block;
     width: 20px;
-    height: 20px;
+    line-height: 20px;
     text-align:center;
     margin-right:2px;
 }

@@ -28,7 +28,7 @@ const SideChat=(props)=>{
     return(
         <StyledSideChat>
         <div className='friendsList'>
-        <h3> Online friends</h3>
+        <h3> Contacts</h3>
         {usersListToShow}
         </div>
         </StyledSideChat>

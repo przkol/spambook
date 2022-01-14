@@ -12,7 +12,8 @@ padding: 2px 0;
 
 
 &:hover{
-    background-color: #442DAD;
+    background-color: ${({theme})=>theme.colors.bgcLightBlue};
+    padding-left:10px; 
     cursor: pointer;
     font-weight:600;
 }

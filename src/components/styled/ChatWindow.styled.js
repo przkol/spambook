@@ -2,14 +2,17 @@ import styled from "styled-components";
 
 
 export const StyledChatWindow=styled.div`
-    align-self:end;
+align-self:end;
+color:${({theme})=>theme.colors.darkFont};
 .chatWindowOpened{
-background-color:grey;
+background-color:${({theme})=>theme.colors.bgcBody};
 width:250px;
 height: 350px;
 margin:0 5px;
 display:flex;
-flex-direction:column;}
+flex-direction:column;
+box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcLightBlue};
+}
 
 .chatWindowBubble .messages,
 .chatWindowBubble .messageInput,
@@ -18,7 +21,7 @@ flex-direction:column;}
 }
 
 div.chatWindowBubble{
-    color:red;
+    color:${({theme})=>theme.colors.darkFont};
     width:180px;
     margin:0 5px;
 }
@@ -28,7 +31,7 @@ button:hover{
 }
 
 .windowHeader{
-background-color: darkgrey;
+background-color: ${({theme})=>theme.colors.bgcLightBlue};
 display:flex;
 justify-content:space-between;
 padding: 3px;
@@ -64,12 +67,12 @@ overflow-y:scroll;
 }
 
 .friendMsg{
-    background-color: red;
+    background-color: ${({theme})=>theme.colors.bgcLightBlue};
     margin:3px auto 3px 3px;
 }
 
 .userMsg{
-    background-color: royalblue;
+    background-color: ${({theme})=>theme.colors.bgcMidBlue};
     margin:3px 3px 3px auto;
 }
 

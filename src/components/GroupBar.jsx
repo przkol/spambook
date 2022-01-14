@@ -6,12 +6,11 @@ import { StyledGroupBar } from "./styled/GroupBar.styled";
 export const GroupBar=(props)=>{
 
     return(
-    <StyledGroupBar ><NavLink 
-     to={props.groupPath}>
+    <StyledGroupBar >
+        <NavLink to={props.groupPath}>
          {props.groupName}  
-     </NavLink>
+        </NavLink>
       {props.postsNum>0?<span>{props.postsNum}</span>:null}
-     
      </StyledGroupBar>
     )
 

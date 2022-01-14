@@ -7,13 +7,15 @@ export const StyledPostInput = styled.div`
     background-color:${({theme})=>theme.colors.bgcFeed};
     border-radius: 10px;
     margin-bottom: 10px;
+    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcLightBlue};
+
 
     .postHeader{
         display: flex;
         width: 100%;
         height: 50px;
         padding: 5px;
-        border-bottom: 1px solid #7960E6;
+        /* border-bottom: 1px solid ${({theme})=>theme.colors.bgcLightBlue}; */
     }
     .postHeader>p{
         margin: auto 0 ;
@@ -28,6 +30,9 @@ export const StyledPostInput = styled.div`
 
     .inputContainer{
         height: 100%;
+        width: 100%;
+        text-align: center;
+
     }
 
     .inputContainer>img{
@@ -37,10 +42,18 @@ export const StyledPostInput = styled.div`
         display: none;
     }
     .textContent{
-        width: 100%;
+        padding: 3px;
+        border-radius: 10px;
+        border:none;
+        width: 95%;
         resize:none;
         height: 100px;
-        color: black;
+        color: ${({theme})=>theme.colors.darkFont};
+        font-family: inherit;
+        margin: 2px auto 0 auto;
+    }
+    .textContent:hover{
+         background-color:${({theme})=>theme.colors.bgcBody};
     }
 
     .actionButtonContainer{
@@ -49,7 +62,7 @@ export const StyledPostInput = styled.div`
     }
     .inputContainer button,
     label{
-        background-color:${({theme})=>theme.colors.bgcLightBlue};
+        background-color: inherit;
         color:${({theme})=>theme.colors.darkFont};
         border: none;
         padding: 2px 5px ;
@@ -57,6 +70,8 @@ export const StyledPostInput = styled.div`
         border-radius: 5px;
         margin: 0 5px 3px 5px;
         font-size: 16px;
+        font-weight:500;
+        font-family: inherit;
     }
 
 `

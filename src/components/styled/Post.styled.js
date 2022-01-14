@@ -7,7 +7,7 @@ export const StyledPost = styled.div`
     margin-bottom:15px;
     overflow: hidden;
     background-color:${({theme})=>theme.colors.bgcFeed};
-    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcMidBlue};
+    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcLightBlue};
     div.invisible{
         display: none;
     }
@@ -18,7 +18,7 @@ export const StyledPost = styled.div`
         height: 50px;
         padding: 5px;
         border-bottom-left-radius:10px;
-        border-bottom: 1px solid ${({theme})=>theme.colors.lightBorder};
+        border-bottom: 1px solid ${({theme})=>theme.colors.bgcLightBlue};
     }
     .postHeader>p{
         margin: auto 0 ;
@@ -65,13 +65,16 @@ export const StyledPost = styled.div`
     }
     .actionContainer>button{
         width:100px;
-        font-size: 16px;
         background-color:  ${({theme})=>theme.colors.bgcFeed};
         color:${({theme})=>theme.colors.darkFont};
         border: none;
         border-radius:5px;
         padding: 5px 0 ;
         cursor: pointer;
+        font-weight:500;
+        font-size: 16px;
+        font-family: inherit;
+
     }
 
     .actionContainer>button:hover,

@@ -22,6 +22,9 @@ import { GroupHeader } from './components/GroupHeader';
 import { ChatWindowsContainer } from './sections/ChatWindowsContainer';
 import { useCallback } from 'react';
 import { FullImageContainer } from './components/FullImageContainer';
+import { globalLightTheme } from './sections/styled/GlobalTheme';
+import { ThemeProvider } from 'styled-components';
+
 
 export const imgHandlerContext=createContext(null)
 
@@ -233,6 +236,7 @@ useEffect(()=>{
   return (
 <>
 <imgHandlerContext.Provider value={handleImgPopup}>
+<ThemeProvider theme={globalLightTheme}>
   <GlobalStyles/>
   <Header/>
   <main>
@@ -249,6 +253,7 @@ useEffect(()=>{
     <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
   </main>
   {imgToShow?<FullImageContainer src={imgToShow}/>:null}
+  </ThemeProvider>
   </imgHandlerContext.Provider>
     
 </>

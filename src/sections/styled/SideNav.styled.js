@@ -2,14 +2,22 @@ import styled from "styled-components";
 
 
 export const StyledSideNav=styled.nav`
-width:220px;
+width:260px;
 height: fit-content;
-color:red;
+padding-left: 5px;
 
 .groupLink{
 color:${({theme})=>theme.colors.darkFont};
-
+border-radius: 10px;
 }
+
+.groupLink:hover{
+background-color: ${({theme})=>theme.colors.bgcLightBlue};
+}
+.active{
+background-color: ${({theme})=>theme.colors.bgcLightBlue};
+}
+
 >a,
 >*>a{
     display: block;
@@ -21,7 +29,6 @@ color:${({theme})=>theme.colors.darkFont};
     transition: .2s;
 }
 a:hover{
-    background-color: #593AA0;
     padding-left:12px;
 }
 

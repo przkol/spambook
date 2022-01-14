@@ -3,10 +3,12 @@ import styled from "styled-components"
 export const StyledUserInfo=styled.section`
 width: 100%;
 height: fit-content;
-background-color: #593AE0;
+background-color: ${({theme})=>theme.colors.bgcFeed};
 border-radius: 10px;
 margin-top: 10px;
 padding: 10px;
+color:${({theme})=>theme.colors.darkFont};
+box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcLightBlue};
 
 
 .profilePicture{
@@ -20,11 +22,10 @@ img{
 .baseInfo,
 .contactInfo,
 .addressInfo{
-    background-color:#301561;
+    background-color: ${({theme})=>theme.colors.bgcBody};
     padding: 5px;
     margin: 5px 0 ;
     border-radius: 10px;
-
 }
 
 .baseInfo div,
@@ -36,7 +37,7 @@ img{
     width: 90%;
     justify-content: space-between;
     margin: 0 auto;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid ${({theme})=>theme.colors.bgcLightBlue};
 }
 
 .baseInfo div p:nth-of-type(1),
@@ -54,19 +55,29 @@ align-self: center;
 }
 
 button{
-    border: 1px solid grey;
+    border:none;
     padding: 2px 0;
-    background-color: #593AE0;
     margin-bottom: 2px;
     border-radius: 3px;
     height: 20px;
-    width: 40px;
-margin: auto 0 2px 0;
+    width: 50px;
+    margin: auto 0 2px 0;
+    background-color:inherit;
+    color: inherit;
+}
+button:hover{
+    background-color: ${({theme})=>theme.colors.bgcMidBlue};
+    cursor: pointer;
+
 }
 input{
-    background-color: #593AE0;
-    border: none;
+    background-color: ${({theme})=>theme.colors.bgcFeed};
+    border: 1px solid ${({theme})=>theme.colors.bgcLightBlue};
+    border-radius: 3px;
     box-shadow: 0 0 2px  whitesmoke;
+    color:inherit;
+    padding: 2px;
+    width: fit-content;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -75,6 +86,10 @@ input::-webkit-inner-spin-button {
 }
 input[type=number] {
   -moz-appearance: textfield;
+}
+input[type=email] {
+    width: 250px;
+
 }
 
 

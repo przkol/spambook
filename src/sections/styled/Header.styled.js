@@ -14,7 +14,8 @@ h1{
     padding: 0 5px;
 }
 h1:hover{
-    background-color: #442DAD;
+
+    padding-left:10px; 
     cursor: pointer;
 }
 
@@ -35,7 +36,6 @@ img{
 }
 
 div:hover{
-    background-color: #442DAD;
     cursor: pointer;
 }
 
