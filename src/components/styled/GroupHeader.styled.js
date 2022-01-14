@@ -11,5 +11,8 @@ img{
     height:auto;
     width: 100%;
 }
+&:hover{
+    cursor: pointer;
+}
 
 `

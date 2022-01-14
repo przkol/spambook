@@ -22,12 +22,12 @@ import { GroupHeader } from './components/GroupHeader';
 import { ChatWindowsContainer } from './sections/ChatWindowsContainer';
 import { useCallback } from 'react';
 import { FullImageContainer } from './components/FullImageContainer';
-import { globalLightTheme } from './sections/styled/GlobalTheme';
+import { globalLightTheme,globalDarkTheme } from './sections/styled/GlobalTheme';
 import { ThemeProvider } from 'styled-components';
 
 
-export const imgHandlerContext=createContext(null)
-
+export const imgHandler=createContext()
+export const themeToggler=createContext()
 
 function App(props) {
   const dispatch=useDispatch()
@@ -43,6 +43,12 @@ function App(props) {
   const [imgToShow,setImgToShow]=useState(false)
   const [prevTradePost,setPrevTradePost]=useState()
   const [prevFootballPost,setPrevFootballPost]=useState({title:``})
+  const [displayDarkTheme,setDisplayDarkTheme]=useState(false)
+
+  const toggleDarkTheme=()=>{
+    setDisplayDarkTheme(prevState=>!prevState)
+    console.log(displayDarkTheme)
+  }
 
   const handleImgPopup=(imgSrc)=>{
     setImgToShow(imgSrc)
@@ -235,26 +241,28 @@ useEffect(()=>{
 
   return (
 <>
-<imgHandlerContext.Provider value={handleImgPopup}>
-<ThemeProvider theme={globalLightTheme}>
-  <GlobalStyles/>
-  <Header/>
-  <main>
-    <SideNav />
-    <section className='wrapper'>
-    <Routes>
-  <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/><Feed /></>} />
-  <Route  path='/user' element={<UserInfo/>} />
-  <Route  path='/groups/' element={<Groups/>} />
-  <Route  path='/groups/*' element={<><GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} groupState={props.groups}/> <PostInput mainUser={mainUserState.userInfo}target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/><GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
-  </Routes>
-    </section>
-    <SideChat openChatWindow={openChatWindow}/>
-    <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
-  </main>
-  {imgToShow?<FullImageContainer src={imgToShow}/>:null}
+<imgHandler.Provider value={handleImgPopup}>
+  <ThemeProvider theme={displayDarkTheme? globalDarkTheme: globalLightTheme}>
+    <GlobalStyles/>
+    <themeToggler.Provider value={{toggleFunction:toggleDarkTheme, themeFlag:displayDarkTheme}}>
+      <Header/>
+    </themeToggler.Provider>
+    <main>
+      <SideNav />
+      <section className='wrapper'>
+        <Routes>
+          <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/><Feed /></>} />
+          <Route  path='/user' element={<UserInfo/>} />
+          <Route  path='/groups/' element={<Groups/>} />
+          <Route  path='/groups/*' element={<><GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} groupState={props.groups}/> <PostInput mainUser={mainUserState.userInfo}target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/><GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
+        </Routes>
+      </section>
+      <SideChat openChatWindow={openChatWindow}/>
+      <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
+    </main>
+    {imgToShow?<FullImageContainer src={imgToShow}/>:null}
   </ThemeProvider>
-  </imgHandlerContext.Provider>
+</imgHandler.Provider>
     
 </>
   );

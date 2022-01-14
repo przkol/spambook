@@ -9,7 +9,7 @@ width: 100%;
 border-radius: 10px;
 
 &:hover{
-    background-color: ${({theme})=>theme.colors.bgcLightBlue};
+    background-color: ${({theme})=>theme.colors.bgcShade1};
     padding-left:10px; 
 }
 
@@ -25,7 +25,7 @@ a{
     transition: .2s;
     white-space: nowrap;
     overflow:hidden;
-    color:${({theme})=>theme.colors.darkFont};
+    color:${({theme})=>theme.colors.mainFontColor};
     text-overflow:ellipsis
 }
 

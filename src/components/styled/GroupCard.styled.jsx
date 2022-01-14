@@ -7,16 +7,19 @@ export const StyledGroupCard = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     margin: 0 2px;
-    height: 200px;
     padding: 5px;
-    transition: .2s;
+    color: ${({theme})=>theme.colors.mainFontColor};
+    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
+    background-color:${({theme})=>theme.colors.bgcBody};
+
+
+
 
     &:hover{
         padding: 0px;
         cursor: pointer;
     }
     .cardContentContainer{
-    background-color: #301561;
     height: 100%;
     border-radius: 5px;
     overflow: hidden;

@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 
 export const StyledPostInput = styled.div`
-    color:${({theme})=>theme.colors.darkFont};
+    color:${({theme})=>theme.colors.mainFontColor};
     width: 100%;
     background-color:${({theme})=>theme.colors.bgcFeed};
     border-radius: 10px;
     margin-bottom: 10px;
-    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcLightBlue};
+    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
 
 
     .postHeader{
@@ -15,7 +15,7 @@ export const StyledPostInput = styled.div`
         width: 100%;
         height: 50px;
         padding: 5px;
-        /* border-bottom: 1px solid ${({theme})=>theme.colors.bgcLightBlue}; */
+        /* border-bottom: 1px solid ${({theme})=>theme.colors.bgcShade1}; */
     }
     .postHeader>p{
         margin: auto 0 ;
@@ -48,9 +48,10 @@ export const StyledPostInput = styled.div`
         width: 95%;
         resize:none;
         height: 100px;
-        color: ${({theme})=>theme.colors.darkFont};
+        color: ${({theme})=>theme.colors.mainFontColor};
         font-family: inherit;
         margin: 2px auto 0 auto;
+        background-color: inherit;
     }
     .textContent:hover{
          background-color:${({theme})=>theme.colors.bgcBody};
@@ -63,7 +64,7 @@ export const StyledPostInput = styled.div`
     .inputContainer button,
     label{
         background-color: inherit;
-        color:${({theme})=>theme.colors.darkFont};
+        color:${({theme})=>theme.colors.mainFontColor};
         border: none;
         padding: 2px 5px ;
         cursor: pointer;

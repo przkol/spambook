@@ -12,13 +12,13 @@ padding: 2px 0;
 
 
 &:hover{
-    background-color: ${({theme})=>theme.colors.bgcLightBlue};
+    background-color: ${({theme})=>theme.colors.bgcShade1};
     padding-left:10px; 
     cursor: pointer;
     font-weight:600;
 }
 p{
-color:${({theme})=>theme.colors.darkFont};
+color:${({theme})=>theme.colors.mainFontColor};
 margin: auto 0;
 flex-grow: 1;
 }

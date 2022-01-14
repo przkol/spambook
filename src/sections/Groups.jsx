@@ -11,7 +11,7 @@ const Groups=(props)=>{
 // const groupsFromState=useSelector(state=>state.groupsReducer)
 const [groupElements,setGroupElements]=useState()
     useEffect(()=>{
-        const mappedGroupCards=props.groups.map((group,index)=><GroupCard group={group} key={index}/>)
+        const mappedGroupCards=props.groups.groups.map((group,index)=><GroupCard group={group} groupState={props.groups} key={index}/>)
         setGroupElements(mappedGroupCards)
     },[props.groups])
 
@@ -28,7 +28,7 @@ console.log(props.groups)
 const mapStateToProps = (state, ownProps) => {
     return {
         friends: state.friendsReducer,
-        groups: state.groupsReducer.groups
+        groups: state.groupsReducer
     };
   }
   

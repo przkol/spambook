@@ -3,10 +3,10 @@ export const globalLightTheme={
         bgcBody:'#F3FBFE',
         bgcHeader:'#5EBDE6',
         bgcFeed:'#FFF',
-        bgcLightBlue:'#CEE8FF',
-        bgcMidBlue:'#99D9F5',
-        darkFont:'#374CB3',
-        lightBorder:'#99D9F5'
+        bgcShade1:'#CEE8FF',
+        bgcShade2:'#99D9F5',
+        mainFontColor:'#374CB3',
+        borderShade1:'#99D9F5'
     },
     fonts:{
         mainFontFamily:`'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`
@@ -15,12 +15,15 @@ export const globalLightTheme={
 
 export const globalDarkTheme={
     colors:{
-        bgcBody:'#222',
-        bgcHeader:'#5EBDE6',
-        bgcFeed:'#FFF',
-        bgcLightBlue:'#CEE8FF',
-        bgcMidBlue:'#99D9F5',
-        darkFont:'#374CB3',
-        lightBorder:'#99D9F5'
+        bgcBody:'#1c1e21',
+        bgcHeader:'#242526',
+        bgcFeed:'#242526',
+        bgcShade1:'#5D636C',
+        bgcShade2:'#40444B',
+        mainFontColor:'#e4e6eb',
+        borderShade1:'#99D9F5'
+    },
+    fonts:{
+        mainFontFamily:`'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`
     }
 }

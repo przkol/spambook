@@ -7,8 +7,8 @@ background-color: ${({theme})=>theme.colors.bgcFeed};
 border-radius: 10px;
 margin-top: 10px;
 padding: 10px;
-color:${({theme})=>theme.colors.darkFont};
-box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcLightBlue};
+color:${({theme})=>theme.colors.mainFontColor};
+box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
 
 
 .profilePicture{
@@ -37,7 +37,7 @@ img{
     width: 90%;
     justify-content: space-between;
     margin: 0 auto;
-    border-bottom: 1px solid ${({theme})=>theme.colors.bgcLightBlue};
+    border-bottom: 1px solid ${({theme})=>theme.colors.bgcShade1};
 }
 
 .baseInfo div p:nth-of-type(1),
@@ -66,13 +66,13 @@ button{
     color: inherit;
 }
 button:hover{
-    background-color: ${({theme})=>theme.colors.bgcMidBlue};
+    background-color: ${({theme})=>theme.colors.bgcShade2};
     cursor: pointer;
 
 }
 input{
     background-color: ${({theme})=>theme.colors.bgcFeed};
-    border: 1px solid ${({theme})=>theme.colors.bgcLightBlue};
+    border: 1px solid ${({theme})=>theme.colors.bgcShade1};
     border-radius: 3px;
     box-shadow: 0 0 2px  whitesmoke;
     color:inherit;

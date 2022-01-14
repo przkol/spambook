@@ -1,6 +1,6 @@
 import { StyledGroupFeed } from "./styled/GroupFeed.styled"
 import { useDispatch,useSelector } from "react-redux"
-import { useState} from "react"
+import { useContext, useState} from "react"
 import Post from "../components/Post"
 import { COMMENT_POST, LIKE_POST } from "../reducers/actions/postActions"
 import { connect } from "react-redux"
@@ -17,6 +17,7 @@ const groupPosts=props.groupIdToShow==='1'?
         props.groupState.tradePosts
         :props.groupState.footballPosts
         console.log('group')
+
 
 const createPostsToRender=()=>{
     const mappedPosts=groupPosts.map((element,index)=>

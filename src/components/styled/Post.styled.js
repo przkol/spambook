@@ -3,11 +3,11 @@ import styled from "styled-components";
 export const StyledPost = styled.div`
     width: 100%;
     border-radius: 10px;
-    color:${({theme})=>theme.colors.darkFont};
+    color:${({theme})=>theme.colors.mainFontColor};
     margin-bottom:15px;
     overflow: hidden;
     background-color:${({theme})=>theme.colors.bgcFeed};
-    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcLightBlue};
+    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
     div.invisible{
         display: none;
     }
@@ -18,7 +18,7 @@ export const StyledPost = styled.div`
         height: 50px;
         padding: 5px;
         border-bottom-left-radius:10px;
-        border-bottom: 1px solid ${({theme})=>theme.colors.bgcLightBlue};
+        border-bottom: 1px solid ${({theme})=>theme.colors.bgcShade1};
     }
     .postHeader>p{
         margin: auto 0 ;
@@ -66,7 +66,7 @@ export const StyledPost = styled.div`
     .actionContainer>button{
         width:100px;
         background-color:  ${({theme})=>theme.colors.bgcFeed};
-        color:${({theme})=>theme.colors.darkFont};
+        color:${({theme})=>theme.colors.mainFontColor};
         border: none;
         border-radius:5px;
         padding: 5px 0 ;
@@ -80,7 +80,7 @@ export const StyledPost = styled.div`
     .actionContainer>button:hover,
     .actionContainer>button.liked{
         font-weight:600;
-        background-color: ${({theme})=>theme.colors.bgcMidBlue};
+        background-color: ${({theme})=>theme.colors.bgcShade2};
     }
 
     .commentHeader{
@@ -106,7 +106,7 @@ export const StyledPost = styled.div`
         padding: 1px;
     }
     input{
-        background-color:  ${({theme})=>theme.colors.bgcLightBlue};
+        background-color:  ${({theme})=>theme.colors.bgcShade1};
         color:inherit;
         border: none;
         width: 85%;
@@ -117,7 +117,7 @@ export const StyledPost = styled.div`
 
     }
     .inputContainer>button{
-        background-color:  ${({theme})=>theme.colors.bgcLightBlue};
+        background-color:  ${({theme})=>theme.colors.bgcShade1};
         color:inherit;
         border: none;
         padding: 2px 5px ;

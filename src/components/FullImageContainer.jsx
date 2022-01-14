@@ -1,4 +1,4 @@
-import { imgHandlerContext } from "../App";
+import { imgHandler } from "../App";
 import { useContext } from "react";
 import { StyledFullImageContainer } from "./styled/FullImageContainer.styled";
 
@@ -8,7 +8,7 @@ import { StyledFullImageContainer } from "./styled/FullImageContainer.styled";
 
 
 export const FullImageContainer=(props)=>{
-const openFullImg=useContext(imgHandlerContext)
+const openFullImg=useContext(imgHandler)
 
     return(
         <StyledFullImageContainer> 

@@ -2,7 +2,7 @@ import { StyledPost } from "./styled/Post.styled";
 import { useSelector } from "react-redux";
 import { useState,useContext } from "react";
 import { Comment } from "./Comment";
-import { imgHandlerContext } from "../App";
+import { imgHandler } from "../App";
 
 const Post = (props)=>{
 const {user,text, photo,comments, likes,liked,showComments, handleCommentsToggle,handleLike,addComment} = props
@@ -13,7 +13,7 @@ const mainUserState = useSelector(state =>state.mainUserReducer)
 const [userComment,setUserComment]=useState('')
 
 
-const openFullImg=useContext(imgHandlerContext)
+const openFullImg=useContext(imgHandler)
 const handleChange=(e)=>{
     const value = e.target.value
     setUserComment(value)

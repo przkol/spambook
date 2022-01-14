@@ -7,15 +7,15 @@ height: fit-content;
 padding-left: 5px;
 
 .groupLink{
-color:${({theme})=>theme.colors.darkFont};
+color:${({theme})=>theme.colors.mainFontColor};
 border-radius: 10px;
 }
 
 .groupLink:hover{
-background-color: ${({theme})=>theme.colors.bgcLightBlue};
+background-color: ${({theme})=>theme.colors.bgcShade1};
 }
 .active{
-background-color: ${({theme})=>theme.colors.bgcLightBlue};
+background-color: ${({theme})=>theme.colors.bgcShade1};
 }
 
 >a,

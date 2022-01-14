@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const StyledChatWindow=styled.div`
 align-self:end;
-color:${({theme})=>theme.colors.darkFont};
+color:${({theme})=>theme.colors.mainFontColor};
 .chatWindowOpened{
 background-color:${({theme})=>theme.colors.bgcBody};
 width:250px;
@@ -11,7 +11,7 @@ height: 350px;
 margin:0 5px;
 display:flex;
 flex-direction:column;
-box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcLightBlue};
+box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
 }
 
 .chatWindowBubble .messages,
@@ -21,7 +21,7 @@ box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcLightBlue};
 }
 
 div.chatWindowBubble{
-    color:${({theme})=>theme.colors.darkFont};
+    color:${({theme})=>theme.colors.mainFontColor};
     width:180px;
     margin:0 5px;
 }
@@ -31,7 +31,7 @@ button:hover{
 }
 
 .windowHeader{
-background-color: ${({theme})=>theme.colors.bgcLightBlue};
+background-color: ${({theme})=>theme.colors.bgcShade1};
 display:flex;
 justify-content:space-between;
 padding: 3px;
@@ -67,12 +67,12 @@ overflow-y:scroll;
 }
 
 .friendMsg{
-    background-color: ${({theme})=>theme.colors.bgcLightBlue};
+    background-color: ${({theme})=>theme.colors.bgcShade1};
     margin:3px auto 3px 3px;
 }
 
 .userMsg{
-    background-color: ${({theme})=>theme.colors.bgcMidBlue};
+    background-color: ${({theme})=>theme.colors.bgcShade2};
     margin:3px 3px 3px auto;
 }
 
