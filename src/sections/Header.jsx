@@ -4,7 +4,7 @@ import { fetchMainUserInfo } from "../reducers/actions/mainUserActions"
 import { StyledHeader } from "./styled/Header.styled"
 import placeholder from '../img/placeholder.png'
 import {useNavigate} from 'react-router-dom'
-import { ThemeToggler } from "../components/ThemeToggler"
+import { MobileNav } from "../components/MobileNav"
 
 const Header=()=>{
     const [mainUser, setMainUser] = useState('Jan')
@@ -31,10 +31,9 @@ const Header=()=>{
 
     return(
         <StyledHeader >
-            <div className="groupper">
             <h1 onClick={redirectToMainPage} >SpamBook</h1>
-            <ThemeToggler/>
-            </div>
+            <MobileNav/>
+
             <div className='mainUserinfo' onClick={redirectToUserPanel}>
                 {mainUser.loaded ?
                 <h2> Witaj, {mainUser.userInfo.name.first +' '+ mainUser.userInfo.name.last}</h2>

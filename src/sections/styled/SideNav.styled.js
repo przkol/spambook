@@ -23,7 +23,7 @@ background-color: ${({theme})=>theme.colors.bgcShade1};
     display: block;
     text-decoration: none;
     width: 100%;
-    font-size: 20px;
+    font-size:${({theme})=>theme.fonts.headerFontSize};
     padding: 5px 8px;
     font-weight: 600;
     transition: .2s;

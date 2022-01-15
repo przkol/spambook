@@ -5,7 +5,7 @@ export const StyledGroupHeader=styled.div`
     height: 200px;
     overflow:hidden;
     border-radius:10px;
-
+    margin-bottom: 10px;
 
 img{
     height:auto;

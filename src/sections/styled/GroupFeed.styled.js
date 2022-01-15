@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const StyledGroupFeed =styled.section`
 width: 100%;
 margin-top: 10px;
-
+font-size:${({theme})=>theme.fonts.mainFontSize};
 
 .bgcPhotoContainer{
     width: 100%;

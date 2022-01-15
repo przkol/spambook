@@ -244,11 +244,11 @@ useEffect(()=>{
 <imgHandler.Provider value={handleImgPopup}>
   <ThemeProvider theme={displayDarkTheme? globalDarkTheme: globalLightTheme}>
     <GlobalStyles/>
-    <themeToggler.Provider value={{toggleFunction:toggleDarkTheme, themeFlag:displayDarkTheme}}>
       <Header/>
-    </themeToggler.Provider>
     <main>
+    <themeToggler.Provider value={{toggleFunction:toggleDarkTheme, themeFlag:displayDarkTheme}}>
       <SideNav />
+    </themeToggler.Provider>
       <section className='wrapper'>
         <Routes>
           <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/><Feed /></>} />

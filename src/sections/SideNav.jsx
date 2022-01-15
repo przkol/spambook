@@ -2,6 +2,7 @@ import { StyledSideNav } from "./styled/SideNav.styled";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { GroupBar } from "../components/GroupBar";
+import { ThemeToggler } from "../components/ThemeToggler"
 
 const SideNav=(props)=>{
 
@@ -20,7 +21,7 @@ return(
 
         </div>
         <NavLink className='groupLink'  to={'/events'} >Events</NavLink>
-
+        <ThemeToggler/>
 
 
 

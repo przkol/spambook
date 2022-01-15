@@ -9,7 +9,11 @@ export const globalLightTheme={
         borderShade1:'#99D9F5'
     },
     fonts:{
-        mainFontFamily:`'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`
+        mainFontFamily:`'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`,
+        mainFontSize:'16px',
+        headerFontSize:'18px',
+        iconsFontSize:'25px'
+
     }
 }
 
@@ -24,6 +28,9 @@ export const globalDarkTheme={
         borderShade1:'#99D9F5'
     },
     fonts:{
-        mainFontFamily:`'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`
+        mainFontFamily:`'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`,
+        mainFontSize:'16px',
+        headerFontSize:'18px',
+        iconsFontSize:'25px'
     }
 }

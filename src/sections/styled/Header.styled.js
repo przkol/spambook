@@ -14,7 +14,6 @@ h1{
     padding: 0 5px;
 }
 h1:hover{
-
     padding-left:10px; 
     cursor: pointer;
 }
@@ -22,6 +21,8 @@ h1:hover{
 h2{
     margin: auto 0 auto 0;
     padding:10px 5px;
+    font-size:${({theme})=>theme.fonts.headerFontSize};
+
 
 }
 div{

@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const StyledChatWindow=styled.div`
 align-self:end;
 color:${({theme})=>theme.colors.mainFontColor};
+
 .chatWindowOpened{
 background-color:${({theme})=>theme.colors.bgcBody};
 width:250px;
@@ -32,12 +33,15 @@ button:hover{
 
 .windowHeader{
 background-color: ${({theme})=>theme.colors.bgcShade1};
+
 display:flex;
 justify-content:space-between;
 padding: 3px;
 }
 .windowHeader h3{
-    flex-grow:1
+    flex-grow:1;
+font-size:${({theme})=>theme.fonts.mainFontSize};
+
 }
 .windowHeader button{
     width: 20px;

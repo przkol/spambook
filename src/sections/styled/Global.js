@@ -16,6 +16,7 @@ body{
     background-color: ${({theme})=>theme.colors.bgcBody};
     margin: 0 auto;
     font-family: ${({theme})=>theme.fonts.mainFontFamily};
+    font-size:${({theme})=>theme.fonts.mainFontSize};
 }
 main{
     display: flex;
