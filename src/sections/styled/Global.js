@@ -18,24 +18,45 @@ body{
     font-family: ${({theme})=>theme.fonts.mainFontFamily};
     font-size:${({theme})=>theme.fonts.mainFontSize};
 }
-main{
+
+.overLay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.asidesContainer{
     display: flex;
     justify-content: space-between;
+}
+
+
+main{
+margin-top: 3rem;
 }
 .wrapper{
     display: flex;
     flex-direction: column;
-    width: 50%;
-    max-width: 680px;
+    width: 100%;
     border-radius: 10px;
     padding: 1%;
     height: fit-content;
     min-height: 75vh;
+    margin: 0 auto;
 }
 .no-scroll{
     overflow: hidden;
 }
 
+
+
+@media(min-width:769px){
+    .wrapper{
+    width: 50%;
+    max-width: 600px;
+    }
+    
+    }
 `
 
 export default GlobalStyles

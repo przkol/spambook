@@ -7,8 +7,7 @@ color:${({theme})=>theme.colors.mainFontColor};
 
 .chatWindowOpened{
 background-color:${({theme})=>theme.colors.bgcBody};
-width:250px;
-height: 350px;
+
 margin:0 5px;
 display:flex;
 flex-direction:column;
@@ -81,6 +80,12 @@ overflow-y:scroll;
 }
 
 
+@media(min-width:769px){
+
+width:30vw;
+max-width:250px;
+height: 40vh;
+max-height: 350px;}
 
 
 `

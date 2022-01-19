@@ -2,10 +2,8 @@ import styled from "styled-components";
 
 
 export const StyledSideNav=styled.nav`
-width:260px;
 height: fit-content;
 padding-left: 5px;
-
 .groupLink{
 color:${({theme})=>theme.colors.mainFontColor};
 border-radius: 10px;
@@ -34,6 +32,12 @@ a:hover{
 
 .selected{
     color: red;
+}
+
+@media(min-width:769px){
+width: 25%;
+max-width: 250px;
+
 }
 `
 

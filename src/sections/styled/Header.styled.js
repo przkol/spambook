@@ -1,17 +1,20 @@
 import styled from "styled-components";
 
 export const StyledHeader = styled.header`
-display:flex;
-justify-content: space-between;
 margin: 0 auto;
 background-color:${({theme})=>theme.colors.bgcHeader};
 width: 100%;
-box-shadow: 0 3px 3px ${({theme})=>theme.colors.bgcHeader};
 margin-bottom:5px;
 color:white;
+height: fit-content;
 
 h1{
+    display: none;
     padding: 0 5px;
+}
+.mainUserInfo{
+    display: none;
+
 }
 h1:hover{
     padding-left:10px; 
@@ -22,12 +25,8 @@ h2{
     margin: auto 0 auto 0;
     padding:10px 5px;
     font-size:${({theme})=>theme.fonts.headerFontSize};
-
-
 }
-div{
-    display: flex;
-}
+
 
 img{
     margin: auto 0 auto 0;
@@ -40,4 +39,16 @@ div:hover{
     cursor: pointer;
 }
 
+@media(min-width:769px){
+    display:flex;
+    justify-content: space-between;
+    height: 3rem;
+    h1{
+        display: block;
+    }
+    .mainUserInfo{
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    }
 `

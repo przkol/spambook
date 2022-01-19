@@ -33,8 +33,7 @@ const Header=()=>{
         <StyledHeader >
             <h1 onClick={redirectToMainPage} >SpamBook</h1>
             <MobileNav/>
-
-            <div className='mainUserinfo' onClick={redirectToUserPanel}>
+            <div className='mainUserInfo' onClick={redirectToUserPanel}>
                 {mainUser.loaded ?
                 <h2> Witaj, {mainUser.userInfo.name.first +' '+ mainUser.userInfo.name.last}</h2>
                 :<h2>Witaj!</h2>}

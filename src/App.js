@@ -244,11 +244,17 @@ useEffect(()=>{
 <imgHandler.Provider value={handleImgPopup}>
   <ThemeProvider theme={displayDarkTheme? globalDarkTheme: globalLightTheme}>
     <GlobalStyles/>
-      <Header/>
     <main>
-    <themeToggler.Provider value={{toggleFunction:toggleDarkTheme, themeFlag:displayDarkTheme}}>
+    <div className="overLay">
+      <Header/>
+      <div className="asidesContainer">
+      <themeToggler.Provider value={{toggleFunction:toggleDarkTheme, themeFlag:displayDarkTheme}}>
       <SideNav />
-    </themeToggler.Provider>
+      </themeToggler.Provider>
+      <SideChat openChatWindow={openChatWindow}/>
+      </div>
+      </div>
+      <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
       <section className='wrapper'>
         <Routes>
           <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/><Feed /></>} />
@@ -257,8 +263,6 @@ useEffect(()=>{
           <Route  path='/groups/*' element={<><GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} groupState={props.groups}/> <PostInput mainUser={mainUserState.userInfo}target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/><GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
         </Routes>
       </section>
-      <SideChat openChatWindow={openChatWindow}/>
-      <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
     </main>
     {imgToShow?<FullImageContainer src={imgToShow}/>:null}
   </ThemeProvider>
