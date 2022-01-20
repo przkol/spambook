@@ -1,0 +1,6 @@
+export const photoReactions=['Awww <3','I hate cats', 'Wow! Such a cutie!', 'I wonder how does it taste', 'I wish I had one *.*','dogs are better','Very handsome!']
+export const jokeReactions=['ROFL','hahahaha','lool','man, just stop..', 'xDD','Sigh..','Man, how do you come up with those?', `haha, classic you!` ]
+export const tradeReactions=["Daaamn, looks great. Wish I had the money..",`I'm interested - priv`, 'DM me later', 'Can you go any lower?']
+export const footballReactions=['I watched it, it was painful...', `'Nic sie nie stało' as they say in polish`, 'Amazing!', 'At this point they should just disband the whole league..', 'Tough game, but satisfying to watch' ]
+export const friendMessages=['Hey dude! How are ya?', `How's everything?`,`Are you going to the game tomorrow?`,`Happy birthday!(sorry that I'm so late)`,`We should catch up! Are you down for some beers tonight?`]
+export const friendsResponses=['Cool','Whatever..', `Please don't message me`, `That's awesome!`, `That's good to hear! I'm fine too!`,`Currently I'm AFK, please leave your  message after the <beep>`]

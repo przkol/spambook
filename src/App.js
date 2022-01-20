@@ -4,7 +4,7 @@ import Header from './sections/Header'
 import SideChat from './sections/SideChat';
 import Feed from './sections/Feed';
 import SideNav from './sections/SideNav';
-import { Route,Routes } from 'react-router-dom';
+import { Route,Routes, useNavigate  } from 'react-router-dom';
 import UserInfo from './sections/UserInfo';
 import { fetchPhoto } from "./reducers/actions/photoActions"
 import { useDispatch,useSelector } from "react-redux"
@@ -15,7 +15,7 @@ import { useEffect, useState,createContext } from 'react';
 import { connect } from 'react-redux';
 import Groups from './sections/Groups';
 import GroupFeed from './sections/GroupFeed';
-import { useLocation } from "react-router";
+import { useLocation, } from "react-router";
 import { fetchFootballHighlight, fetchProducts, ADD_GROUP_POST } from './reducers/actions/groupsActions';
 import { ADD_MESSAGE_TO_CHAT, CREATE_NEW_CHAT, } from "./reducers/actions/chatActions"
 import { GroupHeader } from './components/GroupHeader';
@@ -24,30 +24,27 @@ import { useCallback } from 'react';
 import { FullImageContainer } from './components/FullImageContainer';
 import { globalLightTheme,globalDarkTheme } from './sections/styled/GlobalTheme';
 import { ThemeProvider } from 'styled-components';
-
+import { photoReactions,jokeReactions,tradeReactions, footballReactions,friendMessages,friendsResponses } from './resources/textContentArrays';
 
 export const imgHandler=createContext()
 export const themeToggler=createContext()
 
 function App(props) {
   const dispatch=useDispatch()
-  const photoReactions=['Awww <3','I hate cats', 'Wow! Such a cutie!', 'I wonder how does it taste', 'I wish I had one *.*','dogs are better','Very handsome!']
-  const jokeReactions=['ROFL','hahahaha','lool','man, just stop..', 'xDD','Sigh..','Man, how do you come up with those?', `haha, classic you!` ]
-  const tradeReactions=["Daaamn, looks great. Wish I had the money..",`I'm interested - priv`, 'DM me later', 'Can you go any lower?']
-  const footballReactions=['I watched it, it was painful...', `'Nic sie nie stało' as they say in polish`, 'Amazing!', 'At this point they should just disband the whole league..', 'Tough game, but satisfying to watch' ]
-  const friendMessages=['Hey dude! How are ya?', `How's everything?`,`Are you going to the game tomorrow?`,`Happy birthday!(sorry that I'm so late)`,`We should catch up! Are you down for some beers tonight?`]
-  const friendsResponses=['Cool','Whatever..', `Please don't message me`, `That's awesome!`, `That's good to hear! I'm fine too!`,`Currently I'm AFK, please leave your  message after the <beep>`]
   const mainUserState = useSelector(state =>state.mainUserReducer)
   const location=useLocation()
+  const navigate=useNavigate()
   const [openChats,setOpenChats]=useState([])
   const [imgToShow,setImgToShow]=useState(false)
   const [prevTradePost,setPrevTradePost]=useState()
   const [prevFootballPost,setPrevFootballPost]=useState({title:``})
   const [displayDarkTheme,setDisplayDarkTheme]=useState(false)
+  const [viewMode,setViewMode]=useState('desktop')
+  let viewportWidth=window.innerWidth
+ 
 
   const toggleDarkTheme=()=>{
     setDisplayDarkTheme(prevState=>!prevState)
-    console.log(displayDarkTheme)
   }
 
   const handleImgPopup=(imgSrc)=>{
@@ -153,7 +150,7 @@ const checkChatStatus=useCallback((friendsName)=>{
     const randomizer=Math.floor(Math.random()*20)
       if(randomizer<10){ 
         const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
-        const randomFriendName=randomFriend.name.first+' '+randomFriend.name.last
+        const randomFriendName=randomFriend?.name?.first+' '+randomFriend?.name?.last
         const chatStatus=openChatWindow(randomFriendName)
         if(chatStatus.chatAlreadyInState){
         const targetChat=props.chats.find(chat=>chat.friend===randomFriendName)
@@ -185,6 +182,12 @@ const checkChatStatus=useCallback((friendsName)=>{
   const closeChatWindow=(friendsName)=>{
       setOpenChats(previousOpenChats=>{return previousOpenChats.filter(chat=>chat!==friendsName)})
   }
+
+useEffect(()=>{
+  if(viewportWidth<=768){navigate('/m')}
+console.log(viewportWidth)
+console.log(location)
+},[window.innerWidth])
 
 useEffect(()=>{
   const contentPicker=()=>{
@@ -239,33 +242,44 @@ useEffect(()=>{
   }
 },[props.groups.footballHighlights,props.friends])
 
+
+const desktopDefaultView=<>
+  <div className="asidesContainer">
+  <SideNav />
+  <SideChat openChatWindow={openChatWindow}/>
+  </div>
+  <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
+  <main>
+    <Routes>
+      <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/><Feed /></>} />
+      <Route  path='/user' element={<UserInfo/>} />
+      <Route  path='/groups/' element={<Groups/>} />
+      <Route  path='/groups/*' element={<><GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} groupState={props.groups}/> <PostInput mainUser={mainUserState.userInfo}target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/><GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
+    </Routes>
+    </main>
+</>
   return (
 <>
 <imgHandler.Provider value={handleImgPopup}>
+<themeToggler.Provider value={{toggleFunction:toggleDarkTheme, themeFlag:displayDarkTheme}}>
+
   <ThemeProvider theme={displayDarkTheme? globalDarkTheme: globalLightTheme}>
     <GlobalStyles/>
-    <main>
-    <div className="overLay">
-      <Header/>
-      <div className="asidesContainer">
-      <themeToggler.Provider value={{toggleFunction:toggleDarkTheme, themeFlag:displayDarkTheme}}>
-      <SideNav />
-      </themeToggler.Provider>
-      <SideChat openChatWindow={openChatWindow}/>
-      </div>
-      </div>
-      <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
-      <section className='wrapper'>
-        <Routes>
-          <Route  path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/><Feed /></>} />
-          <Route  path='/user' element={<UserInfo/>} />
-          <Route  path='/groups/' element={<Groups/>} />
-          <Route  path='/groups/*' element={<><GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} groupState={props.groups}/> <PostInput mainUser={mainUserState.userInfo}target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/><GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
-        </Routes>
-      </section>
-    </main>
+    <Header/>
+
+    <Routes>
+    <Route  path='/' element={desktopDefaultView} />
+    <Route  path='/m/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/><Feed /></>} />
+    <Route  path='/m/navigation' element={<SideNav/>} />
+    <Route  path='/m/contactlist' element={<SideChat openChatWindow={openChatWindow}/>} />
+
+    </Routes>
+
+    
     {imgToShow?<FullImageContainer src={imgToShow}/>:null}
   </ThemeProvider>
+  </themeToggler.Provider>
+
 </imgHandler.Provider>
     
 </>

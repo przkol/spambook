@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
 export const StyledHeader = styled.header`
+position: fixed;
+top: 0;
 margin: 0 auto;
 background-color:${({theme})=>theme.colors.bgcHeader};
 width: 100%;
 margin-bottom:5px;
 color:white;
-height: fit-content;
+height: 3rem;
 
 h1{
     display: none;

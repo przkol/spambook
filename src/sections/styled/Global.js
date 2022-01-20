@@ -19,30 +19,20 @@ body{
     font-size:${({theme})=>theme.fonts.mainFontSize};
 }
 
-.overLay{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-.asidesContainer{
-    display: flex;
-    justify-content: space-between;
-}
 
+.asidesContainer{
+position: fixed;
+top:3rem;
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
 
 main{
-margin-top: 3rem;
-}
-.wrapper{
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    border-radius: 10px;
-    padding: 1%;
-    height: fit-content;
-    min-height: 75vh;
-    margin: 0 auto;
+    max-width: 600px;
+    margin: 3.5rem auto;
+    padding: 0 5px;
 }
 .no-scroll{
     overflow: hidden;
