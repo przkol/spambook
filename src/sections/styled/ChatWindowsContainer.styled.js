@@ -7,5 +7,6 @@ export const StyledChatWindowsContainer =styled.div`
     bottom:10px;
     right:10px;
     display:flex;
+    align-items: flex-end;
 
 `

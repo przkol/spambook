@@ -9,14 +9,13 @@ import UserInfo from './sections/UserInfo';
 import { fetchPhoto } from "./reducers/actions/photoActions"
 import { useDispatch,useSelector } from "react-redux"
 import { fetchJoke } from "./reducers/actions/jokeActions"
-import { fetchFriendsList } from './reducers/actions/friendsActions';
 import { ADD_POST } from './reducers/actions/postActions';
 import { PostInput } from './components/PostInput';
 import { useEffect, useState,createContext } from 'react';
 import { connect } from 'react-redux';
 import Groups from './sections/Groups';
 import GroupFeed from './sections/GroupFeed';
-import { Outlet, useLocation, } from "react-router";
+import { useLocation, } from "react-router";
 import { fetchFootballHighlight, fetchProducts, ADD_GROUP_POST } from './reducers/actions/groupsActions';
 import { ADD_MESSAGE_TO_CHAT, CREATE_NEW_CHAT, } from "./reducers/actions/chatActions"
 import { GroupHeader } from './components/GroupHeader';
@@ -29,7 +28,7 @@ import { photoReactions,jokeReactions,tradeReactions, footballReactions,friendMe
 
 export const imgHandler=createContext()
 export const themeToggler=createContext()
-export const viewMobileMode=createContext()
+export const viewMode=createContext()
 
 function App(props) {
   const dispatch=useDispatch()
@@ -41,7 +40,7 @@ function App(props) {
   const [prevTradePost,setPrevTradePost]=useState()
   const [prevFootballPost,setPrevFootballPost]=useState({title:``})
   const [displayDarkTheme,setDisplayDarkTheme]=useState(false)
-  const [viewMobileModeValue,setViewMobileModeValue]=useState(false)
+  const [viewMode,setViewMode]=useState('desktop')
   let viewportWidth=window.innerWidth
  
 
@@ -184,20 +183,13 @@ const checkChatStatus=useCallback((friendsName)=>{
   const closeChatWindow=(friendsName)=>{
       setOpenChats(previousOpenChats=>{return previousOpenChats.filter(chat=>chat!==friendsName)})
   }
+console.log(location)
 useEffect(()=>{
-  if(viewportWidth<=768&&!viewMobileModeValue)
-  {navigate('/m')
-  setViewMobileModeValue(prevState=>!prevState)
-} else if(viewportWidth>=769&&viewMobileModeValue)  {
-  navigate('/')
-setViewMobileModeValue(prevState=>!prevState)
-}
-},[navigate, viewMobileModeValue, viewportWidth])
+  if(viewportWidth<=768){navigate('/m')}
+console.log(viewportWidth)
+console.log(location)
+},[window.innerWidth])
 
-useEffect(()=> {
-  dispatch(fetchFriendsList)
-
-  },[dispatch])
 useEffect(()=>{
   const contentPicker=()=>{
     const randomizer=Math.floor(Math.random()*20)
@@ -253,29 +245,35 @@ useEffect(()=>{
 
 
 
-
   return (
 <>
 <imgHandler.Provider value={handleImgPopup}>
-  <viewMobileMode.Provider value={viewMobileModeValue}>
 <themeToggler.Provider value={{toggleFunction:toggleDarkTheme, themeFlag:displayDarkTheme}}>
   <ThemeProvider theme={displayDarkTheme? globalDarkTheme: globalLightTheme}>
     <GlobalStyles/>
+
     <Header/>
 
-   <Routes>  
-    <Route path='/' 
-      element={<>
-          <SideNav/>
-          <SideChat openChatWindow={openChatWindow}/>
-          <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
-          <main>
-          <Outlet/>
-          </main>
-          </>}>
-         <Route exact path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/> <Feed /></>}/>
-        <Route  path='user' element={<UserInfo/>} />
-        <Route  path='groups' element={<Groups/>} />
+
+    <Routes>  
+      <Route  path='/'element={<>
+      <div className="asidesContainer">
+        <SideNav />
+        <SideChat openChatWindow={openChatWindow}/>
+        </div><ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/> </>} />
+       
+      </Routes>
+    
+    <main>
+      <Routes>  
+        <Route exact path='/' 
+          element={<>
+          
+          <PostInput mainUser={mainUserState.userInfo} target='mainFeed'/>
+          <Feed /></>}/>
+
+        <Route exact path='user' element={<UserInfo/>} />
+        <Route exact path='groups' element={<Groups/>} />
         <Route exact path='groups/*' 
           element={<>
           <GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} 
@@ -283,30 +281,18 @@ useEffect(()=>{
           <PostInput mainUser={mainUserState.userInfo} 
             target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/>
           <GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
-        </Route>
-        <Route path='/m'  element={<main><Outlet/></main>}>
-         <Route exact path='/m' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/> <Feed /></>}/>
-         <Route exact path='/m/navigation' element={<SideNav/>}/>
-        <Route  path='/m/user' element={<UserInfo/>} />
-        <Route  path='/m/contactlist' element={<SideChat openChatWindow={openChatWindow}/>}/>
-        <Route  path='/m/groups' element={<Groups/>} />
-        <Route exact path='/m/groups/*' 
-          element={<>
-          <GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} 
-            groupState={props.groups}/> 
-          <PostInput mainUser={mainUserState.userInfo} 
-            target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/>
-          <GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
+         
+            <Route  path='/m' element={<><Feed /></>} />
+            <Route  exact path='/m/navigation' element={<SideNav/>} />
+            <Route  exact path='/m/contactlist' element={<SideChat openChatWindow={openChatWindow}/>} />
+          </Routes>
 
-        </Route>
+          </main>
 
-    </Routes>  
-
-      
+    
     {imgToShow?<FullImageContainer src={imgToShow}/>:null}
   </ThemeProvider>
   </themeToggler.Provider>
-  </viewMobileMode.Provider>
 </imgHandler.Provider> 
 </>
   );

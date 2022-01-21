@@ -19,16 +19,13 @@ const SideChat=(props)=>{
     friendName={element.name.first+' '+element.name.last}
     friendImage={element.picture.thumbnail}
     openChat={()=>{openChatWindow(element.name.first+' '+element.name.last)}}
-    />)
-    useEffect(()=> {
-        dispatch(fetchFriendsList)
-        },[dispatch])
-    
+    />)   
 
     return(
         <StyledSideChat>
-        <div className='friendsList'>
         <h3> Contacts</h3>
+
+        <div className='friendsList'>
         {usersListToShow}
         </div>
         </StyledSideChat>

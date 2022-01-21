@@ -3,12 +3,10 @@ import styled from "styled-components";
 
 export const StyledMobileNav=styled.nav`
 font-size:${({theme})=>theme.fonts.iconsFontSize};
-align-self: center;
 justify-content: center;
 align-items:center;
 width: fit-content;
-height: 100%;
-justify-self: center;
+margin-top: auto auto;
 
 
 svg{

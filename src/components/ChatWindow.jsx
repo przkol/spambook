@@ -33,7 +33,6 @@ export const ChatWindow=(props)=>{
     return(
         <StyledChatWindow  onClick={setSeenMessages}>
             <div className={chatWindowVisible?'chatWindowOpened':'chatWindowBubble'}>
-            {/* <div className="chatWindowOpened"> */}
             <div className="windowHeader" onClick={chatWindowVisible?null:toggleChatWindowVisibility}>
                 <h3>{friend} </h3> <h4>{unreadMsg ? `(${unreadMsg})`:null}</h4>
                 <div className="buttons">

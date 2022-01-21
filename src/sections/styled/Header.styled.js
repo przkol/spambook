@@ -10,12 +10,17 @@ margin-bottom:5px;
 color:white;
 height: 3rem;
 
+display: flex;
+justify-content: center;
+align-items: center;
+
 h1{
     display: none;
     padding: 0 5px;
 }
 .mainUserInfo{
     display: none;
+
 
 }
 h1:hover{
@@ -42,15 +47,14 @@ div:hover{
 }
 
 @media(min-width:769px){
-    display:flex;
-    justify-content: space-between;
-    height: 3rem;
+justify-content: space-between;
     h1{
         display: block;
     }
     .mainUserInfo{
         display: flex;
         flex-wrap: nowrap;
+        height: 100%;
     }
     }
 `

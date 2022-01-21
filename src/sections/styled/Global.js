@@ -20,19 +20,14 @@ body{
 }
 
 
-.asidesContainer{
-position: fixed;
-top:3rem;
-width: 100%;
-display: flex;
-justify-content: space-between;
-}
 
 main{
-    width: 100%;
+    width: 95%;
     max-width: 600px;
     margin: 3.5rem auto;
     padding: 0 5px;
+    background-color: ${({theme})=>theme.colors.bgcBody};
+
 }
 .no-scroll{
     overflow: hidden;
@@ -41,7 +36,7 @@ main{
 
 
 @media(min-width:769px){
-    .wrapper{
+    main{
     width: 50%;
     max-width: 600px;
     }

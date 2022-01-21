@@ -2,13 +2,20 @@ import styled from "styled-components";
 
 
 export const StyledSideNav=styled.nav`
+position: fixed;
+left: 0;
 height: 100vh;
 padding-left: 5px;
 background-color: ${({theme})=>theme.colors.bgcBody};
+width: 95%;
+text-align: center;
+
 
 .groupLink{
 color:${({theme})=>theme.colors.mainFontColor};
 border-radius: 10px;
+margin-top: 5px;
+
 }
 
 .groupLink:hover{
@@ -37,8 +44,9 @@ a:hover{
 }
 
 @media(min-width:769px){
-width: 25%;
 max-width: 250px;
+text-align: left;
+
 }
 `
 

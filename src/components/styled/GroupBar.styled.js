@@ -7,6 +7,7 @@ justify-content:space-between;
 align-items:center;
 width: 100%;
 border-radius: 10px;
+margin-top: 3px;
 
 &:hover{
     background-color: ${({theme})=>theme.colors.bgcShade1};

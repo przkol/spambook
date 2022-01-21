@@ -2,16 +2,15 @@ import styled from "styled-components";
 
 
 export const StyledChatWindow=styled.div`
-align-self:end;
 color:${({theme})=>theme.colors.mainFontColor};
-
 .chatWindowOpened{
 background-color:${({theme})=>theme.colors.bgcBody};
-
 margin:0 5px;
 display:flex;
 flex-direction:column;
+justify-content: space-between;
 box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
+height: 100%;
 }
 
 .chatWindowBubble .messages,
@@ -22,7 +21,6 @@ box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
 
 div.chatWindowBubble{
     color:${({theme})=>theme.colors.mainFontColor};
-    width:180px;
     margin:0 5px;
 }
 div.chatWindowBubble:hover,
@@ -51,7 +49,7 @@ font-size:${({theme})=>theme.fonts.mainFontSize};
 padding:3px;
 }
 .messages{
-flex-grow:1;
+    flex-grow: 1;
 overflow-y:scroll;
 }
 
@@ -81,11 +79,13 @@ overflow-y:scroll;
 
 
 @media(min-width:769px){
-
 width:30vw;
 max-width:250px;
-height: 40vh;
-max-height: 350px;}
+.chatWindowOpened{
+    height: 35vh;
+    max-height: 400px;
+}
+}
 
 
 `
