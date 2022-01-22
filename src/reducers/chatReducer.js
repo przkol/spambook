@@ -1,5 +1,5 @@
 const chatReducer=(state=[],action)=>{
-    const chatNo=state.findIndex(chat=>chat.friend===action.targetFriend)
+    const chatNo=state.findIndex(chat=>chat.id===action.friendId)
     switch(action.type){
         case('SET_MESSAGES_SEEN'):
         return [...state.map((chat,index)=>{
@@ -11,7 +11,7 @@ const chatReducer=(state=[],action)=>{
         ]
         case('CREATE_NEW_CHAT'):
             const newChat={
-                friend: action.targetFriend,
+                id: action.friendId,
                 messages:[],
                 lastMsgFlag:'noMsg',
                 unreadMsg:0
@@ -20,6 +20,7 @@ const chatReducer=(state=[],action)=>{
         return [...state,
         newChat]
         case('ADD_MESSAGE_TO_CHAT'):
+        console.log(action)
             const newMessage={source:action.source,text:action.message}
             return [...state.map((chat,index)=>{
                 if(index===chatNo){

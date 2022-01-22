@@ -1,20 +1,20 @@
-export const SET_MESSAGES_SEEN=(targetFriend)=>{
+export const SET_MESSAGES_SEEN=(friendId)=>{
     return {
         type:'SET_MESSAGES_SEEN',
-        targetFriend    
+        friendId    
     }}
 
-    export const CREATE_NEW_CHAT=(targetFriend)=>{
+    export const CREATE_NEW_CHAT=(friendId)=>{
         return {
             type:'CREATE_NEW_CHAT',
-            targetFriend    
+            friendId    
         }}
 
 
-export const ADD_MESSAGE_TO_CHAT=(targetFriend,source,message)=>{
+export const ADD_MESSAGE_TO_CHAT=(friendId,source,message)=>{
     return {
         type:'ADD_MESSAGE_TO_CHAT',
-        targetFriend,
+        friendId,
         source,
         message
     }}

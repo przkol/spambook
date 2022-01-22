@@ -9,7 +9,7 @@ const GlobalStyles=createGlobalStyle`
     padding:0;
     margin-block: 0;
     margin-inline: 0;
-    transition: .2s;
+
 }
 
 body{

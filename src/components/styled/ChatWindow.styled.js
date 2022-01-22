@@ -15,42 +15,102 @@ height: 100%;
 
 .chatWindowBubble .messages,
 .chatWindowBubble .messageInput,
-.chatWindowBubble .buttons{
+.chatWindowBubble .buttons,
+.chatWindowBubble .windowHeader{
     display:none;
 }
 
-div.chatWindowBubble{
-    color:${({theme})=>theme.colors.mainFontColor};
-    margin:0 5px;
-}
-div.chatWindowBubble:hover,
-button:hover{
+div.chatWindowBubble:hover{
     cursor:pointer;
 }
 
+.chatWindowOpened .chatBubble{
+    display: none;
+}
+.chatBubble{
+    position: relative;
+    color: #FFF;
+    margin: 0 5px;
+}
+.chatBubble img{
+    height: 3.5rem;
+}
+.chatBubble h4{
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    background-color:${({theme})=>theme.colors.elegantRed};
+    border-radius: 50%;
+    height: 1rem;
+    width: 1rem;
+    text-align: center;
+    margin: auto 0;
+    line-height: 1rem;
+}
+
+
+.buttons button,
+.messageInput button{
+    border: none;
+    border-radius: 5px;
+    color:${({theme})=>theme.colors.mainFontColor};
+    background-color: inherit;
+    font-weight:bold;
+    font-size:1.1rem;
+    margin: 0 3px;
+}
+button:hover{
+    cursor:pointer;
+    background-color:${({theme})=>theme.colors.mainFontColor};
+    color:${({theme})=>theme.colors.bgcBody};
+
+
+}
 .windowHeader{
 background-color: ${({theme})=>theme.colors.bgcShade1};
-
 display:flex;
 justify-content:space-between;
 padding: 3px;
 }
 .windowHeader h3{
-    flex-grow:1;
-font-size:${({theme})=>theme.fonts.mainFontSize};
-
+    flex-grow:.9;
+    font-size:${({theme})=>theme.fonts.mainFontSize};
+    margin: auto 5px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis
+}
+h4{
+    margin: auto 2px;
 }
 .windowHeader button{
     width: 20px;
     margin: 2px;
 }
+.buttons{
+   min-width: fit-content;
+}
 
 .messageInput{
 padding:3px;
+display: flex;
+}
+label{
+    flex-grow: 1;
+}
+input{
+    width: 100%;
+    line-height: 20px;
+    border-radius: 5px;
+    border: none;
+    padding-left: 3px;
+    background-color: ${({theme})=>theme.colors.bgcShade1};
+    color: ${({theme})=>theme.colors.mainFontColor};
+
 }
 .messages{
     flex-grow: 1;
-overflow-y:scroll;
+overflow-y:auto;
 }
 
 .msg{
@@ -67,6 +127,11 @@ overflow-y:scroll;
 
 }
 
+img{
+    height: 2rem;
+    border-radius: 50%;
+
+}
 .friendMsg{
     background-color: ${({theme})=>theme.colors.bgcShade1};
     margin:3px auto 3px 3px;
@@ -79,11 +144,11 @@ overflow-y:scroll;
 
 
 @media(min-width:769px){
-width:30vw;
-max-width:250px;
 .chatWindowOpened{
     height: 35vh;
     max-height: 400px;
+    width:30vw;
+    max-width:250px;
 }
 }
 

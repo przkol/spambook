@@ -26,10 +26,12 @@ import { FullImageContainer } from './components/FullImageContainer';
 import { globalLightTheme,globalDarkTheme } from './sections/styled/GlobalTheme';
 import { ThemeProvider } from 'styled-components';
 import { photoReactions,jokeReactions,tradeReactions, footballReactions,friendMessages,friendsResponses } from './resources/textContentArrays';
+import { Chatter } from './sections/Chatter';
 
 export const imgHandler=createContext()
 export const themeToggler=createContext()
 export const viewMobileMode=createContext()
+export const openChatFunction=createContext()
 
 function App(props) {
   const dispatch=useDispatch()
@@ -142,41 +144,40 @@ function App(props) {
         }
   }
 
-const checkChatStatus=useCallback((friendsName)=>{
-  const chatAlreadyOpen=openChats.includes(friendsName)
-  const chatAlreadyInState=props.chats.some(chat=>chat.friend===friendsName)
+const checkChatStatus=useCallback((id)=>{
+  const chatAlreadyOpen=openChats.includes(id)
+  const chatAlreadyInState=props.chats.some(chat=>chat.id===id)
   return ({chatAlreadyOpen,chatAlreadyInState})
 },[openChats, props.chats])
 
   const generateRandomChatAction=()=>{
     const randomizer=Math.floor(Math.random()*20)
       if(randomizer<10){ 
-        const randomFriend=props.friends.usersList[Math.floor(Math.random()*(props.friends.usersList.length))]
-        const randomFriendName=randomFriend?.name?.first+' '+randomFriend?.name?.last
-        const chatStatus=openChatWindow(randomFriendName)
+        const friendId=Math.floor(Math.random()*props.friends.usersList.length)
+        const chatStatus=openChatWindow(friendId)
         if(chatStatus.chatAlreadyInState){
-        const targetChat=props.chats.find(chat=>chat.friend===randomFriendName)
+        const targetChat=props.chats.find(chat=>chat.id===friendId)
         if(targetChat.lastMsgFlag==='user'){
         const randomMessage= friendsResponses[Math.floor(Math.random()*(friendsResponses.length-1))]
-          dispatch(ADD_MESSAGE_TO_CHAT(randomFriendName,'friend',randomMessage))
+          dispatch(ADD_MESSAGE_TO_CHAT(friendId,'friend',randomMessage))
         }
           } else if(!chatStatus.chatAlreadyInState){   
         const randomMessage= friendMessages[Math.floor(Math.random()*(friendMessages.length-1))]
-          dispatch(ADD_MESSAGE_TO_CHAT(randomFriendName,'friend',randomMessage ))
+          dispatch(ADD_MESSAGE_TO_CHAT(friendId,'friend',randomMessage ))
         }
         }
     }
 
-  const openChatWindow= function (friendsName){
+  const openChatWindow= function (id){
     let currentChats=openChats
-    const check=checkChatStatus(friendsName)
+    const check=checkChatStatus(id)
     if(!check.chatAlreadyOpen){
         if(!check.chatAlreadyInState){
-            dispatch(CREATE_NEW_CHAT(friendsName))
+            dispatch(CREATE_NEW_CHAT(id))
         } 
         if(currentChats.length>=3){
           currentChats.splice(0,1)}
-          currentChats.push(friendsName)
+          currentChats.push(id)
     } 
     setOpenChats([...currentChats])
       return(check)
@@ -257,6 +258,7 @@ useEffect(()=>{
   return (
 <>
 <imgHandler.Provider value={handleImgPopup}>
+<openChatFunction.Provider value={openChatWindow}>
   <viewMobileMode.Provider value={viewMobileModeValue}>
 <themeToggler.Provider value={{toggleFunction:toggleDarkTheme, themeFlag:displayDarkTheme}}>
   <ThemeProvider theme={displayDarkTheme? globalDarkTheme: globalLightTheme}>
@@ -267,7 +269,7 @@ useEffect(()=>{
     <Route path='/' 
       element={<>
           <SideNav/>
-          <SideChat openChatWindow={openChatWindow}/>
+          <SideChat/>
           <ChatWindowsContainer openChats={openChats} closeChatWindow={closeChatWindow}/>
           <main>
           <Outlet/>
@@ -276,6 +278,7 @@ useEffect(()=>{
          <Route exact path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/> <Feed /></>}/>
         <Route  path='user' element={<UserInfo/>} />
         <Route  path='groups' element={<Groups/>} />
+        <Route  path='chatter' element={<Chatter/>} />
         <Route exact path='groups/*' 
           element={<>
           <GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} 
@@ -307,6 +310,7 @@ useEffect(()=>{
   </ThemeProvider>
   </themeToggler.Provider>
   </viewMobileMode.Provider>
+  </openChatFunction.Provider> 
 </imgHandler.Provider> 
 </>
   );

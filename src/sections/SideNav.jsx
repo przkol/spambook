@@ -17,6 +17,8 @@ return(
     <StyledSideNav>
         <NavLink  className='groupLink'to={pathsArray.main} >Main page</NavLink>
         <NavLink className='groupLink' to={pathsArray.userPage} >User panel</NavLink>
+        <NavLink className='groupLink'  to={'/chatter'} >Chats</NavLink>
+
         <div className="groupLinkContainer">
             <NavLink className='groupLink' to={pathsArray.groupsPage} >Groups</NavLink>
             <GroupBar groupPath={pathsArray.group1} 
@@ -27,7 +29,6 @@ return(
                 postsNum={props.unseenFootballPostsCounter} />
 
         </div>
-        <NavLink className='groupLink'  to={'/events'} >Events</NavLink>
         <ThemeToggler/>
 
 

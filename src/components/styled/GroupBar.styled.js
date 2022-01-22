@@ -31,7 +31,8 @@ a{
 }
 
 span{
-    background:red;
+    background-color:${({theme})=>theme.colors.elegantRed};
+
     color:white;
     font-size:12px;
     font-weight:500;
