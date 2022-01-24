@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/spambook/static/css/main.5f73f583.chunk.css",
-    "main.js": "/spambook/static/js/main.f14d0de3.chunk.js",
-    "main.js.map": "/spambook/static/js/main.f14d0de3.chunk.js.map",
+    "main.js": "/spambook/static/js/main.9fae57d9.chunk.js",
+    "main.js.map": "/spambook/static/js/main.9fae57d9.chunk.js.map",
     "runtime-main.js": "/spambook/static/js/runtime-main.f7967f13.js",
     "runtime-main.js.map": "/spambook/static/js/runtime-main.f7967f13.js.map",
-    "static/js/2.0d5b2b79.chunk.js": "/spambook/static/js/2.0d5b2b79.chunk.js",
-    "static/js/2.0d5b2b79.chunk.js.map": "/spambook/static/js/2.0d5b2b79.chunk.js.map",
+    "static/js/2.4495de74.chunk.js": "/spambook/static/js/2.4495de74.chunk.js",
+    "static/js/2.4495de74.chunk.js.map": "/spambook/static/js/2.4495de74.chunk.js.map",
     "static/js/3.ba73bfd9.chunk.js": "/spambook/static/js/3.ba73bfd9.chunk.js",
     "static/js/3.ba73bfd9.chunk.js.map": "/spambook/static/js/3.ba73bfd9.chunk.js.map",
     "index.html": "/spambook/index.html",
     "static/css/main.5f73f583.chunk.css.map": "/spambook/static/css/main.5f73f583.chunk.css.map",
-    "static/js/2.0d5b2b79.chunk.js.LICENSE.txt": "/spambook/static/js/2.0d5b2b79.chunk.js.LICENSE.txt",
+    "static/js/2.4495de74.chunk.js.LICENSE.txt": "/spambook/static/js/2.4495de74.chunk.js.LICENSE.txt",
     "static/media/football small.44b658f9.png": "/spambook/static/media/football small.44b658f9.png",
     "static/media/football.cbd567c1.png": "/spambook/static/media/football.cbd567c1.png",
     "static/media/tradegroup small.dea47a86.jpg": "/spambook/static/media/tradegroup small.dea47a86.jpg",
@@ -19,8 +19,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.f7967f13.js",
-    "static/js/2.0d5b2b79.chunk.js",
+    "static/js/2.4495de74.chunk.js",
     "static/css/main.5f73f583.chunk.css",
-    "static/js/main.f14d0de3.chunk.js"
+    "static/js/main.9fae57d9.chunk.js"
   ]
 }
