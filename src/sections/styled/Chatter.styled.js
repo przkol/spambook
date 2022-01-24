@@ -21,12 +21,11 @@ export const StyledChatter =styled.section`
         height: 100%;
     }
     .chatList{
-        width: 40%;
-        background-color:black;
+        width: 35%;
+        border-right: 1px solid ${({theme})=>theme.colors.bgcShade1};
     }
     .conversation{
         width: 60%;
-        background-color:grey;
 
     }
 `

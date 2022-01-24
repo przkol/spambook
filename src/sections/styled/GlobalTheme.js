@@ -12,6 +12,7 @@ export const globalLightTheme={
     fonts:{
         mainFontFamily:`'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`,
         mainFontSize:'16px',
+        smallFontSize:'12px',
         headerFontSize:'18px',
         iconsFontSize:'25px'
 

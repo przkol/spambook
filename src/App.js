@@ -278,7 +278,8 @@ useEffect(()=>{
          <Route exact path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/> <Feed /></>}/>
         <Route  path='user' element={<UserInfo/>} />
         <Route  path='groups' element={<Groups/>} />
-        <Route  path='chatter' element={<Chatter/>} />
+        <Route  path="chatter/:id" element={<Chatter/>} />
+        <Route  path="chatter" element={<Chatter/>} />
         <Route exact path='groups/*' 
           element={<>
           <GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} 
