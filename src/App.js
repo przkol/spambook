@@ -27,6 +27,7 @@ import { globalLightTheme,globalDarkTheme } from './sections/styled/GlobalTheme'
 import { ThemeProvider } from 'styled-components';
 import { photoReactions,jokeReactions,tradeReactions, footballReactions,friendMessages,friendsResponses } from './resources/textContentArrays';
 import { Chatter } from './sections/Chatter';
+import { useLayoutEffect } from 'react';
 
 export const imgHandler=createContext()
 export const themeToggler=createContext()
@@ -45,12 +46,23 @@ function App(props) {
   const [displayDarkTheme,setDisplayDarkTheme]=useState(false)
   const [viewMobileModeValue,setViewMobileModeValue]=useState(false)
   let viewportWidth=window.innerWidth
- 
 
+
+// PREVENT POSTS SCROLLING OUT OF VIEW
+//NEEDS TWEAKING - SCROLL JUMPS TO PLACE INSTEAD OF BEING RENDERED READY
+ useLayoutEffect(()=>{ 
+  if(window.scrollY) { const addedElementHeight=document.querySelector(".post")
+  window.scrollBy(0,addedElementHeight?.offsetHeight)}
+})
+
+
+// SET DARK/LIGHT THEME CONTEXT FOR THE WHOLE APP
   const toggleDarkTheme=()=>{
     setDisplayDarkTheme(prevState=>!prevState)
   }
 
+
+  // SET IMAGE SOURCE TO BE DISPLAYED ON FULLSCREEN
   const handleImgPopup=(imgSrc)=>{
     setImgToShow(imgSrc)
     const body=document.querySelector('body')      
@@ -62,6 +74,7 @@ function App(props) {
 
   } 
 
+  // CREATE NEW POST, SET IT'S CONTENT, SET LIKES AND COMMENTS, DISPATCH ADD POST TO STORE
   const generateContent=(type)=>{
     const comments=[]
     for(let i=0;i<10;i++){
@@ -144,12 +157,14 @@ function App(props) {
         }
   }
 
+  // CHECKS IF CHAT FOR PROVIDED USER ID WAS ALREADY CREATED IN STORE & IS CURRENTLY OPEN IN APP
 const checkChatStatus=useCallback((id)=>{
   const chatAlreadyOpen=openChats.includes(id)
   const chatAlreadyInState=props.chats.some(chat=>chat.id===id)
   return ({chatAlreadyOpen,chatAlreadyInState})
 },[openChats, props.chats])
 
+//RANDOMLY GENERATES A NEW MESSAGE OR RESPONSE FROM FRIEND
   const generateRandomChatAction=()=>{
     const randomizer=Math.floor(Math.random()*20)
       if(randomizer<10){ 
@@ -168,6 +183,7 @@ const checkChatStatus=useCallback((id)=>{
         }
     }
 
+// OPENS AN EXISTING CHAT OR CREATES A NEW ONE IF NEEDED
   const openChatWindow= function (id){
     let currentChats=openChats
     const check=checkChatStatus(id)
@@ -182,9 +198,11 @@ const checkChatStatus=useCallback((id)=>{
     setOpenChats([...currentChats])
       return(check)
 }
+// CLOSES AN EXISTING,CURRENTLY OPEN CHAT
   const closeChatWindow=(friendsName)=>{
       setOpenChats(previousOpenChats=>{return previousOpenChats.filter(chat=>chat!==friendsName)})
   }
+//CHECKS IF APP SHOULD BE DISPLAYED IN MOBILE MODE
 useEffect(()=>{
   if(viewportWidth<=768&&!viewMobileModeValue)
   {navigate('/m')
@@ -195,10 +213,13 @@ setViewMobileModeValue(prevState=>!prevState)
 }
 },[navigate, viewMobileModeValue, viewportWidth])
 
+//DISPATCHES FRIENDSLIST FETCH ACTION ON APP LOAD
 useEffect(()=> {
   dispatch(fetchFriendsList)
 
   },[dispatch])
+
+  //CHOOSES RANDOM TYPE OF MAIN FEED POST & DISPATCHES FITTING ACTION (AND SETS INTERVAL FOR CONTENT GENERATION)
 useEffect(()=>{
   const contentPicker=()=>{
     const randomizer=Math.floor(Math.random()*20)
@@ -220,6 +241,7 @@ useEffect(()=>{
   }
 },[])
 
+//SETS INTERVAL FOR GENERATING CHAT MESSAGES
 useEffect(()=>{  
   const randomChatActionInterval = setInterval(() => {generateRandomChatAction()}, 4000);
   return () => {
@@ -227,10 +249,13 @@ useEffect(()=>{
   }
 },[props])
 
+//FIRES CONTENT GENERATION ON PHOTO CHANGE IN REDUCER
 useEffect(()=>{
   if(props.photos&&props.friends.usersListLoadedFlag){
   generateContent('photo')}
 },[props.photos,props.friends])
+
+//FIRES CONTENT GENERATION ON JOKE CHANGE IN REDUCER
 
 useEffect(()=>{
   if(props.jokes&&props.friends.usersListLoadedFlag){
@@ -238,12 +263,14 @@ useEffect(()=>{
   }
 },[props.jokes,props.friends])
 
+//FIRES CONTENT GENERATION ON ITEMSHOP CHANGE IN REDUCER
 useEffect(()=>{
   if(props.shop?.title&&props.friends.usersListLoadedFlag){
   generateContent('trade')
   }
 },[props.shop?.title,props.friends])
 
+//FIRES CONTENT GENERATION ON FOOTBALL CONTENT CHANGE IN REDUCER
 useEffect(()=>{
   if(props.groups.footballHighlightsFlag&&props.friends.usersListLoadedFlag&&prevFootballPost?.title!==props.footballHighlights?.title){
     setPrevFootballPost({title:props.footballHighlights.title})
@@ -294,6 +321,8 @@ useEffect(()=>{
         <Route  path='/m/user' element={<UserInfo/>} />
         <Route  path='/m/contactlist' element={<SideChat openChatWindow={openChatWindow}/>}/>
         <Route  path='/m/groups' element={<Groups/>} />
+        <Route  path="/m/chatter/:id" element={<Chatter/>} />
+        <Route  path="/m/chatter" element={<Chatter/>} />
         <Route exact path='/m/groups/*' 
           element={<>
           <GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} 

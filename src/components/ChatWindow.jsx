@@ -36,12 +36,12 @@ export const ChatWindow=(props)=>{
         <StyledChatWindow  onClick={setSeenMessages}>
             <div className={chatWindowVisible?'chatWindowOpened':'chatWindowBubble'}>
                 <div className="chatBubble" onClick={chatWindowVisible?null:toggleChatWindowVisibility}>
-                    <img className='friendPic' src={friend.picture.thumbnail} alt={friend.name.first+ `'s profile picture`}/>
+                    <img className='friendPic' src={friend?.picture.thumbnail} alt={friend?.name.first+ `'s profile picture`}/>
                     {unreadMsg ? <h4>{unreadMsg}</h4>:null}
                 </div>
             <div className="windowHeader" >
-                <img className='friendPic' src={friend.picture.thumbnail} alt={friend.name.first+ `'s profile picture`}/>
-                <h3>{friend.name.first+' '+friend.name.last} </h3> <h4>{unreadMsg ? `(${unreadMsg})`:null}</h4>
+                <img className='friendPic' src={friend?.picture.thumbnail} alt={friend?.name.first+ `'s profile picture`}/>
+                <h3>{friend?.name.first+' '+friend?.name.last} </h3> <h4>{unreadMsg ? `(${unreadMsg})`:null}</h4>
                 <div className="buttons">
                     <button onClick={toggleChatWindowVisibility}><FontAwesomeIcon icon={faWindowMinimize} /></button>
                     <button onClick={()=>closeChatWindow(id)}><FontAwesomeIcon icon={faTimes} /></button>

@@ -9,22 +9,20 @@ width: 100%;
 margin-bottom:5px;
 color:white;
 height: 3rem;
-
 display: flex;
-justify-content: center;
+justify-content: space-between;
 align-items: center;
 
 h1{
-    display: none;
-    padding: 0 5px;
+    padding: 0 15px;
 }
-.mainUserInfo{
+.mainUserInfo *{
     display: none;
-
-
+}
+.mainUserInfo img{
+    display: block;
 }
 h1:hover{
-    padding-left:10px; 
     cursor: pointer;
 }
 

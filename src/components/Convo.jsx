@@ -10,7 +10,9 @@ import { useState } from "react";
 const MessageBubble=(props)=>{
     const {source,text} = props.message
 return(
-    <div className='msg'><p className={source==='user'? 'userMsg':'friendMsg'}>{text}</p></div>
+    <div className='msg'>
+    <p className={source==='user'? 'userMsg':'friendMsg'}>{text}</p>
+    </div>
 )
 }
 export const Convo=(props)=>{
@@ -24,8 +26,11 @@ export const Convo=(props)=>{
     }
     return(
         <StyledConvo>
+            <div className="convoHeader">
+            <img src={friend?.picture.thumbnail} alt="" />
             <h3>{friend?.name.first+' '+friend?.name.last}</h3>
-            <div className="conversation">
+            </div>
+            <div className="messages">
                 {messagesToRender}
             </div>
             <div className="messageInput">

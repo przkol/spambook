@@ -5,7 +5,6 @@ export const StyledSideChat=styled.div`
 color:${({theme})=>theme.colors.mainFontColor};
 background-color:${({theme})=>theme.colors.bgcBody};
 width: 100%;
-max-width: 320px;
 overflow: auto;
 height: fit-content;
 margin:0 auto;

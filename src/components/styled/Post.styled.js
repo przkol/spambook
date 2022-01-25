@@ -104,16 +104,17 @@ export const StyledPost = styled.div`
         height: 30px;
         overflow: hidden;
         padding: 1px;
+        display: flex;
     }
     input{
         background-color:  ${({theme})=>theme.colors.bgcShade1};
         color:inherit;
         border: none;
-        width: 85%;
         height: 20px;
         margin: 0 2px;
         border-radius: 5px;
         padding: 4px;
+        flex-grow: 1;
 
     }
     .inputContainer>button{

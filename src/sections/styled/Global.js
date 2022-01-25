@@ -24,9 +24,11 @@ body{
 main{
     width: 95%;
     max-width: 600px;
-    margin: 3.5rem auto;
+    margin: 3.5rem auto 0 auto;
     padding: 0 5px;
     background-color: ${({theme})=>theme.colors.bgcBody};
+    overflow-anchor: auto;
+
 
 }
 .no-scroll{
@@ -37,7 +39,7 @@ main{
 
 @media(min-width:769px){
     main{
-    width: 50%;
+    width: 60%;
     max-width: 600px;
     }
     

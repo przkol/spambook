@@ -53,6 +53,9 @@ width: 30%;
 justify-self: center;
 align-self: center;
 }
+.infoSection div:last-child{
+    border: none;
+}
 
 button{
     border:none;
@@ -77,8 +80,15 @@ input{
     box-shadow: 0 0 2px  whitesmoke;
     color:inherit;
     padding: 2px;
-    width: fit-content;
+    flex-grow: .5;
 }
+
+input[info2=number]{
+    flex-grow: 0;
+    width: 50px;
+}
+
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

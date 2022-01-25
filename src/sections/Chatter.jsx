@@ -10,7 +10,7 @@ import { CREATE_NEW_CHAT } from "../reducers/actions/chatActions"
 export const activeChatContext=createContext()
 export const selectChatFuncContext=createContext()
 
-export const Chatter=(props)=>{
+export const Chatter=()=>{
   const {id}=useParams()
   const [activeChat,setActiveChat]=useState(id)
   const mainChatState=useSelector(state=>state.chatReducer)
@@ -22,6 +22,7 @@ export const Chatter=(props)=>{
   useEffect(()=>{
     if(!chatDoesExist&&Boolean(id)){
       dispatch(CREATE_NEW_CHAT(id))}
+     
   },[chatDoesExist, dispatch, id])
 
   const handleChatSelect=(targetChat)=>{

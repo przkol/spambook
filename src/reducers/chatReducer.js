@@ -20,7 +20,6 @@ const chatReducer=(state=[],action)=>{
         return [...state,
         newChat]
         case('ADD_MESSAGE_TO_CHAT'):
-        console.log(action)
             const newMessage={source:action.source,text:action.message}
             return [...state.map((chat,index)=>{
                 if(index===chatNo){

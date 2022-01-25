@@ -7,7 +7,7 @@ left: 0;
 height: 100vh;
 padding-left: 5px;
 background-color: ${({theme})=>theme.colors.bgcBody};
-width: 95%;
+width: 100%;
 text-align: center;
 
 

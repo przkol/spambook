@@ -2,28 +2,42 @@ import styled from "styled-components";
 
 
 export const StyledMobileNav=styled.nav`
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+justify-content: space-between;
 font-size:${({theme})=>theme.fonts.iconsFontSize};
-justify-content: center;
+width: 50%;
 align-items:center;
-width: fit-content;
-margin-top: auto auto;
+margin: 0 auto;
 
-
-svg{
-    box-sizing: content-box;
-    margin: 0 8px;
+a{display:block;
+    box-sizing: border-box;
     padding: 5px;
-    border-radius: 5px;
-
+    border-radius: 5px;  
+    color:${({theme})=>theme.colors.contrastFontColor};
+    width: 30%;
+}
+svg{
+    display:block;
+    margin: 0 auto;
 }
 
-svg:hover{
+
+
+a:hover{
 background-color:${({theme})=>theme.colors.bgcBody};
 color:${({theme})=>theme.colors.mainFontColor};
 cursor: pointer;
 }
 @media(min-width:769px){
     display: none;
+}
+
+.active{
+    background-color:${({theme})=>theme.colors.bgcBody};
+    color:${({theme})=>theme.colors.mainFontColor};
 }
 
 `

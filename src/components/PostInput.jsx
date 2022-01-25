@@ -24,18 +24,6 @@ export const PostInput=(props)=>{
 
     const addUserPost=()=>{
         const comments=[]
-        console.log('xd')
-        // for(let i=0;i<10;i++){
-        //     const randomNumber=Math.floor(Math.random()*10)
-        //     if(randomNumber<=5){
-        //     const newComment={
-        //         person:stateRandomUser[Math.floor(Math.random()*20)],
-        //         comment: 
-        //             jokeReactions[Math.floor(Math.random()*jokeReactions.length)] 
-                
-        //     }
-        //     comments.push(newComment)}
-        // }
         const userPost ={
             user: mainUserState.userInfo,
             type:'userPost',
@@ -67,7 +55,7 @@ export const PostInput=(props)=>{
                 {postImage? <img src={postImage} alt='upload'/> : null}
                 <div className='actionButtonContainer'>
                 <label htmlFor='fileInput'>Upload a photo</label>
-                <input  id='fileInput' type='file' onChange={handleImageUpload}/>
+                <input  id='fileInput' type='file' accept="image/*" onChange={handleImageUpload}/>
                 <button onClick={addUserPost}> Post!</button>
                 </div>
 

@@ -22,13 +22,15 @@ const handleChange=(e)=>{
 const handleSubmit=(e)=>{
     e.preventDefault()
     const value=userComment
+    if(value.length>0){
     setUserComment('')
     return addComment([value,props.index])
+        } else{alert('You cannot add an empty comment.')}
     }   
 
 return(
     <>
-    <StyledPost >
+    <StyledPost  className='post'>
         <div className='postHeader'>
             <img src={userProfilePicture} alt={userName + `'s profile picture`} /> 
             <p><span>{userName} </span> posted this.</p>

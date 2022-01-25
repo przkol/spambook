@@ -1,14 +1,15 @@
-import { useState, useEffect} from "react"
+import { useState, useEffect, useContext} from "react"
 import { useDispatch,useSelector } from "react-redux"
 import { fetchMainUserInfo } from "../reducers/actions/mainUserActions"
 import { StyledHeader } from "./styled/Header.styled"
 import placeholder from '../img/placeholder.png'
 import {useNavigate} from 'react-router-dom'
 import { MobileNav } from "../components/MobileNav"
-
+import { viewMobileMode } from "../App"
 const Header=()=>{
     const [mainUser, setMainUser] = useState('Jan')
     const mainUserState = useSelector(state =>state.mainUserReducer)
+    const mobileModeFlag=useContext(viewMobileMode)
     const dispatch=useDispatch()
     const navigate=useNavigate()
 
@@ -22,16 +23,16 @@ const Header=()=>{
     },[mainUserState])
 
     const redirectToUserPanel=()=>{
-       navigate('/user')
+       navigate(`${mobileModeFlag?'/m/user':'/user'}`)
     }
     
     const redirectToMainPage=()=>{
-        navigate('/')
+        navigate(`${mobileModeFlag?'/m':'/'}`)
      }
 
     return(
         <StyledHeader >
-            <h1 onClick={redirectToMainPage} >SpamBook</h1>
+            <h1 onClick={redirectToMainPage}>{mobileModeFlag? "S": "SpamBook"}</h1>
             <MobileNav/>
             <div className='mainUserInfo' onClick={redirectToUserPanel}>
                 {mainUser.loaded ?
@@ -41,6 +42,7 @@ const Header=()=>{
                 <img src={mainUser.userInfo.picture.thumbnail} alt={mainUser.userInfo.name.first+`'s profile picture`}/>
                 :<img src={placeholder} alt='placeholder'/>}
             </div>
+
 
         </StyledHeader>
     )

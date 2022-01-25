@@ -25,7 +25,6 @@ export const StyledChatter =styled.section`
         border-right: 1px solid ${({theme})=>theme.colors.bgcShade1};
     }
     .conversation{
-        width: 60%;
-
+        width: 65%;
     }
 `

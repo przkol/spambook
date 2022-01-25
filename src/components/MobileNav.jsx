@@ -9,7 +9,7 @@ export const MobileNav=()=>{
     return(
     <StyledMobileNav>
         <NavLink  to={'/m/navigation'} ><FontAwesomeIcon icon={faBars} /></NavLink>
-        <NavLink  to={'/m/chats'} ><FontAwesomeIcon icon={faComments} /></NavLink>
+        <NavLink  to={'/m/chatter'} ><FontAwesomeIcon icon={faComments} /></NavLink>
         <NavLink  to={'/m/contactlist'} ><FontAwesomeIcon icon={faUsers} /></NavLink>
     </StyledMobileNav>)
 }
