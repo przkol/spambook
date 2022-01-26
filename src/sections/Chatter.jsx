@@ -12,18 +12,20 @@ export const selectChatFuncContext=createContext()
 
 export const Chatter=()=>{
   const {id}=useParams()
-  const [activeChat,setActiveChat]=useState(id)
+  const [activeChat,setActiveChat]=useState(Number(id))
   const mainChatState=useSelector(state=>state.chatReducer)
   const mainFriendsState=useSelector(state=>state.friendsReducer)
-  const dispatch=useDispatch()
+    const numericId=Number(id)
+    const dispatch=useDispatch()
   let activeChatContent=mainChatState.find(chat=>chat.id===activeChat)
-  let chatDoesExist=mainChatState.some(chat=>chat.id===activeChat)
+
  
   useEffect(()=>{
-    if(!chatDoesExist&&Boolean(id)){
-      dispatch(CREATE_NEW_CHAT(id))}
+    let chatDoesExist=mainChatState.some(chat=>chat.id===(numericId))
+    if(!chatDoesExist&&Boolean(numericId)){
+      dispatch(CREATE_NEW_CHAT(numericId))}
      
-  },[chatDoesExist, dispatch, id])
+  },[activeChat, dispatch, id, mainChatState, numericId])
 
   const handleChatSelect=(targetChat)=>{
     setActiveChat(targetChat)

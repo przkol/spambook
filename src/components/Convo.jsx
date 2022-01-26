@@ -21,8 +21,9 @@ export const Convo=(props)=>{
     const dispatch=useDispatch()
     const [messageInput,setMessageInput]=useState('')
     const sendMessage=()=>{
-        dispatch(ADD_MESSAGE_TO_CHAT(chatContent.id,'user',messageInput))
-        setMessageInput('')
+        if(messageInput.length>0){
+            dispatch(ADD_MESSAGE_TO_CHAT(chatContent.id,'user',messageInput))
+            setMessageInput('')} else alert('You cannot send empty messages.')
     }
     return(
         <StyledConvo>

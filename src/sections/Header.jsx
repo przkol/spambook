@@ -27,7 +27,7 @@ const Header=()=>{
     }
     
     const redirectToMainPage=()=>{
-        navigate(`${mobileModeFlag?'/m':'/'}`)
+        navigate(`${mobileModeFlag?'/m/':'/'}`)
      }
 
     return(

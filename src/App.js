@@ -45,7 +45,7 @@ function App(props) {
   const [prevFootballPost,setPrevFootballPost]=useState({title:``})
   const [displayDarkTheme,setDisplayDarkTheme]=useState(false)
   const [viewMobileModeValue,setViewMobileModeValue]=useState(false)
-  let viewportWidth=window.innerWidth
+
 
 
 // PREVENT POSTS SCROLLING OUT OF VIEW
@@ -55,6 +55,36 @@ function App(props) {
   window.scrollBy(0,addedElementHeight?.offsetHeight)}
 })
 
+
+
+// TOGGLES MOBILE MODE FLAG BASED ON WINDOW.INNERWIDTH AND NAVIGATES TO /M/PATH
+const checkDisplayWidth=useCallback(()=>{
+  let currentPathPrefix=location.pathname.substring(0,3);
+  let currentPath=location.pathname;
+  const mobilePathPrefix='/m/';
+  const widthLimit=769;
+    if(window.innerWidth<widthLimit){
+      setViewMobileModeValue(true)
+      if(!(currentPathPrefix===mobilePathPrefix)){
+        navigate(`/m/`+currentPath)
+      }
+    } else {
+      if(window.innerWidth>=widthLimit&&currentPathPrefix===mobilePathPrefix){
+          setViewMobileModeValue(false)
+          navigate('/')
+        }
+    }
+},[location.pathname, navigate])
+
+
+// ADD/REMOVE LISTENER FOR WINDOW RESIZE TO CHECK IF MOBILE MODE SHOULD BE DISPLAYED
+useEffect(()=>{
+  checkDisplayWidth()
+  window.addEventListener('resize',checkDisplayWidth)
+  return () => {
+   window.removeEventListener('resize',checkDisplayWidth)
+  }
+},[checkDisplayWidth])
 
 // SET DARK/LIGHT THEME CONTEXT FOR THE WHOLE APP
   const toggleDarkTheme=()=>{
@@ -202,17 +232,6 @@ const checkChatStatus=useCallback((id)=>{
   const closeChatWindow=(friendsName)=>{
       setOpenChats(previousOpenChats=>{return previousOpenChats.filter(chat=>chat!==friendsName)})
   }
-//CHECKS IF APP SHOULD BE DISPLAYED IN MOBILE MODE
-useEffect(()=>{
-  if(viewportWidth<=768&&!viewMobileModeValue)
-  {navigate('/m')
-  setViewMobileModeValue(prevState=>!prevState)
-} else if(viewportWidth>=769&&viewMobileModeValue)  {
-  navigate('/')
-setViewMobileModeValue(prevState=>!prevState)
-}
-},[navigate, viewMobileModeValue, viewportWidth])
-
 //DISPATCHES FRIENDSLIST FETCH ACTION ON APP LOAD
 useEffect(()=> {
   dispatch(fetchFriendsList)
@@ -291,7 +310,6 @@ useEffect(()=>{
   <ThemeProvider theme={displayDarkTheme? globalDarkTheme: globalLightTheme}>
     <GlobalStyles/>
     <Header/>
-
    <Routes>  
     <Route path='/' 
       element={<>
@@ -302,12 +320,12 @@ useEffect(()=>{
           <Outlet/>
           </main>
           </>}>
-         <Route exact path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/> <Feed /></>}/>
+         <Route path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/> <Feed /></>}/>
         <Route  path='user' element={<UserInfo/>} />
         <Route  path='groups' element={<Groups/>} />
         <Route  path="chatter/:id" element={<Chatter/>} />
         <Route  path="chatter" element={<Chatter/>} />
-        <Route exact path='groups/*' 
+        <Route  exact path='groups/*' 
           element={<>
           <GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} 
             groupState={props.groups}/> 
