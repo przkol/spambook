@@ -22,16 +22,15 @@ left:0;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    width:60vw;
-    height:60vh;
     overflow: hidden;
-    text-align:center
+    text-align:center;
+    max-width:100vw;
+    max-height:100vh;
 }
 
 img{
     max-width:100%;
     height:100%;
-    object-fit:cover;
 }
 
      

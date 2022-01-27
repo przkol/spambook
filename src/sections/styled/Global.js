@@ -22,12 +22,12 @@ body{
 
 
 main{
-    width: 95%;
+    width: 100%;
     max-width: 600px;
     margin: 3.5rem auto 0 auto;
-    padding: 0 5px;
     background-color: ${({theme})=>theme.colors.bgcBody};
-    overflow-anchor: auto;
+    overflow: auto;
+    z-index: 0;
 
 
 }

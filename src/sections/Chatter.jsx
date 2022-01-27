@@ -6,38 +6,56 @@ import { StyledChatter } from "./styled/Chatter.styled"
 import { useParams } from "react-router"
 import { useEffect } from "react"
 import { CREATE_NEW_CHAT } from "../reducers/actions/chatActions"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight,faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+
 
 export const activeChatContext=createContext()
 export const selectChatFuncContext=createContext()
+export const activeTabContext=createContext()
 
 export const Chatter=()=>{
   const {id}=useParams()
-  const [activeChat,setActiveChat]=useState(Number(id))
+  const [activeChat,setActiveChat]=useState(id)
+  const [isConversationActive,setIsConversationActive]=useState(true)
   const mainChatState=useSelector(state=>state.chatReducer)
   const mainFriendsState=useSelector(state=>state.friendsReducer)
     const numericId=Number(id)
     const dispatch=useDispatch()
-  let activeChatContent=mainChatState.find(chat=>chat.id===activeChat)
+  let activeChatContent=mainChatState.find(chat=>chat.id===numericId)
+  console.log(activeChat)
 
- 
   useEffect(()=>{
     let chatDoesExist=mainChatState.some(chat=>chat.id===(numericId))
-    if(!chatDoesExist&&Boolean(numericId)){
+    if(!chatDoesExist&&Boolean(id)){
       dispatch(CREATE_NEW_CHAT(numericId))}
-     
   },[activeChat, dispatch, id, mainChatState, numericId])
 
   const handleChatSelect=(targetChat)=>{
-    setActiveChat(targetChat)
-  }
+    setActiveChat(targetChat)}
+
+    const handleTabSelect=(target)=>{
+      if(target==='conversation'){
+        console.log('tru')
+        setIsConversationActive(true)
+      } else if(target==='toggle'){
+        console.log('togl')
+         setIsConversationActive(prevState=>!prevState)}
+    }
+
     return(
       <activeChatContext.Provider value={activeChat}>
-      <selectChatFuncContext.Provider value={handleChatSelect}>
-    <StyledChatter>
-        <div className="chatList"> <ChatList selectChat={handleChatSelect}/></div>
-        <div className="conversation">{activeChat?<Convo chatContent={activeChatContent}friend={mainFriendsState.usersList[activeChat]}/>:null}</div>
-    </StyledChatter>
-    </selectChatFuncContext.Provider>
+        <activeTabContext.Provider value={isConversationActive}>
+        <selectChatFuncContext.Provider value={handleChatSelect}>
+          <StyledChatter >
+            <div className={isConversationActive ? "thin chatList":" chatList"} > <ChatList selectChat={handleChatSelect}/></div>
+            <FontAwesomeIcon  onClick={()=>{handleTabSelect('toggle')}} className={isConversationActive?'arrow right':'arrow left'} icon={faChevronRight} />
+            <div  onClick={()=>{handleTabSelect()}}  className={isConversationActive ? "wide conversation":"conversation"}>
+              {activeChat?<Convo chatContent={activeChatContent}friend={mainFriendsState.usersList[activeChat]}/>:null}
+            </div>
+          </StyledChatter>
+        </selectChatFuncContext.Provider>
+        </activeTabContext.Provider>
     </activeChatContext.Provider>
   )
 

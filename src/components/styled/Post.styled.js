@@ -41,8 +41,8 @@ export const StyledPost = styled.div`
     }
 
     .postedPhoto{
-        height: 80%;
-        max-height: 200px;
+        max-width: 100%;
+        max-height: 300px;
         margin: 5px auto;
     }
     .postedPhoto:hover{

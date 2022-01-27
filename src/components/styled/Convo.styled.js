@@ -16,6 +16,13 @@ justify-content: space-between;
 .convoHeader img{
     margin:5px 10px;
     border-radius: 50%;
+    width: 40px;
+}
+img.big{
+    width: 40px;
+
+    margin:2px auto;
+    border-radius: 50%;
 }
 .convoHeader h3{
     margin-left: 10px;

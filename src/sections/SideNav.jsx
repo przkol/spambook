@@ -8,7 +8,7 @@ import { viewMobileMode } from "../App";
 import { useContext } from "react";
 const SideNav=(props)=>{
     const displayMode=useContext(viewMobileMode)
-const mobilePaths={main:'/m',userPage:'/m/user',groupsPage:'/m/groups',group1:`/m/groups/1`,group2:`/m/groups/2`,chats:'/m/chatter'}
+const mobilePaths={main:'/',userPage:'/m/user',groupsPage:'/m/groups',group1:`/m/groups/1`,group2:`/m/groups/2`,chats:'/m/chatter'}
 const desktopPaths={main:'/',userPage:'/user',groupsPage:'/groups',group1:`/groups/1`,group2:`/groups/2`,chats:'/chatter'}
 
 

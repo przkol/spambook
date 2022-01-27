@@ -5,7 +5,6 @@ export const StyledChatBar=styled.div`
 direction: ltr;
 display:flex;
 width:100%;
-max-width: 205px;
 margin: 0 auto;
 padding:5px 0;
 white-space: nowrap;
@@ -15,10 +14,13 @@ overflow:hidden;
 &:hover{
     cursor: pointer;
     background-color: ${({theme})=>theme.colors.bgcShade1};
+}
+&.active{
+    background-color: ${({theme})=>theme.colors.bgcShade1};
 
 }
 .nameAndPreviewContainer{
-    width: 85%;
+    width: 100%;
     padding-right: 5px;
 }
 p{
@@ -29,7 +31,7 @@ p{
 }
 img{
     border-radius: 50%;
-    width: 15%;
+    width: 40px;
     margin: auto 3px;
 }
 .name{

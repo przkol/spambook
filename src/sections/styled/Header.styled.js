@@ -6,12 +6,12 @@ top: 0;
 margin: 0 auto;
 background-color:${({theme})=>theme.colors.bgcHeader};
 width: 100%;
-margin-bottom:5px;
 color:white;
 height: 3rem;
 display: flex;
 justify-content: space-between;
 align-items: center;
+z-index: 2;
 
 h1{
     padding: 0 15px;
@@ -36,7 +36,7 @@ h2{
 img{
     margin: auto 0 auto 0;
     border-radius:50%;
-    height: 80%;
+    height: 2.5rem;
     padding:0 5px;
 }
 
