@@ -32,7 +32,7 @@ p{
 img{
     border-radius: 50%;
     width: 40px;
-    margin: auto 3px;
+    margin: auto;
 }
 .name{
 }

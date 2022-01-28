@@ -12,12 +12,9 @@ const mainUserReducer=(state={loaded:false
                 }
             return state
         case('GET_MAINUSER'):
-        console.log(action)
                 const regDate=new Date(userInfo.registered.date)
                 const birthDate=new Date(userInfo.dob.date)
-                console.log(regDate.toISOString())
-                console.log(regDate.toDateString())
-                console.log(regDate.toLocaleDateString())
+
             state = {
                 loaded:true,
                 userInfo:{...userInfo,

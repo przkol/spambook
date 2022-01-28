@@ -26,11 +26,7 @@ export const Convo=(props)=>{
             dispatch(ADD_MESSAGE_TO_CHAT(chatContent.id,'user',messageInput))
             setMessageInput('')} else alert('You cannot send empty messages.')
     }
-    console.log(friend)
-    console.log('xd')
-    console.log(chatContent)
-
-    if(isConversationActive){
+    if(isConversationActive&&chatContent&&friend){
         return(
         <StyledConvo>
             <div className="convoHeader">
@@ -45,12 +41,16 @@ export const Convo=(props)=>{
                     <button onClick={sendMessage}><FontAwesomeIcon icon={faPaperPlane} /></button>
                     </div>
         </StyledConvo>
-    )} else{
+    )} else if(!isConversationActive&&chatContent&&friend){
         return(
             <StyledConvo>
             <img className="big" src={friend?.picture.thumbnail} alt="" />
 
             </StyledConvo>
         )
+    } else if(!chatContent||!friend){
+       return( <StyledConvo>
+
+        </StyledConvo>)
     }
 }
