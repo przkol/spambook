@@ -13,6 +13,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 export const activeChatContext=createContext()
 export const selectChatFuncContext=createContext()
 export const activeTabContext=createContext()
+export const toggleActiveTabContext=createContext()
 
 export const Chatter=()=>{
   const {id}=useParams()
@@ -30,11 +31,10 @@ export const Chatter=()=>{
   },[activeChat, dispatch, id, mainChatState])
 
 useEffect(()=>{
-  console.log(id)
   if(id){
     setActiveChat(Number(id))
   }
-},[])
+},[id])
 
 
 
@@ -44,7 +44,6 @@ useEffect(()=>{
 
     const handleTabSelect=(target)=>{
       if(target==='conversation'){
-        console.log('tru')
         setIsConversationActive(true)
       } else if(target==='toggle'){
         console.log('togl')
@@ -53,6 +52,7 @@ useEffect(()=>{
 
     return(
       <activeChatContext.Provider value={activeChat}>
+        <toggleActiveTabContext.Provider value={handleTabSelect}>
         <activeTabContext.Provider value={isConversationActive}>
         <selectChatFuncContext.Provider value={handleChatSelect}>
           <StyledChatter >
@@ -64,6 +64,8 @@ useEffect(()=>{
           </StyledChatter>
         </selectChatFuncContext.Provider>
         </activeTabContext.Provider>
+        </toggleActiveTabContext.Provider>
+
     </activeChatContext.Provider>
   )
 

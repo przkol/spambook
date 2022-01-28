@@ -11,12 +11,6 @@ export const LIKE_POST=(index,postToLike)=>{
         type: 'LIKE_POST',
         index,postToLike}
     }
-export const SHOW_POST_COMMENTS=(index,postToEnable)=>{
-    return{
-        type: 'SHOW_POST_COMMENTS',
-        index,postToEnable}
-    }
-
 export const COMMENT_POST=(postIndex,commentText,userInfo)=>{
     return{
         type: 'COMMENT_POST',

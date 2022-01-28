@@ -45,6 +45,9 @@ position: relative;
         background-color:${({theme})=>theme.colors.bgcShade1};
         transition:.2s;
     }
+    .arrow:hover{
+        cursor: pointer;
+    }
 
     .arrow.right{
         left:15%;

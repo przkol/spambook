@@ -16,9 +16,7 @@ z-index: 2;
 h1{
     padding: 0 15px;
 }
-.mainUserInfo *{
-    display: none;
-}
+
 .mainUserInfo img{
     display: block;
 }

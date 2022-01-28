@@ -9,33 +9,29 @@ const postReducer=(state={
 
     switch(action.type){
         case('ADD_POST'):
+        console.log(post)
             currentPosts.unshift(post)
             if(currentPosts.length>=15) 
                 {currentPosts.pop()}
-            state={...state,
+
+          
+            return {...state,
                 loaded:true,
-                posts:currentPosts}            
-            return state
+                posts:currentPosts}
 
         case('LIKE_POST'):
             currentPosts[action.index]=action.postToLike
-            state={loaded:true,
-            posts:currentPosts}
-            return state
+
+            return {...state,
+                posts:currentPosts}
 
         case('COMMENT_POST'):
             currentPosts[action.postIndex].comments.push({person:action.userInfo,
                 comment:action.commentText
             })
-            return state
+            return {...state,
+                posts:currentPosts}
 
-        case('CREATE_POST'):
-
-            state = {
-                loaded:true,
-                }
-            return state
-        
          default:
              return state
         }

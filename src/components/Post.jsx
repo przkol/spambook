@@ -27,7 +27,6 @@ const handleSubmit=(e)=>{
     return addComment([value,props.index])
         } else{alert('You cannot add an empty comment.')}
     }   
-
 return(
     <>
     <StyledPost  className='post'>

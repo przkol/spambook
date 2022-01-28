@@ -6,7 +6,8 @@ export const StyledGroupFeed =styled.section`
 width: 100%;
 margin-top: 10px;
 font-size:${({theme})=>theme.fonts.mainFontSize};
-
+display: flex;
+flex-direction: column-reverse;
 .bgcPhotoContainer{
     width: 100%;
     height: 200px;

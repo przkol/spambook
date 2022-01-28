@@ -27,6 +27,21 @@ export const ADD_GROUP_POST=(post, groupId)=>{
         post,
         groupId
     }}
+export const LIKE_GROUP_POST=(groupId,index,postToLike)=>{
+        return{
+            type: 'LIKE_GROUP_POST',
+            groupId,
+            index,
+            postToLike}
+        }
+export const COMMENT_GROUP_POST=(groupId,postIndex,commentText,userInfo)=>{
+        return{
+            type: 'COMMENT_GROUP_POST',
+            groupId,
+            postIndex,
+            commentText,
+            userInfo}
+        }
 
 
 

@@ -4,14 +4,14 @@ import { ADD_POST } from "../reducers/actions/postActions"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { ADD_GROUP_POST } from "../reducers/actions/groupsActions"
+import { useParams } from "react-router"
 
 export const PostInput=(props)=>{
-    const {mainUser} = props
-    const mainUserState = useSelector(state =>state.mainUserReducer)
+    const {groupId}=useParams()
+    const mainUserState = useSelector(state =>state.mainUserReducer.userInfo)
     const [postText,setPostText]=useState('')
     const [postImage,setPostImage]=useState()
     const dispatch=useDispatch()
-
     const handleTextChange=(e)=>{
         setPostText(e.target.value)
     }
@@ -25,7 +25,7 @@ export const PostInput=(props)=>{
     const addUserPost=()=>{
         const comments=[]
         const userPost ={
-            user: mainUserState.userInfo,
+            user: mainUserState,
             type:'userPost',
             comments:comments,
             photo: postImage,
@@ -34,12 +34,11 @@ export const PostInput=(props)=>{
             liked:false,
             showComments:false
         }
-        if(props.target==='mainFeed'){
+        if(!groupId){
         dispatch(ADD_POST(userPost))
-        } else if(props.target==='group'){
-                dispatch(ADD_GROUP_POST(userPost,props.groupIdToShow))
+        } else if(groupId){
+                dispatch(ADD_GROUP_POST(userPost,groupId))
         }
-
         setPostImage()
         setPostText('')
     }
@@ -47,8 +46,8 @@ export const PostInput=(props)=>{
     return (
         <StyledPostInput>
             <div className='postHeader'>
-                <img src={mainUser?.picture?.thumbnail} alt={mainUser?.name?.first + `'s profile picture`} />
-                <p>{mainUser?.name?.first+' '+mainUser?.name?.last}</p>               
+                <img src={mainUserState?.picture?.thumbnail} alt={mainUserState?.name?.first + `'s profile picture`} />
+                <p>{mainUserState?.name?.first+' '+mainUserState?.name?.last}</p>               
                 </div>
             <div className='inputContainer'>
                 <textarea  maxLength='250' className='textContent' value={postText}onChange={handleTextChange}placeholder={`Tell us what you're thinking..`} />

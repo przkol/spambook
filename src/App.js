@@ -16,7 +16,7 @@ import { useEffect, useState,createContext } from 'react';
 import { connect } from 'react-redux';
 import Groups from './sections/Groups';
 import GroupFeed from './sections/GroupFeed';
-import { Outlet, useLocation, } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { fetchFootballHighlight, fetchProducts, ADD_GROUP_POST } from './reducers/actions/groupsActions';
 import { ADD_MESSAGE_TO_CHAT, CREATE_NEW_CHAT, } from "./reducers/actions/chatActions"
 import { GroupHeader } from './components/GroupHeader';
@@ -47,13 +47,12 @@ function App(props) {
   const [viewMobileModeValue,setViewMobileModeValue]=useState(false)
 
 
-
 // PREVENT POSTS SCROLLING OUT OF VIEW
 //NEEDS TWEAKING - SCROLL JUMPS TO PLACE INSTEAD OF BEING RENDERED READY
- useLayoutEffect(()=>{ 
-  if(window.scrollY) { const addedElementHeight=document.querySelector(".post")
-  window.scrollBy(0,addedElementHeight?.offsetHeight)}
-})
+//  useLayoutEffect(()=>{ 
+//   if(window.scrollY) { const addedElementHeight=document.querySelector(".post")
+//   window.scrollBy(0,addedElementHeight?.offsetHeight)}
+// })
 
 
 
@@ -320,34 +319,22 @@ useEffect(()=>{
           <Outlet/>
           </main>
           </>}>
-         <Route path='/' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/> <Feed /></>}/>
+         <Route path='/' element={<><PostInput target='mainFeed'/> <Feed /></>}/>
         <Route  path='user' element={<UserInfo/>} />
         <Route  path='groups' element={<Groups/>} />
         <Route  path="chatter/:id" element={<Chatter/>} />
         <Route  path="chatter" element={<Chatter/>} />
-        <Route  exact path='groups/*' 
-          element={<>
-          <GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} 
-            groupState={props.groups}/> 
-          <PostInput mainUser={mainUserState.userInfo} 
-            target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/>
-          <GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
+        <Route  path='groups/:groupId' element={<GroupFeed/>} />
         </Route>
         <Route path='/m'  element={<main><Outlet/></main>}>
-         <Route exact path='/m' element={<><PostInput mainUser={mainUserState.userInfo} target='mainFeed'/> <Feed /></>}/>
+         <Route exact path='/m' element={<><PostInput target='mainFeed'/> <Feed /></>}/>
          <Route exact path='/m/navigation' element={<SideNav/>}/>
         <Route  path='/m/user' element={<UserInfo/>} />
         <Route  path='/m/contactlist' element={<SideChat openChatWindow={openChatWindow}/>}/>
         <Route  path='/m/groups' element={<Groups/>} />
         <Route  path="/m/chatter/:id" element={<Chatter/>} />
         <Route  path="/m/chatter" element={<Chatter/>} />
-        <Route exact path='/m/groups/*' 
-          element={<>
-          <GroupHeader groupIdToShow={location.pathname[location.pathname.length-1]} 
-            groupState={props.groups}/> 
-          <PostInput mainUser={mainUserState.userInfo} 
-            target='group'groupIdToShow={location.pathname[location.pathname.length-1]}/>
-          <GroupFeed groupIdToShow={location.pathname[location.pathname.length-1]}/></>} />
+        <Route  path='/m/groups/:groupId' element={<GroupFeed/>} />
 
         </Route>
 

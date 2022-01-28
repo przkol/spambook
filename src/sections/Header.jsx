@@ -7,7 +7,6 @@ import {useNavigate} from 'react-router-dom'
 import { MobileNav } from "../components/MobileNav"
 import { viewMobileMode } from "../App"
 const Header=()=>{
-    const [mainUser, setMainUser] = useState('Jan')
     const mainUserState = useSelector(state =>state.mainUserReducer)
     const mobileModeFlag=useContext(viewMobileMode)
     const dispatch=useDispatch()
@@ -18,10 +17,6 @@ const Header=()=>{
         dispatch(fetchMainUserInfo)
         },[dispatch])
     
-    useEffect(()=>{
-        setMainUser(mainUserState)
-    },[mainUserState])
-
     const redirectToUserPanel=()=>{
        navigate(`${mobileModeFlag?'/m/user':'/user'}`)
     }
@@ -29,23 +24,32 @@ const Header=()=>{
     const redirectToMainPage=()=>{
         navigate(`${mobileModeFlag?'/m/':'/'}`)
      }
-
+if(mobileModeFlag){
     return(
         <StyledHeader >
-            <h1 onClick={redirectToMainPage}>{mobileModeFlag? "S": "SpamBook"}</h1>
+            <h1 onClick={redirectToMainPage}>S</h1>
             <MobileNav/>
             <div className='mainUserInfo' onClick={redirectToUserPanel}>
-                {mainUser.loaded ?
-                <h2> Witaj, {mainUser.userInfo.name.first +' '+ mainUser.userInfo.name.last}</h2>
-                :<h2>Witaj!</h2>}
-                {mainUser.loaded ? 
-                <img src={mainUser.userInfo.picture.thumbnail} alt={mainUser.userInfo.name.first+`'s profile picture`}/>
+                {mainUserState.loaded ? 
+                <img src={mainUserState.userInfo.picture.thumbnail} alt={mainUserState.userInfo.name.first+`'s profile picture`}/>
                 :<img src={placeholder} alt='placeholder'/>}
             </div>
-
-
         </StyledHeader>
-    )
+    )} else{
+        return(<StyledHeader>
+            <h1 onClick={redirectToMainPage}>SpamBook</h1>
+            <div className='mainUserInfo' onClick={redirectToUserPanel}>
+                {mainUserState.loaded ?
+                <h2> Witaj, {mainUserState.userInfo.name.first +' '+ mainUserState.userInfo.name.last}</h2>
+                :<h2>Witaj!</h2>}
+                {mainUserState.loaded ? 
+                <img src={mainUserState.userInfo.picture.thumbnail} alt={mainUserState.userInfo.name.first+`'s profile picture`}/>
+                :<img src={placeholder} alt='placeholder'/>}
+            </div>
+        </StyledHeader>
+)
+
+    }
 
 
 }
