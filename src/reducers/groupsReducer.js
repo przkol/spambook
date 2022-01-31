@@ -58,20 +58,20 @@ const groupsReducer=(
             })]}
 
         case('SET_SEEN_STATUS'):
-            if(action.groupId==='1'){
-                return{...state,
-                    tradePosts: state.tradePosts.map((element)=>{return {...element, seenByUser:true}}),               
-                }
-            }
-            if(action.groupId==='2'){
-                return{...state,
-                    footballPosts: state.footballPosts.map((element)=>{return {...element, seenByUser:true}}),               
-                }
-             }
-            return currentState
+            console.log(action)
 
+            return{...state,
+                groups:[...state.groups.map(group=>{
+                    if(group.groupId===action.groupId){
+
+                        return {...group,
+                        posts:group.posts.map(post=>{return({...post,seenByUser:true})})
+                    }} else return group
+                        
+    
+                })]}
+    
         case('LIKE_GROUP_POST'):
-        console.log(action)
 
             return {...state,
             groups:[...state.groups.map(group=>{

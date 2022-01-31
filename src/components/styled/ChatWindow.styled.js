@@ -11,6 +11,7 @@ flex-direction:column;
 justify-content: space-between;
 box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
 height: 100%;
+min-height: 270px;
 }
 
 .chatWindowBubble .messages,

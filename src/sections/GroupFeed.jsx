@@ -1,10 +1,9 @@
 import { StyledGroupFeed } from "./styled/GroupFeed.styled"
 import { useDispatch,useSelector } from "react-redux"
-import { useContext, useState} from "react"
+import { useState} from "react"
 import Post from "../components/Post"
 import { PostInput } from "../components/PostInput"
 import { COMMENT_GROUP_POST, LIKE_GROUP_POST } from "../reducers/actions/groupsActions"
-import { connect } from "react-redux"
 import { useEffect } from "react"
 import { SET_SEEN_STATUS } from "../reducers/actions/groupsActions"
 import { useParams } from "react-router"
@@ -12,14 +11,12 @@ import { GroupHeader } from "../components/GroupHeader"
 
 
 
-const GroupFeed=(props)=>{
+const GroupFeed=()=>{
     const {groupId}=useParams()
     const dispatch=useDispatch()
     const [groupPosts,setGroupPosts]=useState([])
     const mainUserState = useSelector(state =>state.mainUserReducer)
     const groupState=useSelector(state=>state.groupsReducer)
-    const [userComment,setUserComment]=useState('')
-
 
     const handleCommentsToggle=(e)=>{
         e.preventDefault()
@@ -63,6 +60,10 @@ const GroupFeed=(props)=>{
         const targetGroupPosts=targetGroup.posts
         setGroupPosts([...targetGroupPosts])
     },[groupId, groupState.groups])
+    
+    useEffect(()=>{
+        dispatch(SET_SEEN_STATUS(groupId))}
+        ,[groupId])
 
     return(<>
         <GroupHeader/>
@@ -73,12 +74,6 @@ const GroupFeed=(props)=>{
         </>
     )
 }
-const mapStateToProps = (state, ownProps) => {
-
-    return {
-        groupState:state.groupsReducer
-    };
-}
 
 
-export default connect(mapStateToProps)(GroupFeed);
+export default GroupFeed

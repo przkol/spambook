@@ -2,11 +2,10 @@ import { StyledGroupCard } from "./styled/GroupCard.styled"
 import { useNavigate } from "react-router"
 
 export const GroupCard=(props)=>{
-const {group,groupState}=props
+const {group}=props
 const navigate=useNavigate()
-
 const redirectToGroup=()=>{
-    navigate(`/groups/${group.groupID}`)
+    navigate(`/groups/${group.groupId}`)
 }
     return(
         <StyledGroupCard>
@@ -16,7 +15,7 @@ const redirectToGroup=()=>{
                 </div>
             <div className='groupInfo'>
                 <p>{group.groupName}</p>
-                <p>Posts: {groupState.footballPosts.length}</p>
+                <p>Posts: {group.posts.length}</p>
             </div>
             </div>
         </StyledGroupCard>

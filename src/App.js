@@ -19,7 +19,6 @@ import GroupFeed from './sections/GroupFeed';
 import { Outlet, useLocation } from "react-router";
 import { fetchFootballHighlight, fetchProducts, ADD_GROUP_POST } from './reducers/actions/groupsActions';
 import { ADD_MESSAGE_TO_CHAT, CREATE_NEW_CHAT, } from "./reducers/actions/chatActions"
-import { GroupHeader } from './components/GroupHeader';
 import { ChatWindowsContainer } from './sections/ChatWindowsContainer';
 import { useCallback } from 'react';
 import { FullImageContainer } from './components/FullImageContainer';
@@ -28,6 +27,7 @@ import { ThemeProvider } from 'styled-components';
 import { photoReactions,jokeReactions,tradeReactions, footballReactions,friendMessages,friendsResponses } from './resources/textContentArrays';
 import { Chatter } from './sections/Chatter';
 import { useLayoutEffect } from 'react';
+import { AddGroupForm } from './components/AddGroupForm';
 
 export const imgHandler=createContext()
 export const themeToggler=createContext()
@@ -36,7 +36,6 @@ export const openChatFunction=createContext()
 
 function App(props) {
   const dispatch=useDispatch()
-  const mainUserState = useSelector(state =>state.mainUserReducer)
   const location=useLocation()
   const navigate=useNavigate()
   const [openChats,setOpenChats]=useState([])
@@ -324,6 +323,7 @@ useEffect(()=>{
         <Route  path='groups' element={<Groups/>} />
         <Route  path="chatter/:id" element={<Chatter/>} />
         <Route  path="chatter" element={<Chatter/>} />
+        <Route  path='groups/newgroup' element={<AddGroupForm/>} />
         <Route  path='groups/:groupId' element={<GroupFeed/>} />
         </Route>
         <Route path='/m'  element={<main><Outlet/></main>}>
@@ -334,6 +334,7 @@ useEffect(()=>{
         <Route  path='/m/groups' element={<Groups/>} />
         <Route  path="/m/chatter/:id" element={<Chatter/>} />
         <Route  path="/m/chatter" element={<Chatter/>} />
+        <Route  path='/m/groups/newgroup' element={<AddGroupForm/>} />
         <Route  path='/m/groups/:groupId' element={<GroupFeed/>} />
 
         </Route>

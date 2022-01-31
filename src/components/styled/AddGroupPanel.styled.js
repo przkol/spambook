@@ -1,46 +1,43 @@
 import styled from "styled-components";
 
-export const StyledGroupCard = styled.div`
+export const StyledAddGroupPanel = styled.div`
     width: 40%;
     height: 200px;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-bottom: 10px;
+    margin: 0 2px;
     padding: 5px;
     color: ${({theme})=>theme.colors.mainFontColor};
     box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
     background-color:${({theme})=>theme.colors.bgcBody};
 
 
-
-
     &:hover{
-        padding: 0px;
         cursor: pointer;
     }
     .cardContentContainer{
+        display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
     height: 100%;
+    width: 100%;
     border-radius: 5px;
     overflow: hidden;
     }
 
     .imgContainer{
         width: 100%;
-        height: 60%;
+        font-size: 3rem;
+        text-align: center;
     }
 
-    img{
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
     .groupInfo{
-        padding:2px 5px;
+        text-align: center;
     }
 
     @media(min-width:769px){
     max-width: 30%;}
+
 
 
 

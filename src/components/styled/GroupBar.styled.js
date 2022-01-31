@@ -2,9 +2,7 @@ import  styled  from 'styled-components';
 
 
 export const StyledGroupBar = styled.div`
-display: flex;
-justify-content:space-between;
-align-items:center;
+position: relative;
 width: 100%;
 border-radius: 10px;
 margin-top: 3px;
@@ -27,12 +25,12 @@ a{
     white-space: nowrap;
     overflow:hidden;
     color:${({theme})=>theme.colors.mainFontColor};
-    text-overflow:ellipsis
+    text-overflow:ellipsis;
+    margin: 0 auto;
 }
 
 span{
     background-color:${({theme})=>theme.colors.elegantRed};
-
     color:white;
     font-size:12px;
     font-weight:500;
@@ -42,6 +40,10 @@ span{
     width: 20px;
     line-height: 20px;
     text-align:center;
-    margin-right:2px;
+    margin-right:3px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 `

@@ -4,13 +4,14 @@ import { StyledGroupBar } from "./styled/GroupBar.styled";
 
 
 export const GroupBar=(props)=>{
-
+    const {group}=props
+    let unreadPosts=group.posts.filter(post=>!post.seenByUser)
     return(
     <StyledGroupBar >
-        <NavLink to={props.groupPath}>
-         {props.groupName}  
+        <NavLink to={`/groups/${group.groupId}`}>
+         {group.groupName}  
         </NavLink>
-      {props.postsNum>0?<span>{props.postsNum}</span>:null}
+      {unreadPosts.length>0?<span>{unreadPosts.length}</span>:null}
      </StyledGroupBar>
     )
 
