@@ -13,10 +13,8 @@ const redirectToGroup=()=>{
             <div className='imgContainer'>
                 <img src={group.groupBgcPhotoThumbnail} alt={group.groupName}/>
                 </div>
-            <div className='groupInfo'>
                 <p>{group.groupName}</p>
                 <p>Posts: {group.posts.length}</p>
-            </div>
             </div>
         </StyledGroupCard>
     )

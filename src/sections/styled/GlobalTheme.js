@@ -28,8 +28,7 @@ export const globalDarkTheme={
         bgcShade1:'#5D636C',
         bgcShade2:'#40444B',
         mainFontColor:'#e4e6eb',
-        contrastFontColor:'#FFF',
-
+        contrastFontColor:'#222',
         borderShade1:'#99D9F5',
         elegantRed:'#D12A1E'
 

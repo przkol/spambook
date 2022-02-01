@@ -37,12 +37,12 @@ export const StyledPost = styled.div`
     .postContent{
         width: 100%;
         height: 95%;
-        padding: 5px 10px;
+        padding: 5px 15px;
     }
 
     .postedPhoto{
         max-width: 100%;
-        max-height: 300px;
+        max-height: 200px;
         margin: 5px auto;
     }
     .postedPhoto:hover{
@@ -64,7 +64,7 @@ export const StyledPost = styled.div`
         justify-content:space-around;
     }
     .actionContainer>button{
-        width:100px;
+        width:100%;
         background-color:  ${({theme})=>theme.colors.bgcFeed};
         color:${({theme})=>theme.colors.mainFontColor};
         border: none;
@@ -77,8 +77,7 @@ export const StyledPost = styled.div`
 
     }
 
-    .actionContainer>button:hover,
-    .actionContainer>button.liked{
+    .actionContainer>button:hover{
         font-weight:600;
         background-color: ${({theme})=>theme.colors.bgcShade2};
     }

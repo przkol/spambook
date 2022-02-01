@@ -11,7 +11,6 @@ const targetGroup=groupState.groups.find(group=>group.groupId===groupId)
 const openFullImg=useContext(imgHandler)
 const imgSource=targetGroup.groupBgcPhotoFull
 
-
     return(
 <StyledGroupHeader onClick={()=>openFullImg(imgSource)}>
 

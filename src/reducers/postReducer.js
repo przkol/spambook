@@ -10,7 +10,7 @@ const postReducer=(state={
     switch(action.type){
         case('ADD_POST'):
             currentPosts.unshift(post)
-            if(currentPosts.length>=15) 
+            if(currentPosts.length>=35) 
                 {currentPosts.pop()}
 
           

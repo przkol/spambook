@@ -46,6 +46,13 @@ img{
 width: 30%;
 }
 
+.baseInfo div:last-of-type,
+.contactInfo div:last-of-type,
+.addressInfo div:last-of-type{
+
+border: none;
+}
+
 
 .baseInfo div p:nth-of-type(2),
 .contactInfo div p:nth-of-type(2),
@@ -59,13 +66,13 @@ align-self: center;
 
 button{
     border:none;
+    background-color: ${({theme})=>theme.colors.bgcShade1};
     padding: 2px 0;
     margin-bottom: 2px;
     border-radius: 3px;
     height: 20px;
     width: 50px;
     margin: auto 0 2px 0;
-    background-color:inherit;
     color: inherit;
 }
 button:hover{

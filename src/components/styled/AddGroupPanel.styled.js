@@ -18,7 +18,6 @@ export const StyledAddGroupPanel = styled.div`
         display: flex;
     flex-direction: column;
     justify-content: space-around;
-
     height: 100%;
     width: 100%;
     border-radius: 5px;
@@ -35,7 +34,7 @@ export const StyledAddGroupPanel = styled.div`
         text-align: center;
     }
 
-    @media(min-width:769px){
+    @media(min-width:600px){
     max-width: 30%;}
 
 

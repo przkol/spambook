@@ -3,9 +3,13 @@ import  styled  from 'styled-components';
 
 export const StyledGroupBar = styled.div`
 position: relative;
-width: 100%;
 border-radius: 10px;
-margin-top: 3px;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 300px;
+margin: 3px auto 0 auto;
+
 
 &:hover{
     background-color: ${({theme})=>theme.colors.bgcShade1};
@@ -16,7 +20,6 @@ a{
     display: block;
     text-decoration: none;
     border-radius: 10px;
-    width: 90%;
     height:100%;
     font-size: 16px;
     padding: 5px 0px 5px 6px;
@@ -38,12 +41,20 @@ span{
     border-radius:50%;
     display: block;
     width: 20px;
+    min-width: 20px;
+    height: 20px;
     line-height: 20px;
     text-align:center;
     margin-right:3px;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+}
+
+@media(min-width:769px){
+width: 100%;
+max-width: 600px;
+margin: 3px 0 0 0 ;
+justify-content: space-between;
+a{
+    margin-left: 0;
+}
 }
 `

@@ -24,10 +24,11 @@ body{
 main{
     width: 100%;
     max-width: 600px;
-    margin: 3.5rem auto 0 auto;
+    margin: 3.5rem auto 1rem auto;
     background-color: ${({theme})=>theme.colors.bgcBody};
     overflow: auto;
     z-index: 0;
+    padding:2px ;
 
 
 }
@@ -39,11 +40,17 @@ main{
 
 @media(min-width:769px){
     main{
-    width: 60%;
+    width: 45%;
     max-width: 600px;
     }
-    
+}
+
+@media(min-width:992px){
+    main{
+    width: 50%;
+    max-width: 600px;
     }
+}
 `
 
 export default GlobalStyles

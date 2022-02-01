@@ -42,6 +42,12 @@ export const COMMENT_GROUP_POST=(groupId,postIndex,commentText,userInfo)=>{
             commentText,
             userInfo}
         }
+export const ADD_NEW_GROUP=(groupName,groupBgcPhoto)=>{
+    return{
+        type: 'ADD_NEW_GROUP',
+        groupName,
+        groupBgcPhoto}
+    }
 
 
 

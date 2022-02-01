@@ -4,7 +4,7 @@ import buySellTradeSmall from '../img/tradegroup small.jpg'
 import buySellTradeFull from '../img/tradegroup.jpg'
 
 const tradeGroup={
-    groupId:'1',
+    groupId:window.btoa('BUY / SELL / TRADE'),
     groupName: 'BUY / SELL / TRADE',
     groupBgcPhotoThumbnail: buySellTradeSmall,
     groupBgcPhotoFull:buySellTradeFull,
@@ -12,7 +12,7 @@ const tradeGroup={
 }
 
 const footballGroup={
-    groupId:'2',
+    groupId:window.btoa('Football games & highlights'),
     groupName: 'Football games & highlights',
     groupBgcPhotoThumbnail: footballImgSmall,
     groupBgcPhotoFull:footballImgFull,
@@ -45,7 +45,6 @@ const groupsReducer=(
         }
         case('ADD_GROUP_POST'):
         const{groupId,post} = action
-        console.log(action)
 
             return{...state,
             groups:[...state.groups.map(group=>{
@@ -58,7 +57,6 @@ const groupsReducer=(
             })]}
 
         case('SET_SEEN_STATUS'):
-            console.log(action)
 
             return{...state,
                 groups:[...state.groups.map(group=>{
@@ -88,6 +86,17 @@ const groupsReducer=(
                     group.posts[action.postIndex].comments.push(commentToBeAdded)
                     return group
                 } else return group})]}
+        
+        case('ADD_NEW_GROUP'):
+        const newGroup={
+            groupId:window.btoa(action.groupName),
+            groupName: action.groupName,
+            groupBgcPhotoThumbnail: action.groupBgcPhoto,
+            groupBgcPhotoFull:action.groupBgcPhoto,
+            posts:[]
+        }
+        return {...state,
+        groups:[...state.groups,newGroup]}
                 
         default:
             return state

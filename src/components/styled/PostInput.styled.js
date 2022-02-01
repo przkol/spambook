@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 
 export const StyledPostInput = styled.div`
-    color:${({theme})=>theme.colors.mainFontColor};
+    color:${({ theme }) => theme.colors.mainFontColor};
     width: 100%;
-    background-color:${({theme})=>theme.colors.bgcFeed};
+    background-color:${({ theme }) => theme.colors.bgcFeed};
     border-radius: 10px;
     margin-bottom: 10px;
-    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
+    box-shadow: 0 1px 2px ${({ theme }) => theme.colors.bgcShade1};
 
 
     .postHeader{
@@ -15,7 +15,7 @@ export const StyledPostInput = styled.div`
         width: 100%;
         height: 50px;
         padding: 5px;
-        /* border-bottom: 1px solid ${({theme})=>theme.colors.bgcShade1}; */
+        /* border-bottom: 1px solid ${({ theme }) => theme.colors.bgcShade1}; */
     }
     .postHeader>p{
         margin: auto 0 ;
@@ -32,11 +32,16 @@ export const StyledPostInput = styled.div`
         height: 100%;
         width: 100%;
         text-align: center;
-
+    }
+    .imgContainer{
+        width: 100%;
+        text-align: left;
+        display: flex;
     }
 
-    .inputContainer>img{
+    .imgContainer img{
         height: 50px;
+        margin: 5px;
     }
     #fileInput{
         display: none;
@@ -48,13 +53,13 @@ export const StyledPostInput = styled.div`
         width: 95%;
         resize:none;
         height: 100px;
-        color: ${({theme})=>theme.colors.mainFontColor};
+        color: ${({ theme }) => theme.colors.mainFontColor};
         font-family: inherit;
         margin: 2px auto 0 auto;
         background-color: inherit;
     }
     .textContent:hover{
-         background-color:${({theme})=>theme.colors.bgcBody};
+         background-color:${({ theme }) => theme.colors.bgcBody};
     }
 
     .actionButtonContainer{
@@ -64,7 +69,7 @@ export const StyledPostInput = styled.div`
     .inputContainer button,
     label{
         background-color: inherit;
-        color:${({theme})=>theme.colors.mainFontColor};
+        color:${({ theme }) => theme.colors.mainFontColor};
         border: none;
         padding: 2px 5px ;
         cursor: pointer;
@@ -73,6 +78,20 @@ export const StyledPostInput = styled.div`
         font-size: 16px;
         font-weight:500;
         font-family: inherit;
+    }
+
+    .deletePhoto{
+    display: block;
+    width: 20px;
+    height: 20px;
+    line-height: 15px;
+    text-align: center;
+    border-radius: 50%;
+    background-color:${({ theme }) => theme.colors.bgcShade1};
+    }
+
+    .deletePhoto:hover{
+        cursor: pointer;
     }
 
 `

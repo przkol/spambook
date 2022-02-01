@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 
-export const StyledChatWindow=styled.div`
-color:${({theme})=>theme.colors.mainFontColor};
+export const StyledChatWindow = styled.div`
+color:${({ theme }) => theme.colors.mainFontColor};
 .chatWindowOpened{
-background-color:${({theme})=>theme.colors.bgcBody};
+background-color:${({ theme }) => theme.colors.bgcBody};
 margin:0 5px;
 display:flex;
 flex-direction:column;
 justify-content: space-between;
-box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
+box-shadow: 0 1px 2px ${({ theme }) => theme.colors.bgcShade1};
 height: 100%;
 min-height: 270px;
 }
@@ -40,7 +40,7 @@ div.chatWindowBubble:hover{
     position: absolute;
     bottom: 5%;
     right: 5%;
-    background-color:${({theme})=>theme.colors.elegantRed};
+    background-color:${({ theme }) => theme.colors.elegantRed};
     border-radius: 50%;
     height: 1rem;
     width: 1rem;
@@ -54,7 +54,7 @@ div.chatWindowBubble:hover{
 .messageInput button{
     border: none;
     border-radius: 5px;
-    color:${({theme})=>theme.colors.mainFontColor};
+    color:${({ theme }) => theme.colors.mainFontColor};
     background-color: inherit;
     font-weight:bold;
     font-size:1.1rem;
@@ -62,34 +62,33 @@ div.chatWindowBubble:hover{
 }
 button:hover{
     cursor:pointer;
-    background-color:${({theme})=>theme.colors.mainFontColor};
-    color:${({theme})=>theme.colors.bgcBody};
-
 
 }
 .windowHeader{
-background-color: ${({theme})=>theme.colors.bgcShade1};
+background-color: ${({ theme }) => theme.colors.bgcShade1};
 display:flex;
 justify-content:space-between;
 padding: 3px;
 }
 .windowHeader h3{
     flex-grow:.9;
-    font-size:${({theme})=>theme.fonts.mainFontSize};
+    font-size:${({ theme }) => theme.fonts.mainFontSize};
     margin: auto 5px;
     white-space: nowrap;
     overflow:hidden;
     text-overflow:ellipsis
 }
 h4{
-    margin: auto 2px;
+    margin: auto;
 }
 .windowHeader button{
     width: 20px;
-    margin: 2px;
+    height: 20px;
+    margin: auto 2px;
 }
 .buttons{
    min-width: fit-content;
+   height: 100%;
 }
 
 .messageInput{
@@ -102,12 +101,12 @@ label{
 input{
     width: 100%;
     line-height: 20px;
+    height: 25px;
     border-radius: 5px;
     border: none;
     padding-left: 3px;
-    background-color: ${({theme})=>theme.colors.bgcShade1};
-    color: ${({theme})=>theme.colors.mainFontColor};
-
+    background-color: ${({ theme }) => theme.colors.bgcShade1};
+    color: ${({ theme }) => theme.colors.mainFontColor};
 }
 .messages{
     flex-grow: 1;
@@ -134,12 +133,12 @@ img{
 
 }
 .friendMsg{
-    background-color: ${({theme})=>theme.colors.bgcShade1};
+    background-color: ${({ theme }) => theme.colors.bgcShade1};
     margin:3px auto 3px 3px;
 }
 
 .userMsg{
-    background-color: ${({theme})=>theme.colors.bgcShade2};
+    background-color: ${({ theme }) => theme.colors.bgcShade2};
     margin:3px 3px 3px auto;
 }
 

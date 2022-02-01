@@ -6,29 +6,30 @@ color:${({theme})=>theme.colors.mainFontColor};
 background-color:${({theme})=>theme.colors.bgcBody};
 width: 100%;
 overflow: auto;
-height: fit-content;
-margin:0 auto;
+height: 100%;
+margin: 0 auto;
 
 
-.friendsList{
-    width:80%;
-    margin:0 auto;
+    .friendsList{
+        width:80%;
+        max-width: 250px;
+        margin:0 auto;
+        }
+    h3{
+        text-align: center;
+        padding-left:10px;
+        font-size:${({theme})=>theme.fonts.headerFontSize};
     }
-h3{
-    text-align: center;
-    padding-left:10px;
-    font-size:${({theme})=>theme.fonts.headerFontSize};
-}
 
 
-    @media(min-width:769px){
+@media(min-width:769px){
     position: fixed;
     right: 0;
-    max-width: 220px;
+    max-width: 200px;
 
-.friendsList{
-    width: 100%;
-}
-
+    .friendsList{
+        width: 100%;
     }
+
+}
 `
