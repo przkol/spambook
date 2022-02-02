@@ -125,7 +125,7 @@ function App(props) {
 
 
     let newPost = {
-      userId: [Math.floor(Math.random() * props.friends.usersList.length)],
+      userId: Math.floor(Math.random() * props.friends.usersList.length),
       likes: (Math.floor(Math.random() * 25) + 3),
       liked: false,
       comments: comments,
@@ -160,6 +160,7 @@ function App(props) {
             You can watch highlights here:`,
           seenByUser: groupIdFromLocation === footballGroupId
         }
+        console.log(newPost)
         dispatch(ADD_GROUP_POST(newPost, footballGroupId))
         break;
       case ('trade'):
@@ -170,6 +171,8 @@ function App(props) {
           text: `[${props.shop.category}] #WTT #WTS Any offers for this ${props.shop.title}? Can sell it for $${props.shop.price}`,
           seenByUser: groupIdFromLocation === tradeGroupId
         }
+        console.log(newPost)
+
         dispatch(ADD_GROUP_POST(newPost, tradeGroupId))
         break;
 
@@ -254,7 +257,7 @@ function App(props) {
     contentPicker()
     const contentPickerInterval = setInterval(() => {
       contentPicker()
-    }, 10000);
+    }, 2000);
     return () => {
       clearTimeout(contentPickerInterval);
     }

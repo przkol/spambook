@@ -11,12 +11,13 @@ const Post = (props) => {
     const friendState = useSelector(state => state.friendsReducer)
     const user = userId === 'mainUser' ? mainUserState.userInfo : friendState?.usersList[userId]
     const userName = user?.name ? user.name.first + ' ' + user.name.last : null
-    const userProfilePicture = user?.picture.thumbnail
     const commentsToRender = comments.map((element, index) => <Comment key={index} person={element.person} comment={element.comment} />)
     const [userComment, setUserComment] = useState('')
     const navigate = useNavigate()
     const openFullImg = useContext(imgHandler)
 
+    console.log(user)
+    console.log(userId)
     const handleChange = (e) => {
         const value = e.target.value
         setUserComment(value)
@@ -30,11 +31,12 @@ const Post = (props) => {
             return addComment([value, props.index])
         } else { alert('You cannot add an empty comment.') }
     }
+
     return (
         <>
             <StyledPost className='post'>
                 <div className='postHeader' onClick={() => { navigate(`/user/${userId}`) }}>
-                    <img src={userProfilePicture} alt={userName + `'s profile picture`} />
+                    <img src={user?.picture.thumbnail} alt={userName + `'s profile picture`} />
                     <p><span>{userName} </span> posted this.</p>
                 </div>
                 <div className='postContent'>

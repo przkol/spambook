@@ -38,7 +38,7 @@ const GroupFeed = () => {
         dispatch(COMMENT_GROUP_POST(groupId, postIndex, commentText, mainUserState.userInfo))
     }
     const mappedPosts = groupPosts.map((element, index) =>
-        <Post user={element.user}
+        <Post userId={element.userId}
             joke={element.joke}
             photo={element.photo}
             type={element.type}
