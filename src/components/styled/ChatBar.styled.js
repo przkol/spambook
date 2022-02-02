@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const StyledChatBar=styled.div`
+export const StyledChatBar = styled.div`
 direction: ltr;
 display:flex;
 width:100%;
@@ -13,15 +13,16 @@ overflow:hidden;
 
 &:hover{
     cursor: pointer;
-    background-color: ${({theme})=>theme.colors.bgcShade1};
+    background-color: ${({ theme }) => theme.colors.bgcShade1};
 }
 &.active{
-    background-color: ${({theme})=>theme.colors.bgcShade1};
+    background-color: ${({ theme }) => theme.colors.bgcShade1};
 
 }
 .nameAndPreviewContainer{
     width: 100%;
     padding-right: 5px;
+    margin-left: 5px;
 }
 p{
     width: 100%;
@@ -32,12 +33,21 @@ p{
 img{
     border-radius: 50%;
     width: 40px;
+}
+.convoActiveImg{
     margin: auto;
 }
+.listActiveImg{
+    margin-left: 5px;
+}
+
+
+
+
 .name{
 }
 .messagePreview{
-font-size:${({theme})=>theme.fonts.smallFontSize} ;
+font-size:${({ theme }) => theme.fonts.smallFontSize} ;
 
 }
 .bold{

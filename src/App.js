@@ -26,7 +26,6 @@ import { globalLightTheme, globalDarkTheme } from './sections/styled/GlobalTheme
 import { ThemeProvider } from 'styled-components';
 import { photoReactions, jokeReactions, tradeReactions, footballReactions, friendMessages, friendsResponses } from './resources/textContentArrays';
 import { Chatter } from './sections/Chatter';
-import { useLayoutEffect, useRef, useMemo } from 'react';
 import { AddGroupForm } from './components/AddGroupForm';
 
 export const imgHandler = createContext()
@@ -46,62 +45,6 @@ function App(props) {
   const [prevCatPost, setPrevCatPost] = useState('')
   const [displayDarkTheme, setDisplayDarkTheme] = useState(false)
   const [viewMobileModeValue, setViewMobileModeValue] = useState(false)
-
-
-  // PREVENT POSTS SCROLLING OUT OF VIEW
-  //NEEDS TWEAKING - SCROLL JUMPS TO PLACE INSTEAD OF BEING RENDERED READY
-  //  useLayoutEffect(()=>{ 
-  //   if(window.scrollY) { const addedElementHeight=document.querySelector(".post")
-  //   window.scrollBy(0,addedElementHeight?.offsetHeight)}
-  // })
-  // const findFirstElementinViewPort = (elements) => {
-  //   const scrollFromTop = window.scrollY
-  //   return (Array.prototype.find.call(elements, (element => element.getBoundingClientRect().y > 50)))
-  // }
-  // const containerRef = useRef(null)
-  // const scrollTo = useMemo(() => {
-  //   console.log(containerRef)
-  //   const nodeElements = containerRef.current?.querySelectorAll('.post')
-  //   console.log(nodeElements)
-  //   if (nodeElements) {
-  //     console.log(findFirstElementinViewPort(nodeElements))
-  //     return findFirstElementinViewPort(nodeElements);
-  //   }
-  //   return undefined
-  // }, [props.groups, props.posts, window.scrollY])
-
-  // console.log(containerRef)
-  // useLayoutEffect(() => {
-  //   console.log(scrollTo)
-  //   console.log('xd')
-  //   if (scrollTo) {
-  //     scrollTo.scrollIntoView();
-  //   }
-  // })
-  console.log(window.scrollY)
-  console.log(document.querySelectorAll('.post'))
-
-  const checkDisplayedPost = useCallback(() => {
-    const scrollY = window.scrollY
-    const postList = document.querySelectorAll('.post')
-    console.log(postList)
-    if (postList.length) {
-      const post = Array.prototype.find.call(
-        postList,
-        element => element.getBoundingClientRect().y > 48
-      );
-      window.scrollBy(post)
-    }
-
-  }, [])
-
-  useEffect(() => {
-    window.addEventListener('scrollY', checkDisplayedPost)
-    return () => {
-      window.removeEventListener('scrollY', checkDisplayedPost)
-    }
-  }, [checkDisplayedPost])
-
 
   // TOGGLES MOBILE MODE FLAG BASED ON WINDOW.INNERWIDTH AND NAVIGATES TO /M/PATH
   const checkDisplayWidth = useCallback(() => {
@@ -152,6 +95,8 @@ function App(props) {
 
   // CREATE NEW POST, SET IT'S CONTENT, SET LIKES AND COMMENTS, DISPATCH ADD POST TO STORE
   const generateContent = useCallback((type) => {
+    const slashIndex = location.pathname.lastIndexOf('/') + 1
+    const groupIdFromLocation = location.pathname.substring(slashIndex)
     const comments = []
     for (let i = 0; i < 10; i++) {
       const randomNumber = Math.floor(Math.random() * 10)
@@ -179,16 +124,18 @@ function App(props) {
     }
 
 
-    let newPost = {}
+    let newPost = {
+      userId: [Math.floor(Math.random() * props.friends.usersList.length)],
+      likes: (Math.floor(Math.random() * 25) + 3),
+      liked: false,
+      comments: comments,
+    }
     switch (type) {
       case ('photo'):
         newPost = {
-          user: props.friends.usersList[Math.floor(Math.random() * 20)],
+          ...newPost,
           photo: props.photos,
-          comments: comments,
           text: 'OMG, check this cat out!',
-          likes: (Math.floor(Math.random() * 25) + 3),
-          liked: false,
           seenByUser: false
         }
         dispatch(ADD_POST(newPost))
@@ -196,49 +143,39 @@ function App(props) {
         break;
       case ('joke'):
         newPost = {
-          user: props.friends.usersList[Math.floor(Math.random() * 20)],
+          ...newPost,
           photo: null,
-          comments: comments,
           text: props.jokes,
-          likes: (Math.floor(Math.random() * 25) + 3),
-          liked: false,
           seenByUser: false
         }
         dispatch(ADD_POST(newPost))
         break;
       case ('football'):
-        const footballGroupId = props.groups.groups[0].groupId
+        const footballGroupId = props.groupsState.groups[1].groupId
         newPost = {
-          user: props.friends.usersList[Math.floor(Math.random() * 20)],
+          ...newPost,
           photo: props.footballHighlights.thumbnail,
-          comments: comments,
           matchviewUrl: props.footballHighlights.matchviewUrl,
           text: `Have you seen this ${props.footballHighlights.title} from  ${props.footballHighlights.competition}?\
             You can watch highlights here:`,
-          likes: (Math.floor(Math.random() * 25) + 3),
-          liked: false,
-          seenByUser: false
+          seenByUser: groupIdFromLocation === footballGroupId
         }
         dispatch(ADD_GROUP_POST(newPost, footballGroupId))
         break;
       case ('trade'):
-        const TradeGroupId = props.groups.groups[1].groupId
-
+        const tradeGroupId = props.groupsState.groups[0].groupId
         newPost = {
-          user: props.friends.usersList[Math.floor(Math.random() * 20)],
+          ...newPost,
           photo: props.shop.image,
-          comments: comments,
           text: `[${props.shop.category}] #WTT #WTS Any offers for this ${props.shop.title}? Can sell it for $${props.shop.price}`,
-          likes: (Math.floor(Math.random() * 25) + 3),
-          liked: false,
-          seenByUser: false
+          seenByUser: groupIdFromLocation === tradeGroupId
         }
-        dispatch(ADD_GROUP_POST(newPost, TradeGroupId))
+        dispatch(ADD_GROUP_POST(newPost, tradeGroupId))
         break;
 
-      default: console.log(type)
+      default: return
     }
-  }, [dispatch, props.footballHighlights.competition, props.footballHighlights.matchviewUrl, props.footballHighlights.thumbnail, props.footballHighlights.title, props.friends.usersList, props.groups.groups, props.jokes, props.photos, props.shop.category, props.shop.image, props.shop.price, props.shop.title])
+  }, [dispatch, location.pathname, props.footballHighlights.competition, props.footballHighlights.matchviewUrl, props.footballHighlights.thumbnail, props.footballHighlights.title, props.friends.usersList, props.groupsState.groups, props.jokes, props.photos, props.shop.category, props.shop.image, props.shop.price, props.shop.title])
 
   // CHECKS IF CHAT FOR PROVIDED USER ID WAS ALREADY CREATED IN STORE & IS CURRENTLY OPEN IN APP
   const checkChatStatus = useCallback((id) => {
@@ -387,6 +324,7 @@ function App(props) {
                       </main>
                     </>}>
                     <Route path='/' element={<><PostInput target='mainFeed' /> <Feed /></>} />
+                    <Route path='user/:userid' element={<UserInfo />} />
                     <Route path='user' element={<UserInfo />} />
                     <Route path='groups' element={<Groups />} />
                     <Route path="chatter/:id" element={<Chatter />} />
@@ -397,6 +335,7 @@ function App(props) {
                   <Route path='/m' element={<main ><Outlet /></main>}>
                     <Route exact path='/m' element={<><PostInput target='mainFeed' /> <Feed /></>} />
                     <Route exact path='/m/navigation' element={<SideNav />} />
+                    <Route path='/m/user/userid' element={<UserInfo />} />
                     <Route path='/m/user' element={<UserInfo />} />
                     <Route path='/m/contactlist' element={<SideChat openChatWindow={openChatWindow} />} />
                     <Route path='/m/groups' element={<Groups />} />
@@ -423,7 +362,7 @@ const mapStateToProps = (state) => {
     friends: state.friendsReducer,
     shop: state.groupsReducer.shopItems,
     footballHighlights: state.groupsReducer.footballHighlights,
-    groups: state.groupsReducer,
+    groupsState: state.groupsReducer,
     chats: state.chatReducer
   };
 }

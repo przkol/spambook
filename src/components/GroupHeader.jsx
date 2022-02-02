@@ -4,19 +4,20 @@ import { useContext } from "react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 
-export const GroupHeader=(props)=>{
-const {groupId}=useParams()
-const groupState=useSelector(state=>state.groupsReducer)
-const targetGroup=groupState.groups.find(group=>group.groupId===groupId)
-const openFullImg=useContext(imgHandler)
-const imgSource=targetGroup.groupBgcPhotoFull
+export const GroupHeader = (props) => {
+    const { groupId } = useParams()
+    const groupState = useSelector(state => state.groupsReducer)
+    const targetGroup = groupState.groups.find(group => group.groupId === groupId)
+    const openFullImg = useContext(imgHandler)
+    const imgSource = targetGroup.groupBgcPhotoFull
 
-    return(
-<StyledGroupHeader onClick={()=>openFullImg(imgSource)}>
+    return (
+        <StyledGroupHeader onClick={() => openFullImg(imgSource)}>
 
-<img src={imgSource} alt="group background pic" />
+            <img src={imgSource} alt="group background pic" />
+            <h2>{groupState.groups.find(group => group.groupId === groupId).groupName}</h2>
 
-</StyledGroupHeader>
+        </StyledGroupHeader>
 
     )
 }

@@ -5,11 +5,13 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { ADD_NEW_GROUP } from "../reducers/actions/groupsActions";
+import { useNavigate } from "react-router";
 
 export const AddGroupForm = () => {
     const mainUserState = useSelector(state => state.mainUserReducer)
     const groupState = useSelector(state => state.groupsReducer)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [groupName, setGroupName] = useState('')
     const [groupImage, setGroupImage] = useState()
     const [termsAgreed, setTermsAgreed] = useState(false)
@@ -52,7 +54,15 @@ export const AddGroupForm = () => {
         currentFlags.submitted = true
         if (currentFlags.emailOK && currentFlags.groupNameOK && currentFlags.photoOK && currentFlags.agreementOK) { currentFlags.generalCheck = true } else { currentFlags.generalCheck = false }
         setValdiationFlags({ ...currentFlags })
-        if (currentFlags.generalCheck) { dispatch(ADD_NEW_GROUP(groupName, groupImage)) }
+        if (currentFlags.generalCheck) {
+            dispatch(ADD_NEW_GROUP(groupName, groupImage))
+            setGroupName('')
+            setGroupImage()
+            setTermsAgreed(false)
+            setUserEmailInput('')
+            const groupUrl = window.btoa(groupName)
+            setTimeout(() => { navigate(`/groups/${groupUrl}`) }, 1000)
+        }
     }
     return (
         <StyledAddGroupForm>

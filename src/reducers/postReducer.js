@@ -1,39 +1,45 @@
 
-const postReducer=(state={
-    loaded:false,
-    posts:[],
-        
-},action)=>{
-   const post = action.post
-   const currentPosts=state.posts
+const postReducer = (state = {
+    loaded: false,
+    posts: [],
 
-    switch(action.type){
-        case('ADD_POST'):
-            currentPosts.unshift(post)
-            if(currentPosts.length>=35) 
-                {currentPosts.pop()}
+}, action) => {
+    const post = action.post
+    const currentPosts = state.posts
 
-          
-            return {...state,
-                loaded:true,
-                posts:currentPosts}
+    switch (action.type) {
+        case ('ADD_POST'):
+            currentPosts.push(post)
+            if (currentPosts.length >= 35) { currentPosts.pop() }
 
-        case('LIKE_POST'):
-            currentPosts[action.index]=action.postToLike
 
-            return {...state,
-                posts:currentPosts}
+            return {
+                ...state,
+                loaded: true,
+                posts: currentPosts
+            }
 
-        case('COMMENT_POST'):
-            currentPosts[action.postIndex].comments.push({person:action.userInfo,
-                comment:action.commentText
+        case ('LIKE_POST'):
+            currentPosts[action.index] = action.postToLike
+
+            return {
+                ...state,
+                posts: currentPosts
+            }
+
+        case ('COMMENT_POST'):
+            currentPosts[action.postIndex].comments.push({
+                person: action.userInfo,
+                comment: action.commentText
             })
-            return {...state,
-                posts:currentPosts}
+            return {
+                ...state,
+                posts: currentPosts
+            }
 
-         default:
-             return state
-        }
-        
+        default:
+            return state
+    }
+
 }
- export default postReducer
+export default postReducer

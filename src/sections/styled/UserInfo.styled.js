@@ -1,28 +1,74 @@
 import styled from "styled-components"
 
-export const StyledUserInfo=styled.section`
+export const StyledUserInfo = styled.section`
 width: 100%;
 height: fit-content;
-background-color: ${({theme})=>theme.colors.bgcFeed};
+background-color: ${({ theme }) => theme.colors.bgcFeed};
 border-radius: 10px;
 margin-top: 10px;
 padding: 10px;
-color:${({theme})=>theme.colors.mainFontColor};
-box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
+color:${({ theme }) => theme.colors.mainFontColor};
+box-shadow: 0 1px 2px ${({ theme }) => theme.colors.bgcShade1};
 
 
 .profilePicture{
-    margin: 0 auto;
-    width: fit-content;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
-img{
-    margin: 0 auto;
-    border-radius:50% 
+input[type=file]{
+    display: none;
+}
+#profilePic{
+    font-size:2rem;
+}
+.uploadContainer{
+    position: relative;
+}
+.profilePicContainer{
+}
+.deletePhoto{
+    display: block;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    line-height: 15px;
+    text-align: center;
+    border-radius: 50%;
+    background-color:${({ theme }) => theme.colors.bgcShade1};
+    }
+.savePhoto{
+    display: block;
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    width: max-content;
+    height: 20px;
+    text-align: center;
+    padding: 0 6px;
+    background-color:${({ theme }) => theme.colors.bgcShade1};
+    border-radius: 5px;
+
+    }
+.deletePhoto:hover,
+.savePhoto:hover{
+    cursor: pointer;
+    }
+
+.profilePicture img{
+    height: 128px;
+    width: 128px;
+    display: block;
+    border-radius:50% ;
+    box-shadow: 0 0 3px ${({ theme }) => theme.colors.bgcShade2};
+
 }
 .baseInfo,
 .contactInfo,
 .addressInfo{
-    background-color: ${({theme})=>theme.colors.bgcBody};
+    background-color: ${({ theme }) => theme.colors.bgcBody};
     padding: 5px;
     margin: 5px 0 ;
     border-radius: 10px;
@@ -37,7 +83,7 @@ img{
     width: 90%;
     justify-content: space-between;
     margin: 0 auto;
-    border-bottom: 1px solid ${({theme})=>theme.colors.bgcShade1};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.bgcShade1};
 }
 
 .baseInfo div p:nth-of-type(1),
@@ -66,7 +112,7 @@ align-self: center;
 
 button{
     border:none;
-    background-color: ${({theme})=>theme.colors.bgcShade1};
+    background-color: ${({ theme }) => theme.colors.bgcShade1};
     padding: 2px 0;
     margin-bottom: 2px;
     border-radius: 3px;
@@ -76,13 +122,13 @@ button{
     color: inherit;
 }
 button:hover{
-    background-color: ${({theme})=>theme.colors.bgcShade2};
+    background-color: ${({ theme }) => theme.colors.bgcShade2};
     cursor: pointer;
 
 }
 input{
-    background-color: ${({theme})=>theme.colors.bgcFeed};
-    border: 1px solid ${({theme})=>theme.colors.bgcShade1};
+    background-color: ${({ theme }) => theme.colors.bgcFeed};
+    border: 1px solid ${({ theme }) => theme.colors.bgcShade1};
     border-radius: 3px;
     box-shadow: 0 0 2px  whitesmoke;
     color:inherit;
@@ -115,9 +161,5 @@ input[type=email] {
     transition: 2s;
 
 }
-.active{
-    color: whitesmoke;
-    transition: 2s;
 
-}
 `

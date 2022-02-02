@@ -30,14 +30,15 @@ export const PostInput = (props) => {
         if (postText.length > 0 || postImage) {
             const comments = []
             const userPost = {
-                user: mainUserState,
+                userId: 'mainUser',
                 type: 'userPost',
                 comments: comments,
                 photo: postImage,
                 text: postText,
                 likes: (Math.floor(Math.random() * 25) + 3),
                 liked: false,
-                showComments: false
+                showComments: false,
+                seenByUser: true
             }
             if (!groupId) {
                 dispatch(ADD_POST(userPost))
@@ -56,7 +57,7 @@ export const PostInput = (props) => {
                 <p>{mainUserState?.name?.first + ' ' + mainUserState?.name?.last}</p>
             </div>
             <div className='inputContainer'>
-                <textarea maxLength='250' className='textContent' value={postText} onChange={handleTextChange} placeholder={`Tell us what you're thinking..`} />
+                <textarea maxLength='250' className='textContent' value={postText} onChange={handleTextChange} placeholder={`What's on your mind, ${mainUserState?.name?.first}?`} />
                 <div className="imgContainer">
                     {postImage ? <img src={postImage} alt='upload' /> : null}
                     {postImage ? <span className="deletePhoto" onClick={handleImageDelete}>x</span> : null}

@@ -3,11 +3,11 @@ import styled from "styled-components";
 export const StyledPost = styled.div`
     width: 100%;
     border-radius: 10px;
-    color:${({theme})=>theme.colors.mainFontColor};
+    color:${({ theme }) => theme.colors.mainFontColor};
     margin-bottom:15px;
     overflow: hidden;
-    background-color:${({theme})=>theme.colors.bgcFeed};
-    box-shadow: 0 1px 2px ${({theme})=>theme.colors.bgcShade1};
+    background-color:${({ theme }) => theme.colors.bgcFeed};
+    box-shadow: 0 1px 2px ${({ theme }) => theme.colors.bgcShade1};
     div.invisible{
         display: none;
     }
@@ -18,7 +18,11 @@ export const StyledPost = styled.div`
         height: 50px;
         padding: 5px;
         border-bottom-left-radius:10px;
-        border-bottom: 1px solid ${({theme})=>theme.colors.bgcShade1};
+        border-bottom: 1px solid ${({ theme }) => theme.colors.bgcShade1};
+    }
+
+    .postHeader:hover{
+        cursor: pointer;
     }
     .postHeader>p{
         margin: auto 0 ;
@@ -32,6 +36,9 @@ export const StyledPost = styled.div`
     .postHeader img{
         border-radius:50%;
         margin: 0 10px;
+        width: 2.5rem;
+        height: 2.5rem;
+
     }
 
     .postContent{
@@ -65,8 +72,8 @@ export const StyledPost = styled.div`
     }
     .actionContainer>button{
         width:100%;
-        background-color:  ${({theme})=>theme.colors.bgcFeed};
-        color:${({theme})=>theme.colors.mainFontColor};
+        background-color:  ${({ theme }) => theme.colors.bgcFeed};
+        color:${({ theme }) => theme.colors.mainFontColor};
         border: none;
         border-radius:5px;
         padding: 5px 0 ;
@@ -79,7 +86,7 @@ export const StyledPost = styled.div`
 
     .actionContainer>button:hover{
         font-weight:600;
-        background-color: ${({theme})=>theme.colors.bgcShade2};
+        background-color: ${({ theme }) => theme.colors.bgcShade2};
     }
 
     .commentHeader{
@@ -106,7 +113,7 @@ export const StyledPost = styled.div`
         display: flex;
     }
     input{
-        background-color:  ${({theme})=>theme.colors.bgcShade1};
+        background-color:  ${({ theme }) => theme.colors.bgcShade1};
         color:inherit;
         border: none;
         height: 20px;
@@ -117,7 +124,7 @@ export const StyledPost = styled.div`
 
     }
     .inputContainer>button{
-        background-color:  ${({theme})=>theme.colors.bgcShade1};
+        background-color:  ${({ theme }) => theme.colors.bgcShade1};
         color:inherit;
         border: none;
         padding: 2px 5px ;

@@ -85,6 +85,9 @@ input[type=submit]:hover{
     background-color: ${({ theme }) => theme.colors.mainFontColor};
     cursor: pointer;
 }
+input[type=checkbox]{
+    height: min-content;
+}
 .deletePhoto{
     display: block;
     width: 20px;

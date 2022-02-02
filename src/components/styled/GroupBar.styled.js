@@ -1,4 +1,4 @@
-import  styled  from 'styled-components';
+import styled from 'styled-components';
 
 
 export const StyledGroupBar = styled.div`
@@ -12,7 +12,7 @@ margin: 3px auto 0 auto;
 
 
 &:hover{
-    background-color: ${({theme})=>theme.colors.bgcShade1};
+    background-color: ${({ theme }) => theme.colors.bgcShade1};
     padding-left:10px; 
 }
 
@@ -27,13 +27,16 @@ a{
     transition: .2s;
     white-space: nowrap;
     overflow:hidden;
-    color:${({theme})=>theme.colors.mainFontColor};
+    color:${({ theme }) => theme.colors.mainFontColor};
     text-overflow:ellipsis;
     margin: 0 auto;
 }
+a.active{
+    background-color:inherit;
+}
 
 span{
-    background-color:${({theme})=>theme.colors.elegantRed};
+    background-color:${({ theme }) => theme.colors.elegantRed};
     color:white;
     font-size:12px;
     font-weight:500;

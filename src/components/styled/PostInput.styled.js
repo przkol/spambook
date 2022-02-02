@@ -26,6 +26,9 @@ export const StyledPostInput = styled.div`
     .postHeader img{
         border-radius:50%;
         margin: 0 10px;
+        width: 2.5rem;
+        height: 2.5rem;
+
     }
 
     .inputContainer{

@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 
 
-export const StyledGroupFeed =styled.section`
+export const StyledGroupFeed = styled.section`
 width: 100%;
 margin-top: 10px;
-font-size:${({theme})=>theme.fonts.mainFontSize};
+font-size:${({ theme }) => theme.fonts.mainFontSize};
 display: flex;
 flex-direction: column-reverse;
 .bgcPhotoContainer{
@@ -19,4 +19,6 @@ flex-direction: column-reverse;
     height:auto;
     width: 100%;
 }
+
+
 `

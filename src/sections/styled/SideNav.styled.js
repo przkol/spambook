@@ -45,6 +45,7 @@ a:hover{
 }
 
 @media(min-width:769px){
+    width: 30%;
 max-width: 200px;
 text-align: left;
 .groupLink{
