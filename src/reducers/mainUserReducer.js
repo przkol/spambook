@@ -25,7 +25,7 @@ const mainUserReducer = (state = {
                     picture: picture
                 }
             }
-        case ('GET_MAINUSER'):
+        case ('SET_MAINUSER'):
             const regDate = new Date(userInfo.registered.date)
             const birthDate = new Date(userInfo.dob.date)
             return {

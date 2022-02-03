@@ -1,14 +1,21 @@
 const friendsReducer = (state = { usersList: [], usersListLoadedFlag: false }, action) => {
     switch (action.type) {
-        case ('GET_USERSNAMES'):
+        case ('SET_FRIENDLIST'):
             const usersList = action.userInfo
+
             return {
-                usersList,
+                usersList: usersList.map((user) => {
+                    const birthDate = new Date(user?.dob?.date)
+                    return {
+                        ...user,
+                        dob: {
+                            ...user.dob,
+                            date: birthDate.toLocaleDateString()
+                        }
+                    }
+                }),
                 usersListLoadedFlag: true
             }
-        case ('GET_USERSDETAILS'):
-            return state
-
         default:
             return state
     }

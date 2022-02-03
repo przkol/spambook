@@ -40,6 +40,7 @@ input{
     right: 0;
     width: 30%;
     max-width: 200px;
+    max-height: 85vh;
 
     .friendsList{
         width: 100%;

@@ -1,4 +1,4 @@
-import  styled  from 'styled-components';
+import styled from 'styled-components';
 
 
 export const StyledFriendElement = styled.div`
@@ -12,15 +12,19 @@ padding: 2px 0;
 
 
 &:hover{
-    background-color: ${({theme})=>theme.colors.bgcShade1};
+    background-color: ${({ theme }) => theme.colors.bgcShade1};
     padding-left:10px; 
     cursor: pointer;
     font-weight:600;
 }
 p{
-color:${({theme})=>theme.colors.mainFontColor};
+color:${({ theme }) => theme.colors.mainFontColor};
 margin: auto 0;
 flex-grow: 1;
+white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+
 }
 
 img{

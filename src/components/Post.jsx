@@ -16,8 +16,7 @@ const Post = (props) => {
     const navigate = useNavigate()
     const openFullImg = useContext(imgHandler)
 
-    console.log(user)
-    console.log(userId)
+
     const handleChange = (e) => {
         const value = e.target.value
         setUserComment(value)

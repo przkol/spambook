@@ -1,8 +1,8 @@
-const usersNamesAPI = 'https://randomuser.me/api/?results=20&inc=name,picture,email,location,dob,phone,gender&noinfo'
+const usersNamesAPI = 'https://randomuser.me/api/?results=20&inc=name,picture,email,location,dob,phone,cell,gender&noinfo'
 
-const GET_USERSNAMES = (userInfo) => {
+const SET_FRIENDLIST = (userInfo) => {
     return {
-        type: 'GET_USERSNAMES',
+        type: 'SET_FRIENDLIST',
         userInfo
     }
 }
@@ -15,6 +15,7 @@ export const fetchFriendsList = (dispatch) => {
         .then(data => data.results)
         .then(results => {
             const userShortInfo = results
-            dispatch(GET_USERSNAMES(userShortInfo))
+            dispatch(SET_FRIENDLIST(userShortInfo))
         })
+        .catch(err => console.log(err))
 }

@@ -25,7 +25,7 @@ export const ChatBar = (props) => {
                 <img className='listActiveImg' src={friend?.picture.thumbnail} alt="" />
                 <div className="nameAndPreviewContainer">
                     <p className="name">{friend?.name.first + ' ' + friend?.name.last}</p>
-                    <p className={msgToPreview?.source === 'friend' ? 'messagePreview bold' : 'messagePreview'}>{msgToPreview?.text}</p>
+                    <p className={msgToPreview?.source !== 'user' ? 'messagePreview bold' : 'messagePreview'}>{msgToPreview?.text}</p>
                 </div>
             </StyledChatBar>
         )

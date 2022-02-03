@@ -160,7 +160,6 @@ function App(props) {
             You can watch highlights here:`,
           seenByUser: groupIdFromLocation === footballGroupId
         }
-        console.log(newPost)
         dispatch(ADD_GROUP_POST(newPost, footballGroupId))
         break;
       case ('trade'):
@@ -171,7 +170,6 @@ function App(props) {
           text: `[${props.shop.category}] #WTT #WTS Any offers for this ${props.shop.title}? Can sell it for $${props.shop.price}`,
           seenByUser: groupIdFromLocation === tradeGroupId
         }
-        console.log(newPost)
 
         dispatch(ADD_GROUP_POST(newPost, tradeGroupId))
         break;
@@ -212,13 +210,20 @@ function App(props) {
     if (randomizer < 10) {
       const friendId = Math.floor(Math.random() * props.friends.usersList.length)
       const chatStatus = openChatWindow(friendId)
-      if (chatStatus.chatAlreadyInState) {
-        const targetChat = props.chats.find(chat => chat.id === friendId)
+      const targetChat = props.chats.find(chat => chat.id === friendId)
+      console.log(friendId)
+      console.log(chatStatus)
+
+      if (chatStatus.chatAlreadyInState && targetChat.lastMsgFlag !== 'noMsg') {
         if (targetChat.lastMsgFlag === 'user') {
           const randomMessage = friendsResponses[Math.floor(Math.random() * (friendsResponses.length - 1))]
           dispatch(ADD_MESSAGE_TO_CHAT(friendId, 'friend', randomMessage))
+        } else if (targetChat.lastMsgFlag === 'friend') {
+          dispatch(ADD_MESSAGE_TO_CHAT(friendId, 'annoyedFriend', 'Heeey, are you there?'))
+        } else if (targetChat.lastMsgFlag === 'annoyedFriend') {
+          dispatch(ADD_MESSAGE_TO_CHAT(friendId, 'shutdownFriend', 'Fine, whatever.. :('))
         }
-      } else if (!chatStatus.chatAlreadyInState) {
+      } else if (!chatStatus.chatAlreadyInState || (chatStatus.chatAlreadyInState && targetChat.lastMsgFlag === 'noMsg')) {
         const randomMessage = friendMessages[Math.floor(Math.random() * (friendMessages.length - 1))]
         dispatch(ADD_MESSAGE_TO_CHAT(friendId, 'friend', randomMessage))
       }
@@ -257,7 +262,7 @@ function App(props) {
     contentPicker()
     const contentPickerInterval = setInterval(() => {
       contentPicker()
-    }, 2000);
+    }, 7500);
     return () => {
       clearTimeout(contentPickerInterval);
     }
@@ -266,7 +271,7 @@ function App(props) {
 
   //SETS INTERVAL FOR GENERATING CHAT MESSAGES
   useEffect(() => {
-    const randomChatActionInterval = setInterval(() => { generateRandomChatAction() }, 4000);
+    const randomChatActionInterval = setInterval(() => { generateRandomChatAction() }, 6000);
     return () => {
       clearTimeout(randomChatActionInterval);
     }

@@ -41,7 +41,7 @@ const Header = () => {
             <h1 onClick={redirectToMainPage}>SpamBook</h1>
             <div className='mainUserInfo' onClick={redirectToUserPanel}>
                 {mainUserState.loaded ?
-                    <h2> Hello, {mainUserState.userInfo.name.first + ' ' + mainUserState.userInfo.name.last}</h2>
+                    <h2> Hello, {mainUserState.userInfo.name.first}!</h2>
                     : <h2>Hello</h2>}
                 {mainUserState.loaded ?
                     <img src={mainUserState.userInfo.picture.thumbnail} alt={mainUserState.userInfo.name.first + `'s profile picture`} />

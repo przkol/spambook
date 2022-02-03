@@ -61,7 +61,7 @@ export const Chatter = () => {
               <div className={isConversationActive ? "thin chatList" : " chatList"} > <ChatList selectChat={handleChatSelect} /></div>
               <FontAwesomeIcon onClick={() => { handleTabSelect('toggle') }} className={isConversationActive ? 'arrow right' : 'arrow left'} icon={faChevronRight} />
               <div onClick={() => { handleTabSelect() }} className={isConversationActive ? "wide conversation" : "conversation"}>
-                <Convo chatContent={activeChatContent} friend={mainFriendsState.usersList[activeChat]} />
+                {activeChatContent && mainFriendsState.usersList ? <Convo chatContent={activeChatContent} friend={mainFriendsState.usersList[activeChat]} /> : null}
               </div>
             </StyledChatter>
           </selectChatFuncContext.Provider>

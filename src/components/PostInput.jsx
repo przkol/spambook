@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { StyledPostInput } from "./styled/PostInput.styled"
 import { ADD_POST } from "../reducers/actions/postActions"
 import { useSelector } from "react-redux"
@@ -50,6 +50,24 @@ export const PostInput = (props) => {
         } else alert('You cannot add an empty post!')
     }
 
+    useEffect(() => {
+        const textArea = document.querySelector('.textContent')
+
+        textArea.addEventListener('keyup', (e) => {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                document.getElementById("addPost").click();
+            }
+        })
+        return () => {
+            textArea.removeEventListener('keyup', (e) => {
+                if (e.keyCode === 13) {
+                    e.preventDefault();
+                    document.getElementById("addPost").click();
+                }
+            })
+        }
+    }, [])
     return (
         <StyledPostInput>
             <div className='postHeader'>
@@ -65,7 +83,7 @@ export const PostInput = (props) => {
                 <div className='actionButtonContainer'>
                     <label htmlFor='fileInput'>Upload a photo</label>
                     <input id='fileInput' type='file' accept="image/*" onChange={handleImageUpload} />
-                    <button onClick={addUserPost}> Post!</button>
+                    <button id='addPost' onClick={addUserPost}> Post!</button>
                 </div>
 
             </div>

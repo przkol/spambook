@@ -19,24 +19,17 @@ const chatReducer = (state = [], action) => {
 
             return [...state,
                 newChat]
-        // case('ADD_MESSAGE_TO_CHAT'):
-        //     const newMessage={source:action.source,text:action.message}
-        //     return [...state.map((chat,index)=>{ 
-        //         if(index===chatNo){
-        //             chat.messages.push(newMessage)
-        //             chat.lastMsgFlag=action.source
-        //             if(action.source==='friend'){
-        //                 chat.unreadMsg++
-        //             }
-        //         }
-        //         return chat
-        //     })
-        //     ]
+
 
         case ('ADD_MESSAGE_TO_CHAT'):
-            const newMessage = { source: action.source, text: action.message }
+            const newMessage = {
+                source: action.source === 'annoyedFriend' ? 'friend' : action.source,
+                text: action.message,
+                image: action.image
+            }
             const targetChat = state[chatNo]
             targetChat.messages.push(newMessage)
+            targetChat.lastMsgFlag = action.source
             return [targetChat,
                 ...state.filter((chat, index) => {
                     if (index !== chatNo) {

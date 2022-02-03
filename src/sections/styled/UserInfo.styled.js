@@ -19,9 +19,10 @@ box-shadow: 0 1px 2px ${({ theme }) => theme.colors.bgcShade1};
 input[type=file]{
     display: none;
 }
-#profilePic{
+#profilePic svg{
     font-size:2rem;
 }
+
 .uploadContainer{
     position: relative;
 }
@@ -90,6 +91,18 @@ input[type=file]{
 .contactInfo div p:nth-of-type(1),
 .addressInfo div p:nth-of-type(1){
 width: 30%;
+}
+div#streetInfo,input{
+width:40px;
+flex-grow:.5;
+}
+#streetInfo{
+    justify-content:end;
+    margin: 0;
+}
+#streetInfo input:first-child{
+flex-grow:1;
+
 }
 
 .baseInfo div:last-of-type,
