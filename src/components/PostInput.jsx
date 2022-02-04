@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { StyledPostInput } from "./styled/PostInput.styled"
 import { ADD_POST } from "../reducers/actions/postActions"
 import { useSelector } from "react-redux"
@@ -12,6 +12,7 @@ export const PostInput = (props) => {
     const [postText, setPostText] = useState('')
     const [postImage, setPostImage] = useState()
     const dispatch = useDispatch()
+    const photoInput = useRef()
 
     const handleTextChange = (e) => {
         setPostText(e.target.value)
@@ -47,6 +48,7 @@ export const PostInput = (props) => {
             }
             setPostImage()
             setPostText('')
+            photoInput.current.value = null
         } else alert('You cannot add an empty post!')
     }
 
@@ -82,7 +84,7 @@ export const PostInput = (props) => {
                 </div>
                 <div className='actionButtonContainer'>
                     <label htmlFor='fileInput'>Upload a photo</label>
-                    <input id='fileInput' type='file' accept="image/*" onChange={handleImageUpload} />
+                    <input ref={photoInput} id='fileInput' type='file' accept="image/*" onChange={handleImageUpload} />
                     <button id='addPost' onClick={addUserPost}> Post!</button>
                 </div>
 

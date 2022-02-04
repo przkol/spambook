@@ -10,7 +10,7 @@ margin:0 5px;
 display:flex;
 flex-direction:column;
 justify-content: space-between;
-box-shadow: 0 1px 2px ${({ theme }) => theme.colors.bgcShade1};
+border: solid 1px ${({ theme }) => theme.colors.bgcShade1};
 height: 100%;
 min-height: 270px;
 }
@@ -103,6 +103,9 @@ h4{
    height: 100%;
 }
 
+img.friendPic{
+border-radius: 50%;
+}
 .messageInput{
 padding:3px;
 display: flex;
@@ -159,28 +162,8 @@ input[type=file]{
 overflow-y:auto;
 }
 
-.msg{
-    width:100%;
-    margin-bottom: 5px;
-}
-.msg div{
-    max-width:75%;
-    border-radius:15px;
-    word-break: break-word;
-    white-space: normal;
-    width:fit-content;
-    overflow: hidden;
-}
-.msg img{
-    display: block;
-    max-width: 100%;
-    height: 100%;}
-.msg img:hover{
-    cursor: pointer;
-}
-.msg p{
-    margin: 5px 7px;
-}
+
+
 
 .windowHeader img{
     height: 2rem;
@@ -188,16 +171,6 @@ overflow-y:auto;
 
 
 }
-.friendMsg{
-    background-color: ${({ theme }) => theme.colors.bgcShade1};
-    margin:3px auto 3px 3px;
-}
-
-.userMsg{
-    background-color: ${({ theme }) => theme.colors.bgcShade2};
-    margin:3px 3px 0 auto;
-height:100%}
-
 
 
 @media(min-width:769px){

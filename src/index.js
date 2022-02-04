@@ -3,18 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';
 
 import store from './stores/store'
 
 ReactDOM.render(
   <React.StrictMode>
-<BrowserRouter basename="/spambook">
-        <Provider store = {store}>    
-         <App />
-        </Provider>
-        </BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

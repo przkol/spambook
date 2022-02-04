@@ -26,7 +26,7 @@ export const Chatter = () => {
 
   useEffect(() => {
     let chatDoesExist = mainChatState.some(chat => chat.id === (activeChat))
-    if (!chatDoesExist && Boolean(id)) {
+    if (!chatDoesExist && (Boolean(id)) && (activeChat || activeChat === 0)) {
       dispatch(CREATE_NEW_CHAT(activeChat))
     }
   }, [activeChat, dispatch, id, mainChatState])

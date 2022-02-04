@@ -33,26 +33,7 @@ img.big{
    overflow: auto;
 }
 
-.friendMsg{
-    background-color: ${({ theme }) => theme.colors.bgcShade1};
-    margin:3px auto 3px 3px;
-}
 
-.userMsg{
-    background-color: ${({ theme }) => theme.colors.bgcShade2};
-    margin:3px 3px 3px auto;
-}
-.msg{
-    width:100%;
-    margin: 5px 0;
-}
-.msg p{
-    max-width:75%;
-    border-radius:15px;
-    word-break: break-word;
-    white-space: normal;
-    width:fit-content;
-}
 #fileInputLabel{
     max-width: 20px;
     font-size:1.1rem;

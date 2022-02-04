@@ -175,4 +175,22 @@ input[type=email] {
 
 }
 
+/* .submitted .icon{
+    color: ${({ theme }) => theme.colors.elegantRed};
+} */
+
+.submitted .icon:before{
+
+    content:'xdd';
+    width: 15px;
+    height: 15px;
+    display: block;
+    z-index: 114;
+}
+
+.submitted div[validationfailed=false]{
+    color: ${({ theme }) => theme.colors.elegantRed};
+}
+
+
 `

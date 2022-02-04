@@ -3,25 +3,10 @@ import { useDispatch } from "react-redux";
 import { ADD_MESSAGE_TO_CHAT } from "../reducers/actions/chatActions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane, faFileImage } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { activeTabContext } from "../sections/Chatter";
-import { imgHandler } from "../App";
+import { MessageBubble } from "./MessageBubble";
 
-
-const MessageBubble = (props) => {
-    const { source, text, image } = props.message
-    const openFullImg = useContext(imgHandler)
-
-
-    return (
-        <div className='msg'>
-            <div className={source === 'user' ? 'userMsg' : 'friendMsg'}>
-                {text ? <p>{text}</p> : null}
-                {image ? <img src={image} alt="" className='msgImg' onClick={() => openFullImg(image)} /> : null}
-            </div>
-        </div>
-    )
-}
 export const Convo = (props) => {
     const { chatContent, friend } = props
     const isConversationActive = useContext(activeTabContext)
@@ -29,33 +14,36 @@ export const Convo = (props) => {
     const dispatch = useDispatch()
     const [uploadedImg, setUploadedImg] = useState()
     const [messageInput, setMessageInput] = useState('')
+    const fileInput = useRef()
     const sendMessage = () => {
         if (messageInput.length > 0 || uploadedImg) {
             dispatch(ADD_MESSAGE_TO_CHAT(chatContent.id, 'user', messageInput, uploadedImg))
             setMessageInput('')
             setUploadedImg()
+            fileInput.current.value = null
         } else alert('You cannot send empty messages.')
     }
 
-
     useEffect(() => {
-        const input = document.querySelector(`.msgInput`)
-        console.log(input)
-        input.addEventListener('keyup', (e) => {
-            if (e.keyCode === 13) {
-                e.preventDefault();
-                document.getElementById('sendButtonConvo').click();
-            }
-        })
-        return () => {
-            input.removeEventListener('keyup', (e) => {
+        if (isConversationActive && chatContent && friend) {
+            const input = document.querySelector(`.msgInput`)
+
+            input.addEventListener('keyup', (e) => {
                 if (e.keyCode === 13) {
                     e.preventDefault();
                     document.getElementById('sendButtonConvo').click();
                 }
             })
+            return () => {
+                input.removeEventListener('keyup', (e) => {
+                    if (e.keyCode === 13) {
+                        e.preventDefault();
+                        document.getElementById('sendButtonConvo').click();
+                    }
+                })
+            }
         }
-    }, [])
+    }, [chatContent, friend, isConversationActive])
     const handleImageDelete = () => {
         setUploadedImg()
     }
@@ -64,8 +52,8 @@ export const Convo = (props) => {
             const image = e.target.files[0]
             setUploadedImg(URL.createObjectURL(image))
         }
-    }
 
+    }
     if (isConversationActive && chatContent && friend) {
         return (
             <StyledConvo>
@@ -84,7 +72,7 @@ export const Convo = (props) => {
                     <div className="messageInputContainer">
                         <input type='text' placeholder='Aa...' className='msgInput' value={messageInput} onChange={(e) => { setMessageInput(e.target.value) }} />
                         <label id='fileInputLabel' htmlFor={'fileInput'}><FontAwesomeIcon icon={faFileImage} /></label>
-                        <input id={'fileInput'} type='file' accept="image/*" onChange={handleImageUpload} />
+                        <input ref={fileInput} id={'fileInput'} type='file' accept="image/*" onChange={handleImageUpload} />
                         <button id={'sendButtonConvo'} onClick={sendMessage}><FontAwesomeIcon icon={faPaperPlane} /></button>
                     </div>
 
@@ -99,6 +87,7 @@ export const Convo = (props) => {
             </StyledConvo>
         )
     } else if (!chatContent || !friend) {
+
         return (<StyledConvo>
         </StyledConvo>)
     }

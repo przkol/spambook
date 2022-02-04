@@ -1,27 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StyledChatWindow } from "./styled/ChatWindow.styled";
 import { ADD_MESSAGE_TO_CHAT, SET_MESSAGES_SEEN } from "../reducers/actions/chatActions";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowMinimize, faTimes, faPaperPlane, faFileImage } from "@fortawesome/free-solid-svg-icons";
-import { imgHandler } from "../App";
 import { useNavigate } from "react-router";
-
-
-const MessageBubble = (props) => {
-    const { source, text, image } = props.message
-    const openFullImg = useContext(imgHandler)
-
-
-    return (
-        <div className='msg'>
-            <div className={source === 'user' ? 'userMsg' : 'friendMsg'}>
-                {text ? <p>{text}</p> : null}
-                {image ? <img src={image} alt="" className='msgImg' onClick={() => openFullImg(image)} /> : null}
-            </div>
-        </div>
-    )
-}
+import { MessageBubble } from "./MessageBubble";
 
 export const ChatWindow = (props) => {
     const { id, unreadMsg, messages } = props.chat
@@ -32,11 +16,13 @@ export const ChatWindow = (props) => {
     const [messageInput, setMessageInput] = useState('')
     const [chatWindowVisible, setChatWindowVisible] = useState(true)
     const [uploadedImg, setUploadedImg] = useState()
+    const photoUpload = useRef()
     const sendMessage = () => {
         if (messageInput !== '' || uploadedImg) {
             dispatch(ADD_MESSAGE_TO_CHAT(id, 'user', messageInput, uploadedImg ? uploadedImg : null))
             setMessageInput('')
             setUploadedImg()
+            photoUpload.current.value = null
         } else alert('You cannot send empty messages.')
     }
 
@@ -58,9 +44,7 @@ export const ChatWindow = (props) => {
     }
 
     useEffect(() => {
-        console.log(`msgInput${index}`)
         const input = document.querySelector(`.msgInput` + index)
-        console.log(input)
 
         input.addEventListener('keyup', (e) => {
             if (e.keyCode === 13) {
@@ -84,9 +68,9 @@ export const ChatWindow = (props) => {
                     <img className='friendPic' src={friend?.picture.thumbnail} alt={friend?.name.first + `'s profile picture`} />
                     {unreadMsg ? <h4>{unreadMsg}</h4> : null}
                 </div>
-                <div className="windowHeader" onClick={() => { navigate(`/user/${id}`) }} >
-                    <img className='friendPic' src={friend?.picture.thumbnail} alt={friend?.name.first + `'s profile picture`} />
-                    <h3>{friend?.name.first + ' ' + friend?.name.last} </h3> <h4>{unreadMsg ? `(${unreadMsg})` : null}</h4>
+                <div className="windowHeader"  >
+                    <img className='friendPic' src={friend?.picture.thumbnail} alt={friend?.name.first + `'s profile picture`} onClick={() => { navigate(`/user/${id}`) }} />
+                    <h3 onClick={() => { navigate(`/user/${id}`) }}>{friend?.name.first + ' ' + friend?.name.last} </h3> <h4>{unreadMsg ? `(${unreadMsg})` : null}</h4>
                     <div className="buttons">
                         <button onClick={toggleChatWindowVisibility}><FontAwesomeIcon icon={faWindowMinimize} /></button>
                         <button onClick={() => closeChatWindow(id)}><FontAwesomeIcon icon={faTimes} /></button>
@@ -103,7 +87,7 @@ export const ChatWindow = (props) => {
                     <div className="messageInputContainer">
                         <label htmlFor='YourMessage'> <input className={`msgInput` + index} type='text' placeholder='Aa...' value={messageInput} onChange={(e) => { setMessageInput(e.target.value) }} /></label>
                         <label id='fileInputLabel' htmlFor={'fileInput' + index}><FontAwesomeIcon icon={faFileImage} /></label>
-                        <input id={'fileInput' + index} type='file' accept="image/*" onChange={handleImageUpload} />
+                        <input ref={photoUpload} id={'fileInput' + index} type='file' accept="image/*" onChange={handleImageUpload} />
                         <button id={index} onClick={sendMessage}><FontAwesomeIcon icon={faPaperPlane} /></button>
                     </div>
                 </div>

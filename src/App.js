@@ -211,8 +211,7 @@ function App(props) {
       const friendId = Math.floor(Math.random() * props.friends.usersList.length)
       const chatStatus = openChatWindow(friendId)
       const targetChat = props.chats.find(chat => chat.id === friendId)
-      console.log(friendId)
-      console.log(chatStatus)
+
 
       if (chatStatus.chatAlreadyInState && targetChat.lastMsgFlag !== 'noMsg') {
         if (targetChat.lastMsgFlag === 'user') {
@@ -343,7 +342,7 @@ function App(props) {
                   <Route path='/m' element={<main ><Outlet /></main>}>
                     <Route exact path='/m' element={<><PostInput target='mainFeed' /> <Feed /></>} />
                     <Route exact path='/m/navigation' element={<SideNav />} />
-                    <Route path='/m/user/userid' element={<UserInfo />} />
+                    <Route path='/m/user/:userid' element={<UserInfo />} />
                     <Route path='/m/user' element={<UserInfo />} />
                     <Route path='/m/contactlist' element={<SideChat openChatWindow={openChatWindow} />} />
                     <Route path='/m/groups' element={<Groups />} />
