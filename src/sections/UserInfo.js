@@ -14,7 +14,7 @@ const UserInfo = () => {
     const [edittingAddressInfo, setEdittingAddressInfo] = useState(false)
     const [uploadedImage, setUploadedImage] = useState()
     const [contactChecks, setContactChecks] = useState({ email: false, cell: false, submitted: false })
-    const [baseChecks, setBaseChecks] = useState({ gender: false, firstName: false, lastName: false, submitted: false })
+    const [baseChecks, setBaseChecks] = useState({ firstName: false, lastName: false, submitted: false })
     const [addressChecks, setAddressChecks] = useState({ city: false, country: false, streetName: false, streetNumber: false, postcode: false, submitted: false })
     const dispatch = useDispatch()
     const friendsState = useSelector(state => state.friendsReducer)
@@ -28,19 +28,17 @@ const UserInfo = () => {
                 const email = userDetails.email;
                 const contactChecksLocal = {
                     email: emailRegEx.test(email),
-                    cell: (userDetails.cell.length > 7 || userDetails.cell.length < 15),
+                    cell: (userDetails.cell.length >= 7 && userDetails.cell.length <= 15),
                 };
-                setContactChecks({ ...contactChecks, ...contactChecksLocal })
-                return (contactChecksLocal.email && contactChecksLocal.cell && contactChecksLocal.email);
+                setContactChecks({ ...contactChecksLocal, submitted: true })
+                return (Object.values(contactChecksLocal).every(item => item === true))
             case ('baseInfo'):
                 const baseChecksLocal = {
-                    gender: userDetails.gender.length > 0,
                     firstName: userDetails.name.first.length > 1,
                     lastName: userDetails.name.last.length > 1,
                 };
-                setBaseChecks({ ...baseChecks, ...baseChecksLocal })
-                return (baseChecksLocal.gender && baseChecksLocal.firstName && baseChecksLocal.lastName);
-
+                setBaseChecks({ ...baseChecksLocal, submitted: true })
+                return (Object.values(baseChecksLocal).every(item => item === true))
             case ('addressInfo'):
                 const addressChecksLocal = {
                     streetName: userDetails.location.street.name.length > 2,
@@ -49,57 +47,53 @@ const UserInfo = () => {
                     country: userDetails.location.country.length > 2,
                     postcode: String(userDetails.location.postcode).length > 2,
                 };
-                setAddressChecks({ ...addressChecks, ...addressChecksLocal });
+                setAddressChecks({ ...addressChecksLocal, submitted: true });
+                return (Object.values(addressChecksLocal).every(item => item === true))
 
-                return (addressChecksLocal.streetName && addressChecksLocal.streetNumber && addressChecksLocal.city && addressChecksLocal.country && addressChecksLocal.postcode);
             default: return
         }
     }
-
-
     const handleSave = (e) => {
         const sectionToEdit = e.target.getAttribute('section')
-        const checksOk = validate(sectionToEdit)
-        switch (sectionToEdit) {
-            case ('baseInfo'):
-                setBaseChecks({ ...baseChecks, submitted: true })
-                if (checksOk) {
-                    dispatch(SET_MAINUSER_DETAILS(userDetails))
+        const sectionChecks = validate(sectionToEdit)
+        if (sectionChecks) {
+            dispatch(SET_MAINUSER_DETAILS(userDetails))
+
+            switch (sectionToEdit) {
+                case ('baseInfo'):
                     setEdittingBaseInfo(false)
-                }
-                break;
-            case ('contactInfo'):
-                setContactChecks({ ...contactChecks, submitted: true })
-                if (checksOk) {
-                    dispatch(SET_MAINUSER_DETAILS(userDetails))
+                    break;
+                case ('contactInfo'):
                     setEdittingContactInfo(false)
-                }
-                break;
-            case ('addressInfo'):
-                setAddressChecks({ ...addressChecks, submitted: true })
-                if (checksOk) {
-                    dispatch(SET_MAINUSER_DETAILS(userDetails))
+                    break;
+                case ('addressInfo'):
                     setEdittingAddressInfo(false)
-                }
-                break;
-            default: return
+                    break;
+                default: return
+            }
         }
+        else return
+
     }
 
     const handleEdit = (e) => {
         e.preventDefault()
         const sectionToEdit = e.target.getAttribute('section')
-        switch (sectionToEdit) {
-            case ('baseInfo'):
-                setEdittingBaseInfo(true)
-                break;
-            case ('contactInfo'):
-                setEdittingContactInfo(true)
-                break;
-            case ('addressInfo'):
-                setEdittingAddressInfo(true)
-                break;
-            default: return
+        if (edittingAddressInfo || edittingBaseInfo || edittingContactInfo) {
+            alert('You can only edit one section at a time.')
+        } else {
+            switch (sectionToEdit) {
+                case ('baseInfo'):
+                    setEdittingBaseInfo(true)
+                    break;
+                case ('contactInfo'):
+                    setEdittingContactInfo(true)
+                    break;
+                case ('addressInfo'):
+                    setEdittingAddressInfo(true)
+                    break;
+                default: return
+            }
         }
     }
 
@@ -193,13 +187,32 @@ const UserInfo = () => {
         setUploadedImage()
 
     }
+    // const handleCancelEditing = (e) => {
+    //     e.preventDefault()
+    //     const sectionToEdit = e.target.getAttribute('section')
+    //     console.log(userInfo)
 
+    //     switch (sectionToEdit) {
+    //         case ('baseInfo'):
+    //             setEdittingBaseInfo(false)
+    //             break;
+    //         case ('contactInfo'):
+    //             setEdittingContactInfo(false)
+    //             break;
+    //         case ('addressInfo'):
+    //             setEdittingAddressInfo(false)
+    //             break;
+    //         default: return
+    //     }
+    //     setUserDetails({ ...userInfo })
+
+    // }
 
     useEffect(() => {
         setUserDetails(userInfo)
-
     }, [userInfo])
-    console.log(baseChecks.firstName)
+
+
     if (userid === 'mainUser' || !userid) {
         if (mainUser.loaded) {
             return (
@@ -223,28 +236,28 @@ const UserInfo = () => {
                                 <button section='baseInfo' onClick={handleEdit}>Edit</button>}
                         </div>
                         <div validationfailed={`${baseChecks.firstName}`}>
-                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> First name:</p>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> First name{!baseChecks.firstName && baseChecks.submitted ? ' is too short' : `:`}</p>
                             {edittingBaseInfo ? <input info='nameFirst' value={userDetails.name.first} onChange={handleInfoInput} /> :
                                 <p>{userInfo.name.first}</p>}
                         </div>
-                        <div>
-                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Last name:</p>
+                        <div validationfailed={`${baseChecks.lastName}`}>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Last name{!baseChecks.lastName && baseChecks.submitted ? ' is too short' : `:`}</p>
                             {edittingBaseInfo ? <input info='nameLast' value={userDetails.name.last} onChange={handleInfoInput} /> :
                                 <p>{userInfo.name.last}</p>}
                         </div>
                         <div>
-                            <p>Gender:</p>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Gender:</p>
                             {edittingBaseInfo ? <input info='gender' value={userDetails.gender} onChange={handleInfoInput} /> :
                                 <p>{userInfo.gender}</p>}
                         </div>
 
 
                         <div>
-                            <p>Registered:</p>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Registered:</p>
                             <p>{userInfo.registered.date} ({userInfo.registered.age} yrs ago)</p>
                         </div>
                         <div>
-                            <p>Date of Birth:</p>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Date of Birth:</p>
                             <p>{userInfo.dob.date} ({userInfo.dob.age} y/o)</p>
                         </div>
                     </div>
@@ -254,20 +267,19 @@ const UserInfo = () => {
                             {edittingContactInfo ? <button section='contactInfo' onClick={handleSave}>Save</button> :
                                 <button section='contactInfo' onClick={handleEdit}>Edit</button>}
                         </div>
-                        <div>
-
-                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> E-mail:</p>
+                        <div validationfailed={`${contactChecks.email}`}>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> E-mail{!contactChecks.email && contactChecks.submitted ? ' format is invalid' : `:`}</p>
                             {edittingContactInfo ? <input info='email' value={userDetails.email} onChange={handleInfoInput} /> :
                                 <p>{userInfo.email}</p>}
                         </div>
                         <div>
-                            <p>Phone No.:</p>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Phone No.:</p>
                             {edittingContactInfo ? <input info='phone' value={userDetails.phone} onChange={handleInfoInput} /> :
                                 <p>{userInfo.phone}</p>}
                         </div>
-                        <div>
-                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Cell No.:</p>
-                            {edittingContactInfo ? <input info='cell' value={userDetails.cell} onChange={handleInfoInput} /> :
+                        <div validationfailed={`${contactChecks.cell}`}>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Cell No.{!contactChecks.cell && contactChecks.submitted ? ' format is invalid' : `:`}</p>
+                            {edittingContactInfo ? <input info='cell' type='number' value={userDetails.cell} onChange={handleInfoInput} /> :
                                 <p>{userInfo.cell}</p>}
                         </div>
                     </div>
@@ -276,29 +288,29 @@ const UserInfo = () => {
                             <h4>Address:</h4>
                             {edittingAddressInfo ? <button section='addressInfo' onClick={handleSave}>Save</button> :
                                 <button section='addressInfo' onClick={handleEdit}>Edit</button>}</div>
-                        <div>
-                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Street:</p>
+                        <div validationfailed={`${addressChecks.streetName && addressChecks.streetNumber}`}>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Street name/number{!addressChecks.streetName && addressChecks.submitted ? ' is too short' : `:`}</p>
                             {edittingAddressInfo ? <div id='streetInfo'><input info='location' info2='name' value={userInfo.location.street.name} onChange={handleInfoInput} />
                                 <input info='location' info2='number' value={userInfo.location.street.number} onChange={handleInfoInput} /> </div>
                                 : <p>{userInfo.location.street.name} {userInfo.location.street.number}</p>}
                         </div>
-                        <div>
-                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> City:</p>
+                        <div validationfailed={`${addressChecks.city}`}>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> City{!addressChecks.city && addressChecks.submitted ? ' name is too short' : `:`}</p>
                             {edittingAddressInfo ? <input info='location' info2='city' value={userDetails.location.city} onChange={handleInfoInput} /> :
                                 <p>{userInfo.location.city}</p>}
                         </div>
-                        <div>
+                        <div validationfailed={`${addressChecks.state}`}>
                             <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> State:</p>
                             {edittingAddressInfo ? <input info='location' info2='state' value={userDetails.location.state} onChange={handleInfoInput} /> :
                                 <p>{userInfo.location.state}</p>}
                         </div>
-                        <div>
-                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Postcode:</p>
+                        <div validationfailed={`${addressChecks.postcode}`}>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Postcode{!addressChecks.postcode && addressChecks.submitted ? ' is too short' : `:`}</p>
                             {edittingAddressInfo ? <input info='location' info2='postcode' value={userDetails.location.postcode} onChange={handleInfoInput} /> :
                                 <p>{userInfo.location.postcode}</p>}
                         </div>
-                        <div>
-                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Country:</p>
+                        <div validationfailed={`${addressChecks.country}`}>
+                            <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Country{!addressChecks.country && addressChecks.submitted ? ' name is too short' : `:`}</p>
                             {edittingAddressInfo ? <input info='location' info2='country' value={userDetails.location.country} onChange={handleInfoInput} /> :
                                 <p>{userInfo.location.country}</p>}
                         </div>

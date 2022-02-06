@@ -90,7 +90,7 @@ input[type=file]{
 .baseInfo div p:nth-of-type(1),
 .contactInfo div p:nth-of-type(1),
 .addressInfo div p:nth-of-type(1){
-width: 30%;
+min-width: 20%;
 }
 div#streetInfo,input{
 width:40px;
@@ -175,22 +175,24 @@ input[type=email] {
 
 }
 
-/* .submitted .icon{
-    color: ${({ theme }) => theme.colors.elegantRed};
-} */
-
-.submitted .icon:before{
-
-    content:'xdd';
-    width: 15px;
-    height: 15px;
-    display: block;
-    z-index: 114;
+.icon{
+    opacity:0
 }
 
 .submitted div[validationfailed=false]{
     color: ${({ theme }) => theme.colors.elegantRed};
 }
+
+.submitted div[validationfailed=false] input{
+    border: 1px solid ${({ theme }) => theme.colors.elegantRed};
+};
+
+.submitted div[validationfailed=false] .icon{
+    opacity: 1;
+}
+
+
+
 
 
 `
