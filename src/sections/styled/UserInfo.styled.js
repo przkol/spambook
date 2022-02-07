@@ -22,6 +22,9 @@ input[type=file]{
 #profilePic svg{
     font-size:2rem;
 }
+#profilePic:hover{
+    cursor: pointer;
+}
 
 .uploadContainer{
     position: relative;
@@ -91,6 +94,7 @@ input[type=file]{
 .contactInfo div p:nth-of-type(1),
 .addressInfo div p:nth-of-type(1){
 min-width: 20%;
+max-width:30vw;
 }
 div#streetInfo,input{
 width:40px;

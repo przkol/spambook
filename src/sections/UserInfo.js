@@ -21,7 +21,7 @@ const UserInfo = () => {
     const mainUser = useSelector(state => state.mainUserReducer)
     const userInfo = userid === 'mainUser' || !userid ? mainUser.userInfo : friendsState.usersList[userid]
 
-    const validate = (section) => {
+    const validate = (section, submitted = false) => {
         switch (section) {
             case ('contactInfo'):
                 const emailRegEx = /\S+@\S+\.\S+/;
@@ -30,14 +30,14 @@ const UserInfo = () => {
                     email: emailRegEx.test(email),
                     cell: (userDetails.cell.length >= 7 && userDetails.cell.length <= 15),
                 };
-                setContactChecks({ ...contactChecksLocal, submitted: true })
+                setContactChecks({ ...contactChecksLocal, submitted: submitted })
                 return (Object.values(contactChecksLocal).every(item => item === true))
             case ('baseInfo'):
                 const baseChecksLocal = {
                     firstName: userDetails.name.first.length > 1,
                     lastName: userDetails.name.last.length > 1,
                 };
-                setBaseChecks({ ...baseChecksLocal, submitted: true })
+                setBaseChecks({ ...baseChecksLocal, submitted: submitted })
                 return (Object.values(baseChecksLocal).every(item => item === true))
             case ('addressInfo'):
                 const addressChecksLocal = {
@@ -55,7 +55,7 @@ const UserInfo = () => {
     }
     const handleSave = (e) => {
         const sectionToEdit = e.target.getAttribute('section')
-        const sectionChecks = validate(sectionToEdit)
+        const sectionChecks = validate(sectionToEdit, true)
         if (sectionChecks) {
             dispatch(SET_MAINUSER_DETAILS(userDetails))
 
@@ -187,26 +187,25 @@ const UserInfo = () => {
         setUploadedImage()
 
     }
-    // const handleCancelEditing = (e) => {
-    //     e.preventDefault()
-    //     const sectionToEdit = e.target.getAttribute('section')
-    //     console.log(userInfo)
+    const handleCancelEditing = (e) => {
+        e.preventDefault()
+        const sectionToEdit = e.target.getAttribute('section')
 
-    //     switch (sectionToEdit) {
-    //         case ('baseInfo'):
-    //             setEdittingBaseInfo(false)
-    //             break;
-    //         case ('contactInfo'):
-    //             setEdittingContactInfo(false)
-    //             break;
-    //         case ('addressInfo'):
-    //             setEdittingAddressInfo(false)
-    //             break;
-    //         default: return
-    //     }
-    //     setUserDetails({ ...userInfo })
+        switch (sectionToEdit) {
+            case ('baseInfo'):
+                setEdittingBaseInfo(false)
+                break;
+            case ('contactInfo'):
+                setEdittingContactInfo(false)
+                break;
+            case ('addressInfo'):
+                setEdittingAddressInfo(false)
+                break;
+            default: return
+        }
+        setUserDetails(userInfo)
 
-    // }
+    }
 
     useEffect(() => {
         setUserDetails(userInfo)
@@ -232,7 +231,7 @@ const UserInfo = () => {
                     <div section='baseInfo' className={baseChecks.submitted ? 'submitted baseInfo' : 'baseInfo'}>
                         <div>
                             <h4>Basic information:</h4>
-                            {edittingBaseInfo ? <button section='baseInfo' onClick={handleSave}>Save</button> :
+                            {edittingBaseInfo ? <><button section='baseInfo' onClick={handleCancelEditing}>cancel</button> <button section='baseInfo' onClick={handleSave}>Save</button></> :
                                 <button section='baseInfo' onClick={handleEdit}>Edit</button>}
                         </div>
                         <div validationfailed={`${baseChecks.firstName}`}>
@@ -279,7 +278,7 @@ const UserInfo = () => {
                         </div>
                         <div validationfailed={`${contactChecks.cell}`}>
                             <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Cell No.{!contactChecks.cell && contactChecks.submitted ? ' format is invalid' : `:`}</p>
-                            {edittingContactInfo ? <input info='cell' type='number' value={userDetails.cell} onChange={handleInfoInput} /> :
+                            {edittingContactInfo ? <input info='cell' value={userDetails.cell} onChange={handleInfoInput} /> :
                                 <p>{userInfo.cell}</p>}
                         </div>
                     </div>

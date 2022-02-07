@@ -6,7 +6,6 @@ const mainUserReducer = (state = {
 
     switch (action.type) {
         case ('SET_MAINUSER_DETAILS'):
-            console.log('xd')
             return {
                 ...state,
                 loaded: true,

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const StyledFullImageContainer=styled.div`
+export const StyledFullImageContainer = styled.div`
 width: 100vw;
 height:100vh;
 position:fixed;
@@ -24,8 +24,8 @@ z-index:9;
     transform:translate(-50%,-50%);
     overflow: hidden;
     text-align:center;
-    max-width:100vw;
-    max-height:100vh;
+    max-width:80vw;
+    max-height:80vh;
 }
 
 img{

@@ -55,7 +55,7 @@ function App(props) {
     if (window.innerWidth < widthLimit) {
       setViewMobileModeValue(true)
       if (!(currentPathPrefix === mobilePathPrefix)) {
-        navigate(`/m/` + currentPath)
+        navigate(`m` + currentPath)
       }
     } else {
       if (window.innerWidth >= widthLimit && currentPathPrefix === mobilePathPrefix) {
@@ -321,7 +321,7 @@ function App(props) {
                 <GlobalStyles />
                 <Header />
                 <Routes>
-                  <Route path='/'
+                  <Route path=''
                     element={<>
                       <SideNav />
                       <SideChat />
@@ -330,16 +330,16 @@ function App(props) {
                         <Outlet />
                       </main>
                     </>}>
-                    <Route path='/' element={<><PostInput target='mainFeed' /> <Feed /></>} />
-                    <Route path='user/:userid' element={<UserInfo />} />
-                    <Route path='user' element={<UserInfo />} />
+                    <Route path='' element={<><PostInput target='mainFeed' /> <Feed /></>} />
+                    <Route path='/user/:userid' element={<UserInfo />} />
+                    <Route path='/user' element={<UserInfo />} />
                     <Route path='groups' element={<Groups />} />
                     <Route path="chatter/:id" element={<Chatter />} />
                     <Route path="chatter" element={<Chatter />} />
                     <Route path='groups/newgroup' element={<AddGroupForm />} />
                     <Route path='groups/:groupId' element={<GroupFeed />} />
                   </Route>
-                  <Route path='/m' element={<main ><Outlet /></main>}>
+                  <Route path='m' element={<main ><Outlet /></main>}>
                     <Route exact path='/m' element={<><PostInput target='mainFeed' /> <Feed /></>} />
                     <Route exact path='/m/navigation' element={<SideNav />} />
                     <Route path='/m/user/:userid' element={<UserInfo />} />
