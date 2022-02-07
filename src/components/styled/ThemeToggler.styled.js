@@ -3,23 +3,23 @@ import styled from "styled-components";
 
 export const StyledThemeToggler = styled.div`
 margin: 10px auto;
-width: 2.2rem;
 line-height: 2.2rem;
-font-size:${({ theme }) => theme.fonts.iconsFontSize};
 color: ${({ theme }) => theme.colors.mainFontColor};
-background-color:inherit;
 transition: .2s;
 text-align: center;
 border-radius: 50%;
+transition: .2s;
+display: flex;
+width: 150px;
 
 svg{
-    margin: auto 0 ;
+    margin: auto 15px ;
+    font-size:${({ theme }) => theme.fonts.iconsFontSize};
+
 }
 
 &:hover{
-    color: ${({ theme }) => theme.colors.contrastFontColor};
     cursor: pointer;
-    background-color: ${({ theme }) => theme.colors.bgcShade2};
 
 }
 

@@ -17,6 +17,7 @@ export const ChatBar = (props) => {
         return (
             <StyledChatBar className={activeChat === chat.id ? 'active' : ''} onClick={() => { handleChatSelect(chat.id) }}>
                 <img className='convoActiveImg' src={friend?.picture.thumbnail} alt="" />
+                {chat.unreadMsg ? <span className="bubbleSpan">{chat.unreadMsg}</span> : null}
             </StyledChatBar>)
 
     } else {
@@ -24,8 +25,8 @@ export const ChatBar = (props) => {
             <StyledChatBar className={activeChat === chat.id ? 'active' : ''} onClick={() => { handleChatSelect(chat.id); toggleActiveTab('conversation') }}>
                 <img className='listActiveImg' src={friend?.picture.thumbnail} alt="" />
                 <div className="nameAndPreviewContainer">
-                    <p className="name">{friend?.name.first + ' ' + friend?.name.last}</p>
-                    <p className={msgToPreview?.source !== 'user' ? 'messagePreview bold' : 'messagePreview'}>{msgToPreview?.text}</p>
+                    <p className="name">{friend?.name.first + ' ' + friend?.name.last} {chat.unreadMsg ? <span>{chat.unreadMsg}</span> : null}</p>
+                    <p className='messagePreview'>{msgToPreview?.text}</p>
                 </div>
             </StyledChatBar>
         )

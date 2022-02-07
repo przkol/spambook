@@ -5,7 +5,7 @@ import { Convo } from "../components/Convo"
 import { StyledChatter } from "./styled/Chatter.styled"
 import { useParams } from "react-router"
 import { useEffect } from "react"
-import { CREATE_NEW_CHAT } from "../reducers/actions/chatActions"
+import { CREATE_NEW_CHAT, SET_MESSAGES_SEEN } from "../reducers/actions/chatActions"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -42,6 +42,7 @@ export const Chatter = () => {
 
   const handleChatSelect = (targetChat) => {
     setActiveChat(targetChat)
+    dispatch(SET_MESSAGES_SEEN(targetChat))
   }
 
   const handleTabSelect = (target) => {

@@ -13,6 +13,7 @@ justify-content: space-between;
 align-items: center;
 z-index: 2;
 border-bottom: 1px solid ${({ theme }) => theme.colors.bgcShade2};;
+transition:background-color .5s;
 
 h1{
     padding: 0 15px;

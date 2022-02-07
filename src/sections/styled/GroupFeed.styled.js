@@ -8,6 +8,8 @@ margin-top: 10px;
 font-size:${({ theme }) => theme.fonts.mainFontSize};
 display: flex;
 flex-direction: column-reverse;
+transition:background-color .5s;
+
 .bgcPhotoContainer{
     width: 100%;
     height: 200px;

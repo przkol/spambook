@@ -194,12 +194,15 @@ const UserInfo = () => {
         switch (sectionToEdit) {
             case ('baseInfo'):
                 setEdittingBaseInfo(false)
+                setBaseChecks({ ...baseChecks, submitted: false })
                 break;
             case ('contactInfo'):
                 setEdittingContactInfo(false)
+                setContactChecks({ ...contactChecks, submitted: false })
                 break;
             case ('addressInfo'):
                 setEdittingAddressInfo(false)
+                setAddressChecks({ ...addressChecks, submitted: false })
                 break;
             default: return
         }
@@ -231,7 +234,7 @@ const UserInfo = () => {
                     <div section='baseInfo' className={baseChecks.submitted ? 'submitted baseInfo' : 'baseInfo'}>
                         <div>
                             <h4>Basic information:</h4>
-                            {edittingBaseInfo ? <><button section='baseInfo' onClick={handleCancelEditing}>cancel</button> <button section='baseInfo' onClick={handleSave}>Save</button></> :
+                            {edittingBaseInfo ? <div className="buttons">   <button section='baseInfo' onClick={handleCancelEditing}>Cancel</button> <button section='baseInfo' onClick={handleSave}>Save</button></div> :
                                 <button section='baseInfo' onClick={handleEdit}>Edit</button>}
                         </div>
                         <div validationfailed={`${baseChecks.firstName}`}>
@@ -263,7 +266,7 @@ const UserInfo = () => {
                     <div section='contactInfo' className={contactChecks.submitted ? 'submitted contactInfo' : 'contactInfo'}>
                         <div>
                             <h4>Contact information:</h4>
-                            {edittingContactInfo ? <button section='contactInfo' onClick={handleSave}>Save</button> :
+                            {edittingContactInfo ? <div className="buttons">   <button section='contactInfo' onClick={handleCancelEditing}>Cancel</button><button section='contactInfo' onClick={handleSave}>Save</button></div> :
                                 <button section='contactInfo' onClick={handleEdit}>Edit</button>}
                         </div>
                         <div validationfailed={`${contactChecks.email}`}>
@@ -285,7 +288,7 @@ const UserInfo = () => {
                     <div section='addressInfo' className={addressChecks.submitted ? 'submitted addressInfo' : 'addressInfo'}>
                         <div>
                             <h4>Address:</h4>
-                            {edittingAddressInfo ? <button section='addressInfo' onClick={handleSave}>Save</button> :
+                            {edittingAddressInfo ? <div className="buttons">   <button section='addressInfo' onClick={handleCancelEditing}>Cancel</button><button section='addressInfo' onClick={handleSave}>Save</button></div> :
                                 <button section='addressInfo' onClick={handleEdit}>Edit</button>}</div>
                         <div validationfailed={`${addressChecks.streetName && addressChecks.streetNumber}`}>
                             <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Street name/number{!addressChecks.streetName && addressChecks.submitted ? ' is too short' : `:`}</p>

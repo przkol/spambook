@@ -25,7 +25,7 @@ export const ChatWindow = (props) => {
             photoUpload.current.value = null
         } else alert('You cannot send empty messages.')
     }
-
+    console.log(props.chat)
     const setSeenMessages = () => {
         dispatch(SET_MESSAGES_SEEN(id))
     }
@@ -66,11 +66,11 @@ export const ChatWindow = (props) => {
             <div className={chatWindowVisible ? 'chatWindowOpened' : 'chatWindowBubble'}>
                 <div className="chatBubble" onClick={chatWindowVisible ? null : toggleChatWindowVisibility}>
                     <img className='friendPic' src={friend?.picture.thumbnail} alt={friend?.name.first + `'s profile picture`} />
-                    {unreadMsg ? <h4>{unreadMsg}</h4> : null}
+                    {unreadMsg ? <span>{unreadMsg}</span> : null}
                 </div>
                 <div className="windowHeader"  >
                     <img className='friendPic' src={friend?.picture.thumbnail} alt={friend?.name.first + `'s profile picture`} onClick={() => { navigate(`/user/${id}`) }} />
-                    <h3 onClick={() => { navigate(`/user/${id}`) }}>{friend?.name.first + ' ' + friend?.name.last} </h3> <h4>{unreadMsg ? `(${unreadMsg})` : null}</h4>
+                    <h3 onClick={() => { navigate(`/user/${id}`) }}>{friend?.name.first + ' ' + friend?.name.last} </h3> <span>{unreadMsg ? `(${unreadMsg})` : null}</span>
                     <div className="buttons">
                         <button onClick={toggleChatWindowVisibility}><FontAwesomeIcon icon={faWindowMinimize} /></button>
                         <button onClick={() => closeChatWindow(id)}><FontAwesomeIcon icon={faTimes} /></button>

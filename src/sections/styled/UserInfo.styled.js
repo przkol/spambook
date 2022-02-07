@@ -9,6 +9,7 @@ margin-top: 10px;
 padding: 10px;
 color:${({ theme }) => theme.colors.mainFontColor};
 box-shadow: 0 1px 2px ${({ theme }) => theme.colors.bgcShade1};
+transition:background-color .5s;
 
 
 .profilePicture{
@@ -127,21 +128,24 @@ align-self: center;
     border: none;
 }
 
+div h4+div.buttons{
+    display: flex;
+    width: unset;
+    margin: 0;
+}
 button{
     border:none;
     background-color: ${({ theme }) => theme.colors.bgcShade1};
-    padding: 2px 0;
-    margin-bottom: 2px;
+    padding: 2px 0;   
     border-radius: 3px;
     height: 20px;
     width: 50px;
-    margin: auto 0 2px 0;
+    margin: auto 0 2px 5px;
     color: inherit;
 }
 button:hover{
     background-color: ${({ theme }) => theme.colors.bgcShade2};
     cursor: pointer;
-
 }
 input{
     background-color: ${({ theme }) => theme.colors.bgcFeed};

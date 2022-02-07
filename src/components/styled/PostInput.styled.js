@@ -8,6 +8,8 @@ export const StyledPostInput = styled.div`
     border-radius: 10px;
     margin-bottom: 10px;
     box-shadow: 0 1px 2px ${({ theme }) => theme.colors.bgcShade1};
+    transition:background-color .5s;
+
 
 
     .postHeader{

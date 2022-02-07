@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const StyledChatWindow = styled.div`
 color:${({ theme }) => theme.colors.mainFontColor};
+background-color:${({ theme }) => theme.colors.bgcBody};
 
 .chatWindowOpened{
 background-color:${({ theme }) => theme.colors.bgcBody};
@@ -13,6 +14,8 @@ justify-content: space-between;
 border: solid 1px ${({ theme }) => theme.colors.bgcShade1};
 height: 100%;
 min-height: 270px;
+transition:background-color .5s;
+
 }
 
 .chatWindowBubble .messages,
@@ -37,7 +40,7 @@ div.chatWindowBubble:hover{
 .chatBubble img{
     height: 3.5rem;
 }
-.chatBubble h4{
+.chatBubble span{
     position: absolute;
     bottom: 5%;
     right: 5%;
@@ -90,7 +93,7 @@ padding: 3px;
     overflow:hidden;
     text-overflow:ellipsis
 }
-h4{
+span{
     margin: auto;
 }
 .windowHeader button{

@@ -29,6 +29,7 @@ const chatReducer = (state = [], action) => {
             }
             const targetChat = state[chatNo]
             targetChat.messages.push(newMessage)
+            if (action.source !== 'user') targetChat.unreadMsg++
             targetChat.lastMsgFlag = action.source
             return [targetChat,
                 ...state.filter((chat, index) => {

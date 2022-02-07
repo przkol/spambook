@@ -8,6 +8,8 @@ export const StyledPost = styled.div`
     overflow: hidden;
     background-color:${({ theme }) => theme.colors.bgcFeed};
     box-shadow: 0 1px 2px ${({ theme }) => theme.colors.bgcShade1};
+    transition:background-color .5s;
+
     div.invisible{
         display: none;
     }
@@ -72,7 +74,7 @@ export const StyledPost = styled.div`
     }
     .actionContainer>button{
         width:100%;
-        background-color:  ${({ theme }) => theme.colors.bgcFeed};
+        background-color: inherit;
         color:${({ theme }) => theme.colors.mainFontColor};
         border: none;
         border-radius:5px;

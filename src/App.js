@@ -55,7 +55,8 @@ function App(props) {
     if (window.innerWidth < widthLimit) {
       setViewMobileModeValue(true)
       if (!(currentPathPrefix === mobilePathPrefix)) {
-        navigate(`m` + currentPath)
+        console.log(currentPath)
+        navigate(`/m` + currentPath)
       }
     } else {
       if (window.innerWidth >= widthLimit && currentPathPrefix === mobilePathPrefix) {
@@ -330,7 +331,7 @@ function App(props) {
                         <Outlet />
                       </main>
                     </>}>
-                    <Route path='' element={<><PostInput target='mainFeed' /> <Feed /></>} />
+                    <Route path='/' element={<><PostInput target='mainFeed' /> <Feed /></>} />
                     <Route path='/user/:userid' element={<UserInfo />} />
                     <Route path='/user' element={<UserInfo />} />
                     <Route path='groups' element={<Groups />} />

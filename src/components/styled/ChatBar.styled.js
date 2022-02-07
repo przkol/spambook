@@ -10,6 +10,7 @@ padding:5px 0;
 white-space: nowrap;
 text-overflow:ellipsis;
 overflow:hidden;
+position: relative;
 
 &:hover{
     cursor: pointer;
@@ -40,11 +41,27 @@ img{
 .listActiveImg{
     margin-left: 5px;
 }
-
+span{
+    display: inline-block;
+    background-color:${({ theme }) => theme.colors.elegantRed};
+    color:#EEE;
+    border-radius: 50%;
+    height: 1rem;
+    width: 1rem;
+    text-align: center;
+    margin: auto 0;
+    line-height: 1rem;
+}
+span.bubbleSpan{
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+}
 
 
 
 .name{
+    font-weight: bold;
 }
 .messagePreview{
 font-size:${({ theme }) => theme.fonts.smallFontSize} ;

@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
     padding:0;
     margin-block: 0;
     margin-inline: 0;
+    
 
 }
 
@@ -17,6 +18,7 @@ body{
     margin: 0 auto;
     font-family: ${({ theme }) => theme.fonts.mainFontFamily};
     font-size:${({ theme }) => theme.fonts.mainFontSize};
+    transition:background-color .5s;
 }
 
 
@@ -29,6 +31,8 @@ main{
     overflow: auto;
     z-index: 0;
     padding:2px ;
+    transition:background-color .5s;
+
 
 
 }

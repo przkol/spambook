@@ -9,6 +9,8 @@ padding-left: 5px;
 background-color: ${({ theme }) => theme.colors.bgcBody};
 width: 100%;
 text-align: center;
+transition:background-color .5s;
+
 
 
 .groupLink{

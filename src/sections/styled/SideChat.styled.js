@@ -8,6 +8,7 @@ width: 100%;
 overflow: auto;
 height: 100%;
 margin: 0 auto;
+transition:background-color .5s;
 
 
 .friendsList{

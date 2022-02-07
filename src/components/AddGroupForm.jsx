@@ -47,13 +47,29 @@ export const AddGroupForm = () => {
         const currentFlags = validationFlags
         const emailFromState = mainUserState.userInfo.email.toLowerCase()
         const groupNameInUseFlag = groupState.groups.some(group => group.groupName.toLowerCase() === groupName.toLowerCase())
-        if (emailFromState === userEmailInput) { currentFlags.emailOK = true } else { currentFlags.emailOK = false }
-        if (!groupNameInUseFlag && groupName !== '') { currentFlags.groupNameOK = true } else { currentFlags.groupNameOK = false }
-        if (groupImage) { currentFlags.photoOK = true } else { currentFlags.photoOK = false }
-        if (termsAgreed) { currentFlags.agreementOK = true } else { currentFlags.agreementOK = false }
+        if (emailFromState === userEmailInput) {
+            currentFlags.emailOK = true
+        } else { currentFlags.emailOK = false }
+        if (!groupNameInUseFlag && groupName !== '') {
+            currentFlags.groupNameOK = true
+        } else { currentFlags.groupNameOK = false }
+        if (groupImage) {
+            currentFlags.photoOK = true
+        } else { currentFlags.photoOK = false }
+        if (termsAgreed) {
+            currentFlags.agreementOK = true
+        } else { currentFlags.agreementOK = false }
+
         currentFlags.submitted = true
-        if (currentFlags.emailOK && currentFlags.groupNameOK && currentFlags.photoOK && currentFlags.agreementOK) { currentFlags.generalCheck = true } else { currentFlags.generalCheck = false }
+
+        if (currentFlags.emailOK && currentFlags.groupNameOK && currentFlags.photoOK && currentFlags.agreementOK) {
+            currentFlags.generalCheck = true
+        } else {
+            currentFlags.generalCheck = false
+        }
+
         setValdiationFlags({ ...currentFlags })
+
         if (currentFlags.generalCheck) {
             dispatch(ADD_NEW_GROUP(groupName, groupImage))
             setGroupName('')
