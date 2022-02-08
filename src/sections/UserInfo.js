@@ -136,8 +136,7 @@ const UserInfo = () => {
 
     const handleLocationInput = (e) => {
         const targetInputValue = e.target.value
-        console.log(userInfo.location)
-        console.log(e.target.getAttribute('info2'))
+
         switch (e.target.getAttribute('info2')) {
             case ('name'):
                 setUserDetails({
@@ -259,8 +258,7 @@ const UserInfo = () => {
     }, [userInfo])
 
     useEffect(() => {
-        console.log(userInfo)
-        console.log(mainUser.userInfo?.location.street)
+
     }, [mainUser.userInfo, userInfo])
 
     if (userid === 'mainUser' || !userid) {

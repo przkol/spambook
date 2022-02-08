@@ -55,7 +55,6 @@ function App(props) {
     if (window.innerWidth < widthLimit) {
       setViewMobileModeValue(true)
       if (!(currentPathPrefix === mobilePathPrefix)) {
-        console.log(currentPath)
         navigate(`/m` + currentPath)
       }
     } else {
