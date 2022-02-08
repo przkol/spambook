@@ -9,9 +9,9 @@ export const GroupBar = (props) => {
     return (
         <StyledGroupBar >
             <NavLink to={`/groups/${group.groupId}`}>
-                {group.groupName}
+                <p> {group.groupName}</p>
+                {unreadPosts.length > 0 ? <span>{unreadPosts.length}</span> : null}
             </NavLink>
-            {unreadPosts.length > 0 ? <span>{unreadPosts.length}</span> : null}
         </StyledGroupBar>
     )
 

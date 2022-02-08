@@ -47,6 +47,8 @@ export const StyledPost = styled.div`
         width: 100%;
         height: 95%;
         padding: 5px 15px;
+        word-break: break-word;
+    white-space: normal;
     }
 
     .postedPhoto{

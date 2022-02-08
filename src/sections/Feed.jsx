@@ -1,7 +1,7 @@
 import { StyledFeed } from "./styled/Feed.styled"
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
-
+import { PostInput } from "../components/PostInput"
 import Post from "../components/Post"
 import { COMMENT_POST, LIKE_POST } from "../reducers/actions/postActions"
 import { connect } from "react-redux"
@@ -64,8 +64,9 @@ const Feed = (props) => {
 
     return (
         <StyledFeed>
-
             {postsToRender}
+            <PostInput target='mainFeed' />
+
         </StyledFeed>
     )
 }

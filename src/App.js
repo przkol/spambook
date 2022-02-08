@@ -269,7 +269,7 @@ function App(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  //SETS INTERVAL FOR GENERATING CHAT MESSAGES
+  // SETS INTERVAL FOR GENERATING CHAT MESSAGES
   useEffect(() => {
     const randomChatActionInterval = setInterval(() => { generateRandomChatAction() }, 6000);
     return () => {
@@ -331,7 +331,7 @@ function App(props) {
                         <Outlet />
                       </main>
                     </>}>
-                    <Route path='/' element={<><PostInput target='mainFeed' /> <Feed /></>} />
+                    <Route path='/' element={<Feed />} />
                     <Route path='/user/:userid' element={<UserInfo />} />
                     <Route path='/user' element={<UserInfo />} />
                     <Route path='groups' element={<Groups />} />

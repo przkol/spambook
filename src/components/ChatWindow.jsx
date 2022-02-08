@@ -25,7 +25,6 @@ export const ChatWindow = (props) => {
             photoUpload.current.value = null
         } else alert('You cannot send empty messages.')
     }
-    console.log(props.chat)
     const setSeenMessages = () => {
         dispatch(SET_MESSAGES_SEEN(id))
     }

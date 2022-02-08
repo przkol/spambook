@@ -2,8 +2,8 @@ const mainUserReducer = (state = {
     loaded: false
 
 }, action) => {
-    const userInfo = action.userInfo
 
+    const userInfo = action.userInfo
     switch (action.type) {
         case ('SET_MAINUSER_DETAILS'):
             return {

@@ -130,38 +130,82 @@ const UserInfo = () => {
                     }
                 }))
                 break;
-            case ('location'):
-                const location = userDetails.location
-                switch (e.target.getAttribute('info2')) {
-                    case ('name'):
-                        location.street.name = targetInputValue
-                        break;
-                    case ('number'):
-                        location.street.number = targetInputValue
-                        break;
-                    case ('city'):
-                        location.city = targetInputValue
-                        break;
-                    case ('country'):
-                        location.country = targetInputValue
-                        break;
-                    case ('postcode'):
-                        location.postcode = targetInputValue
-                        break;
-                    case ('state'):
-                        location.state = targetInputValue
-                        break;
-                    default:
-                }
-                setUserDetails(prevState => ({
-                    ...prevState,
-                    location
-                }))
-                break;
-
-
             default:
         }
+    }
+
+    const handleLocationInput = (e) => {
+        const targetInputValue = e.target.value
+        console.log(userInfo.location)
+        console.log(e.target.getAttribute('info2'))
+        switch (e.target.getAttribute('info2')) {
+            case ('name'):
+                setUserDetails({
+                    ...userDetails,
+                    location: {
+                        ...userDetails.location,
+                        street: {
+                            ...userDetails.location.street,
+                            name: targetInputValue
+                        }
+                    }
+                })
+                break;
+            case ('number'):
+                setUserDetails({
+                    ...userDetails,
+                    location: {
+                        ...userDetails.location,
+                        street: {
+                            ...userDetails.location.street,
+                            number: targetInputValue
+                        }
+                    }
+                })
+                break;
+            case ('city'):
+                setUserDetails({
+                    ...userDetails,
+                    location: {
+                        ...userDetails.location,
+                        city: targetInputValue
+                    }
+                })
+                break;
+            case ('country'):
+                setUserDetails({
+                    ...userDetails,
+                    location: {
+                        ...userDetails.location,
+                        country: targetInputValue
+                    }
+                })
+                break;
+            case ('postcode'):
+                setUserDetails({
+                    ...userDetails,
+                    location: {
+                        ...userDetails.location,
+                        postcode: targetInputValue
+                    }
+                })
+                break;
+            case ('state'):
+                setUserDetails({
+                    ...userDetails,
+                    location: {
+                        ...userDetails.location,
+                        state: targetInputValue
+                    }
+                })
+                break;
+            default:
+        }
+        // setUserDetails(prevState => ({
+        //     ...prevState,
+        //     location
+        // }))
+
     }
     const handlePhotoChange = (e) => {
         setUploadedImage(URL.createObjectURL(e.target.files[0]))
@@ -214,6 +258,10 @@ const UserInfo = () => {
         setUserDetails(userInfo)
     }, [userInfo])
 
+    useEffect(() => {
+        console.log(userInfo)
+        console.log(mainUser.userInfo?.location.street)
+    }, [mainUser.userInfo, userInfo])
 
     if (userid === 'mainUser' || !userid) {
         if (mainUser.loaded) {
@@ -292,28 +340,28 @@ const UserInfo = () => {
                                 <button section='addressInfo' onClick={handleEdit}>Edit</button>}</div>
                         <div validationfailed={`${addressChecks.streetName && addressChecks.streetNumber}`}>
                             <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Street name/number{!addressChecks.streetName && addressChecks.submitted ? ' is too short' : `:`}</p>
-                            {edittingAddressInfo ? <div id='streetInfo'><input info='location' info2='name' value={userInfo.location.street.name} onChange={handleInfoInput} />
-                                <input info='location' info2='number' value={userInfo.location.street.number} onChange={handleInfoInput} /> </div>
+                            {edittingAddressInfo ? <div id='streetInfo'><input info='location' info2='name' value={userDetails.location.street.name} onChange={handleLocationInput} />
+                                <input info='location' info2='number' value={userDetails.location.street.number} onChange={handleLocationInput} /> </div>
                                 : <p>{userInfo.location.street.name} {userInfo.location.street.number}</p>}
                         </div>
                         <div validationfailed={`${addressChecks.city}`}>
                             <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> City{!addressChecks.city && addressChecks.submitted ? ' name is too short' : `:`}</p>
-                            {edittingAddressInfo ? <input info='location' info2='city' value={userDetails.location.city} onChange={handleInfoInput} /> :
+                            {edittingAddressInfo ? <input info='location' info2='city' value={userDetails.location.city} onChange={handleLocationInput} /> :
                                 <p>{userInfo.location.city}</p>}
                         </div>
                         <div validationfailed={`${addressChecks.state}`}>
                             <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> State:</p>
-                            {edittingAddressInfo ? <input info='location' info2='state' value={userDetails.location.state} onChange={handleInfoInput} /> :
+                            {edittingAddressInfo ? <input info='location' info2='state' value={userDetails.location.state} onChange={handleLocationInput} /> :
                                 <p>{userInfo.location.state}</p>}
                         </div>
                         <div validationfailed={`${addressChecks.postcode}`}>
                             <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Postcode{!addressChecks.postcode && addressChecks.submitted ? ' is too short' : `:`}</p>
-                            {edittingAddressInfo ? <input info='location' info2='postcode' value={userDetails.location.postcode} onChange={handleInfoInput} /> :
+                            {edittingAddressInfo ? <input info='location' info2='postcode' value={userDetails.location.postcode} onChange={handleLocationInput} /> :
                                 <p>{userInfo.location.postcode}</p>}
                         </div>
                         <div validationfailed={`${addressChecks.country}`}>
                             <p><FontAwesomeIcon className={'icon'} icon={faInfoCircle} /> Country{!addressChecks.country && addressChecks.submitted ? ' name is too short' : `:`}</p>
-                            {edittingAddressInfo ? <input info='location' info2='country' value={userDetails.location.country} onChange={handleInfoInput} /> :
+                            {edittingAddressInfo ? <input info='location' info2='country' value={userDetails.location.country} onChange={handleLocationInput} /> :
                                 <p>{userInfo.location.country}</p>}
                         </div>
                     </div>

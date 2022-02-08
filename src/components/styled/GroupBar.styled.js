@@ -4,9 +4,6 @@ import styled from 'styled-components';
 export const StyledGroupBar = styled.div`
 position: relative;
 border-radius: 10px;
-display: flex;
-align-items: center;
-justify-content: center;
 width: 300px;
 margin: 3px auto 0 auto;
 
@@ -17,7 +14,8 @@ margin: 3px auto 0 auto;
 }
 
 a{
-    display: block;
+    display: flex;
+    justify-content:space-between;
     text-decoration: none;
     border-radius: 10px;
     height:100%;
@@ -30,6 +28,13 @@ a{
     color:${({ theme }) => theme.colors.mainFontColor};
     text-overflow:ellipsis;
     margin: 0 auto;
+    width: 100%;
+}
+a p{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+ 
 }
 a.active{
     background-color:inherit;

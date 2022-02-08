@@ -95,6 +95,7 @@ padding: 3px;
 }
 span{
     margin: auto;
+    font-weight: bold;
 }
 .windowHeader button{
     width: 20px;
