@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/spambook/static/css/main.5f73f583.chunk.css",
-    "main.js": "/spambook/static/js/main.7d2ecb68.chunk.js",
-    "main.js.map": "/spambook/static/js/main.7d2ecb68.chunk.js.map",
+    "main.js": "/spambook/static/js/main.aac58a74.chunk.js",
+    "main.js.map": "/spambook/static/js/main.aac58a74.chunk.js.map",
     "runtime-main.js": "/spambook/static/js/runtime-main.f7967f13.js",
     "runtime-main.js.map": "/spambook/static/js/runtime-main.f7967f13.js.map",
     "static/js/2.c6c1d837.chunk.js": "/spambook/static/js/2.c6c1d837.chunk.js",
@@ -21,6 +21,6 @@
     "static/js/runtime-main.f7967f13.js",
     "static/js/2.c6c1d837.chunk.js",
     "static/css/main.5f73f583.chunk.css",
-    "static/js/main.7d2ecb68.chunk.js"
+    "static/js/main.aac58a74.chunk.js"
   ]
 }
