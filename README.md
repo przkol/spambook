@@ -2,7 +2,7 @@
 (LIVE  https://przkol.github.io/spambook/)
 
 ## Overview
-SpamBook is an App created with hopes of mimicking facebook's front end  and using Redux along with free web APIs for content generation such as friends list, posts and others.
+SpamBook is my attempt at creating a front-end similar to that of Facebook and adding content generation (such as friends list, posts and others) based on free web APIs and Redux for state management.
 
 ## Resources:
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
