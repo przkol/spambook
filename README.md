@@ -72,4 +72,3 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 6. Create a new group
     In this section, user can create a new group. Each group requires a new unique name and a background photo(upload required). To succesfully create a new group user is required to enter his e-mail address and check the "terms of service" checkbox. The email address is validated by checking if it matches it's counterpart in mainUserReducer state.
 
-## TODO: content generation, redux store & reducers
