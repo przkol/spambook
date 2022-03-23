@@ -31,24 +31,24 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## App and it's main components
 
 ### App
-    App is built from  3 main sections: Header, SideNav, SideChat; <main> which changes it's content based on the location(can be either a general post feed, group feed, user info panel or chat app). All of the above are described in more details below.
+   App is built from  3 main sections: Header, SideNav, SideChat; <main> which changes it's content based on the location(can be either a general post feed, group feed, user info panel or chat app). All of the above are described in more details below.
 
-    There are two view modes: desktop or mobile. In desktop mode, the 3 main sections are constantly visible and only the <main> contents change. In mobile mode only 1 section is visible at a time due to limited viewport dimensions.
+   There are two view modes: desktop or mobile. In desktop mode, the 3 main sections are constantly visible and only the <main> contents change. In mobile mode only 1 section is visible at a time due to limited viewport dimensions.
 **App is checking for viewport width changes and decides which mode should be displayed.**
 
 ### Header
-    Header contains: 
-    - page logo (redirects to main feed onClick)
-    - main user section with user's name and photo (redirects to user info panel onClick)
-    - only in mobile view: mobileNav which is used to switch between viewing: main navigation, chat app and contact list
+   Header contains: 
+   - page logo (redirects to main feed onClick)
+   - main user section with user's name and photo (redirects to user info panel onClick)
+   - only in mobile view: mobileNav which is used to switch between viewing: main navigation, chat app and contact list
 
 ### SideNav
-    SideNav contains:
-    -links to general feed page, user info panel, chat app, Groups sections and individual group feed pages (React Router NavLinks)
-    - Day/night mode switch - uses createContext/useContext to switch between colors set in GlobalTheme created in StyledComponents
+   SideNav contains:
+   -links to general feed page, user info panel, chat app, Groups sections and individual group feed pages (React Router NavLinks)
+   - Day/night mode switch - uses createContext/useContext to switch between colors set in GlobalTheme created in StyledComponents
 
 ### SideChat
-    SideChat is a list of user's contacts (or friends) provided by friendsReducer and a input enabling the user to filter the list. Clicking a friend will open a chat window
+   SideChat is a list of user's contacts (or friends) provided by friendsReducer and a input enabling the user to filter the list. Clicking a friend will open a chat window
 
 ### <main>
     <main> is the outlet for all of the content-components rendered by React Router for matching routes.
